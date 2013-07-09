@@ -6,7 +6,19 @@
 
 #footer_content{
  background-color: white;
- border:solid 1px black;
+}
+
+#generalites{
+ text-align: right;
+}
+
+a{
+	color : black;
+	font-size: 13px;
+}
+
+a:HOVER{
+	color : blue;
 }
 
 .imghead{
