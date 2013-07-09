@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <div id="footer">
-	<p id="footer_content">
+	<div id="footer_content">
 		<img class="imgfoot" alt="Image Pays de la Loire "
 			src="media/conseil.jpg" /> <img class="imgfoot"
 			alt="Image Loire Atlantique " src="media/loireAtlantique.png" /> <img
@@ -12,5 +12,5 @@
 		<img class="imgfoot" alt="Image Universite de Nantes "
 			src="media/univNantes.png" /> <img class="imgfoot" alt="Image Lina "
 			src="media/lina.png" />
-	</p>
+	</div>
 </div>

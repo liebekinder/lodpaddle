@@ -3,10 +3,10 @@
 
 
 <div id="header">
-	<p id="header_content">
+	<div id="header_content">
 		<img class="imghead" alt="Image lodPaddle " src="media/etoile.jpg" /> <b>&nbsp;
 			&nbsp;&nbsp; &nbsp; Balades en terres sémantiques</b>
-	</p>
+	</div>
 </div>
 
 
