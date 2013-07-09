@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<script type="text/javascript">
+	function init() {
+		map = new OpenLayers.Map("basicMap");
+		var mapnik = new OpenLayers.Layer.OSM();
+		var lonlat = new OpenLayers.LonLat(20,37).transform(new OpenLayers.Projection("EPSG:4326"),new OpenLayers.Projection("EPSG:900913"));
+		
+		var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
+		var toProjection = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+		var position = new OpenLayers.LonLat(-0.8419521, 47.6061394).transform(
+				fromProjection, toProjection);
+		var zoom = 8;
+
+		map.addLayer(mapnik);
+		map.setCenter(position, zoom);
+		
+		map.addControl(new OpenLayers.Control.MouseToolbar());
+		map.addControl(new OpenLayers.Control.MousePosition());
+		
+
+		la_carte.addControl(new OpenLayers.Control.KeyboardDefaults());
+
+// 		var markers = new OpenLayers.Layer.Markers("Markers");
+// 		map.addLayer(markers);
+// 		markers.addMarker(new OpenLayers.Marker(position));
+
+	}
+</script>
+<div id="basicMap"></div>
+<script type="text/javascript">
+	init();
+</script>
