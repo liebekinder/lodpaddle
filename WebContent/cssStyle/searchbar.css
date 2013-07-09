@@ -1,0 +1,35 @@
+#search {
+	
+	height: 30px;
+	background:#F5F2F0;
+	box-shadow:1px 1px 2px rgba(0,0,0,.3) inset;
+	/* border: 2px #0568CD solid; */
+	margin-top: 4px;
+}
+
+ 
+.loupe {
+ 	width:34px;
+	height:32px;
+	float: left;
+	background: #708090;
+ }
+ 
+#search .submit {
+	width: 35px;
+	height: 32px;
+	background: #708090;
+	margin:0px;
+}
+ 
+#search input {
+	width: 93%;
+	margin-top: 4px;
+}
+ 
+#search input[type=text] {
+	background:none;
+	text-shadow:0 1px white;
+	float:left;
+	color:#666;
+}
