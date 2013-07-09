@@ -6,12 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Lodpaddle - balades en terres sémantiques</title>
 <link rel="stylesheet" type="text/css" href="cssStyle/principal.css" />
+<link type="text/css" rel="stylesheet" href="cssStyle/Header.css" />
 <link rel="shortcut icon" type="image/ico" href="media/favicon.ico" />
 </head>
 <body>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<div id="principal">
-		<div id="header"></div>
+		<div id="header"><%@include file="Header.jsp" %> </div>
 		<div id="body">
 			<div id="map"></div>
 			<div id="searchBar"></div>

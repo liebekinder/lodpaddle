@@ -14,6 +14,9 @@ html,body {
 #header {
 	background: #ff0;
 	padding: 10px;
+	background-color: white;
+ 	border: 2px #0568CD solid;
+ 	margin-top: 20px; 	
 }
 
 #body {
