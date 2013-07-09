@@ -15,13 +15,11 @@ html,body {
 	background: #ff0;
 	padding: 10px;
 	background-color: white;
- 	border: 2px #0568CD solid;
- 	margin-top: 20px; 	
 }
 
 #body {
 	padding: 10px;
-	padding-bottom: 60px; /* Height of the footer */
+	padding-bottom: 100px; /* Height of the footer */
 }
 
 #footer {
@@ -31,4 +29,10 @@ html,body {
 	height: 100px; /* Height of the footer */
 	background-color: white;
  	border: 2px #0568CD solid;
+}
+
+#basicMap {
+	width: 100%;
+	height: 540px;
+	margin: 0;
 }
