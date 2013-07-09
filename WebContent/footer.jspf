@@ -3,14 +3,25 @@
 <!DOCTYPE html>
 
 <div id="footer">
-	<div id="footer_content">
-		<img class="imgfoot" alt="Image Pays de la Loire "
-			src="media/conseil.jpg" /> <img class="imgfoot"
-			alt="Image Loire Atlantique " src="media/loireAtlantique.png" /> <img
-			class="imgfoot" alt="Image Nantes Metropole  " src="media/nantes.png" />
 
-		<img class="imgfoot" alt="Image Universite de Nantes "
-			src="media/univNantes.png" /> <img class="imgfoot" alt="Image Lina "
-			src="media/lina.png" />
+	<br />
+	<div id="generalites">
+		<a href="<c:url value="/plan.jsp"/>">Plan du site</a> |
+		<a href="<c:url value="/info.jsp"/>">Informations légales</a> |
+		<a href="<c:url value="/contact.jsp"/>">Nous contacter</a> |
+		<a href="<c:url value="/Liens.jsp"/>">Liens utiles</a> |
+		<a href="<c:url value="/aide.jsp"/>">Aide</a> |
+	</div>
+	<br />
+	<div id="footer_content">
+		<img class="imgfoot" alt="Image Pays de la Loire " src="media/conseil.jpg" /> 
+		
+		<img class="imgfoot"alt="Image Loire Atlantique " src="media/loireAtlantique.png" /> 
+		
+		<img class="imgfoot" alt="Image Nantes Metropole  " src="media/nantes.png" />
+
+		<img class="imgfoot" alt="Image Universite de Nantes " src="media/univNantes.png" /> 
+		
+		<img class="imgfoot" alt="Image Lina " src="media/lina.png" />
 	</div>
 </div>

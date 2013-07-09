@@ -3,7 +3,17 @@
  font-size: 25px;
 }
 
-#footer_content{
+#generalites{
+ text-align: right;
+}
+
+a{
+	color : black;
+	font-size: 13px;
+}
+
+a:HOVER{
+	color : blue;
 }
 
 .imghead{
