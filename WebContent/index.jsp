@@ -14,20 +14,13 @@
 <body>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<div id="principal">
-		<div id="header"><%@include file="Header.jsp" %> </div>
+		<%@include file="header.jspf"%>
 		<div id="body">
-			<%@ include file="map.jspf" %>
+			<%@ include file="map.jspf"%>
 			<div id="searchBar"></div>
-			<c:out value="blabla" />
-			<c:forEach var="i" begin="1" end="10">
-				<p>
-					src Ligne
-					<c:out value="${i}" />
-				</p>
-			</c:forEach>
-
+			<h1 style="text-align:center;">Lodpaddle widget area!</h1>
 		</div>
-		<div id="footer"><%@include file="Footer.jsp" %></div>
+		<%@include file="footer.jspf"%>
 	</div>
 </body>
 </html>
