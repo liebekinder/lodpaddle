@@ -25,7 +25,7 @@
 			</c:forEach>
 
 		</div>
-		<div id="footer"></div>
+		<div id="footer"><%@include file="Footer.jsp" %></div>
 	</div>
 </body>
 </html>

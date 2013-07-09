@@ -1,0 +1,24 @@
+
+#header_content{
+ background-color: white;
+ font-size: 25px;
+}
+
+#footer_content{
+ background-color: white;
+}
+
+.imghead{
+	width: 10%;
+ 	height: 38px;
+ 	right: 100 px
+}
+
+.imgfoot{
+	width: 120px;
+ 	height: 50px;
+}
+
+.centrer{
+	text-align: center;
+}
