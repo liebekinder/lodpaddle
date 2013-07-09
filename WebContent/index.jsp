@@ -7,6 +7,7 @@
 <title>Lodpaddle - balades en terres sémantiques</title>
 <link rel="stylesheet" type="text/css" href="cssStyle/principal.css" />
 <link type="text/css" rel="stylesheet" href="cssStyle/Header.css" />
+<link type="text/css" rel="stylesheet" href="cssStyle/searchbar.css" />
 <link rel="shortcut icon" type="image/ico" href="media/favicon.ico" />
 <script type="text/javascript" src="javascript/principal.js"></script>
 <script src="http://openlayers.org/api/OpenLayers.js"></script>
@@ -17,7 +18,9 @@
 		<%@include file="header.jspf"%>
 		<div id="body">
 			<%@ include file="map.jspf"%>
-			<div id="searchBar"></div>
+			<div id="searchBar">
+				<%@include file="searchbar.jspf"%>
+			</div>
 			<h1 style="text-align:center;">Lodpaddle widget area!</h1>
 		</div>
 		<%@include file="footer.jspf"%>
