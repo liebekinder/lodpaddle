@@ -6,14 +6,14 @@
 		var mapnik = new OpenLayers.Layer.OSM();
 
 		var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-		
+
 		renderer = (renderer) ? [ renderer ]
 				: OpenLayers.Layer.Vector.prototype.renderers;
 
 		vectors = new OpenLayers.Layer.Vector("Vector Layer", {
 			renderers : renderer
 		});
-		
+
 		map.addLayers([ mapnik, vectors ]);
 
 		var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform from WGS 1984
@@ -22,49 +22,12 @@
 				fromProjection, toProjection);
 		var zoom = 8;
 
-
 		map.setCenter(position, zoom);
 
 		var drag = new OpenLayers.Control.DragFeature(vectors);
 
 		drag.activate();
-		
-		// 	}
 
-		// 	var map, vectors, controls;
-		// 	function init() {
-		// 		map = new OpenLayers.Map('basicMap');
-		// 		var wms = new OpenLayers.Layer.OSM();
-
-		// 		// allow testing of specific renderers via "?renderer=Canvas", etc
-		// 		var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
-		// 		renderer = (renderer) ? [ renderer ]
-		// 				: OpenLayers.Layer.Vector.prototype.renderers;
-
-		// 		vectors = new OpenLayers.Layer.Vector("Vector Layer", {
-		// 			renderers : renderer
-		// 		});
-
-		// 		map.addLayers([ wms, vectors ]);
-		// 		map.addControl(new OpenLayers.Control.LayerSwitcher());
-		// 		map.addControl(new OpenLayers.Control.MousePosition());
-
-		// 		controls = {
-		// 			point : new OpenLayers.Control.DrawFeature(vectors,
-		// 					OpenLayers.Handler.Point),
-		// 			line : new OpenLayers.Control.DrawFeature(vectors,
-		// 					OpenLayers.Handler.Path),
-		// 			polygon : new OpenLayers.Control.DrawFeature(vectors,
-		// 					OpenLayers.Handler.Polygon),
-		// 			drag : new OpenLayers.Control.DragFeature(vectors)
-		// 		};
-
-		// 		for ( var key in controls) {
-		// 			map.addControl(controls[key]);
-		// 		}
-
-		// 		map.setCenter(new OpenLayers.LonLat(0, 0), 3);
-		// 		document.getElementById('noneToggle').checked = true;
 	}
 </script>
 <div id="basicMap"></div>
