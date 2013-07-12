@@ -31,7 +31,7 @@ public class CreateWidget extends HttpServlet{
 		
 		String texteIntro= new String("LodPaddle est un service innovant qui premet de surfer à travers les données liées issues " +
 								"de l'open data de la Région des Pays de la Loire , le département de Loire-Atlantique, de Nantes métropole et la ville de Nantes. <a href=\"header.jsp\">Mon lien de texte</a>");
-		Widget introduction= new Widget(1,"Présentation",400, 150,"#C0C0C0",texteIntro);
+		Widget introduction= new Widget(1,"Présentation",395, 600,"#C0C0C0",texteIntro);
 		Widget websemantique = new Widget(2,"Le Web Sémantique",255,150,"#C0C0C0","");
 		Widget endpoint = new Widget(3,"Accès développeurs",255,150, "#C0C0C0", "");
 

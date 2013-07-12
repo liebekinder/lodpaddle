@@ -17,20 +17,16 @@
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<div id="principal">
 		<%@include file="header.jspf"%>
+
 		<div id="body">
 			<%@ include file="map.jspf"%>
-			<div id="searchBar">
-				<%@include file="searchbar.jspf"%>
-			</div>
-
+			<%@include file="searchbar.jspf"%>
 			<%@include file="WEB-INF/afficherWidget.jspf"%>
 
 		</div>
-		
-		<div >
+
 		<%@include file="footer.jspf"%>
-		</div>
 	</div>
-	
+
 </body>
 </html>
