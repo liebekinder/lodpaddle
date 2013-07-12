@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="cssStyle/principal.css" />
 <link type="text/css" rel="stylesheet" href="cssStyle/Header.css" />
 <link type="text/css" rel="stylesheet" href="cssStyle/searchbar.css" />
+<link type="text/css" rel="stylesheet" href="cssStyle/Widget.css" />
 <link rel="shortcut icon" type="image/ico" href="media/favicon.ico" />
 <script type="text/javascript" src="javascript/principal.js"></script>
 <script src="http://openlayers.org/api/OpenLayers.js"></script>
@@ -21,9 +22,15 @@
 			<div id="searchBar">
 				<%@include file="searchbar.jspf"%>
 			</div>
-			<h1 style="text-align:center;">Lodpaddle widget area!</h1>
+
+			<%@include file="WEB-INF/afficherWidget.jspf"%>
+
 		</div>
+		
+		<div >
 		<%@include file="footer.jspf"%>
+		</div>
 	</div>
+	
 </body>
 </html>

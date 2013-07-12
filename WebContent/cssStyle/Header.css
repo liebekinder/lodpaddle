@@ -1,6 +1,6 @@
 
 #header_content{
- font-size: 25px;
+ font-size: 20px;
 }
 
 #generalites{
@@ -18,8 +18,8 @@ a:HOVER{
 
 .imghead{
 	width: 10%;
- 	height: 38px;
- 	right: 100 px
+ 	height: 60px;
+ 	margin-right: 100 px
 }
 
 .imgfoot{
@@ -29,4 +29,6 @@ a:HOVER{
 
 .centrer{
 	text-align: center;
+	margin-left: 50 px;
+	position: relative;
 }

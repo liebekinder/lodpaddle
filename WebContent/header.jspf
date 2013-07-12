@@ -4,8 +4,7 @@
 
 <div id="header">
 	<div id="header_content">
-		<br />
-		<img class="imghead" alt="Image lodPaddle " src="media/etoile.jpg" /> <b>Balades en terres sémantiques</b>
+	<!-- <img class="imghead" alt="Image lodPaddle " src="media/etoile.jpg" /> -->	 <b>Balades en terres sémantiques</b>
 	</div>
 </div>
 
