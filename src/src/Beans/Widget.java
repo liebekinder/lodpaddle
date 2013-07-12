@@ -2,6 +2,7 @@ package src.Beans;
 
 public class Widget {
 
+	private final int pitch = 162;
 	private int id;
 	private int x;
 	private int y;
@@ -27,7 +28,7 @@ public class Widget {
 
 
 	public int getX() {
-		return x;
+		return x*pitch;
 	}
 
 
@@ -37,7 +38,7 @@ public class Widget {
 
 
 	public int getY() {
-		return y;
+		return y*pitch;
 	}
 
 
