@@ -17,23 +17,19 @@ html,body {
 	margin-bottom: 0px;
 	background-color: white;
 	height: 20 px;
-	/*border:solid 2px red;*/
 }
 
 #body {
 	padding: 10px;
 	height: 100%;
-	padding-bottom: 100px; /* Height of the footer */
+	padding-bottom: 0px; /* Height of the footer */
 	position: relative;
-	/*border:solid 2px red; */
 }
 
 #widgets{
 	position: relative;
 	width: 100%;	
-	margin-top: 0px;
-	/* top: 0px; */
-	/*border:solid 2px black;*/
+	margin-top: 10px;
 }
 
 #footer {
@@ -41,8 +37,6 @@ html,body {
 	bottom: 0px;
 	width: 100%;
 	height: 100px; /* Height of the footer */
-	background-color: white;
- 	/* border: 2px #0568CD solid; */
 }
 
 #basicMap {

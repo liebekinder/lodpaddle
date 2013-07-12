@@ -32,6 +32,4 @@ function init() {
 
 	var drag = new OpenLayers.Control.DragFeature(vectors);
 
-	drag.activate();
-
 }

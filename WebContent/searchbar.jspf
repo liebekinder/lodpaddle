@@ -3,13 +3,18 @@
 
 
 <div id="searchBar">
-	<form id="search" method="post">
+	<form action="null" method="post">
 
-		<span id="colorGray"><img class="loupe" alt=" Une loupe "
-			src="media/loupe.png" /></span> <input class="search_data" name="saisie"
-			type="text" placeholder="Nom de ville ou Code postal..."
-			required="required" /> <input class="submit" src="media/fleche.png"
-			type="image" value="submit" />
+		<div id="colorGray">
+			<img id="loupe" alt=" Une loupe " src="media/loupe.png" />
+		</div>
+		<div id="inputSearch">
+			<input class="search_data" name="saisie" type="text"
+				placeholder="Nom de ville ou Code postal..." required="required" />
+		</div>
+		<div id="inputSubmit">
+			<input class="valid" border="0" src="media/fleche-min.png" type="image" value="submit"/> 
+		</div>
 
 	</form>
 </div>

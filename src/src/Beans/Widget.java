@@ -10,14 +10,16 @@ public class Widget {
 	private String content;
 	private String title;
 	private String picto;
+	private WidgetContents contents;
 
-	public Widget(int widgetid, String widgetTitle, int xCoord, int yCoord, String widgetColor, String widgetContent){
+	public Widget(int widgetid, String widgetTitle, int xCoord, int yCoord, String widgetColor, String widgetContent, String linksColor){
 		
 		id = widgetid;
 		x = xCoord;
 		y = yCoord;
 		color = widgetColor;
-		content = widgetContent;
+		//content = widgetContent;
+		setContents(new WidgetContents(widgetContent, linksColor));
 		title = widgetTitle;
 	}
 
@@ -28,7 +30,7 @@ public class Widget {
 
 
 	public int getX() {
-		return x*pitch;
+		return x;
 	}
 
 
@@ -84,6 +86,16 @@ public class Widget {
 
 	public void setPicto(String picto) {
 		this.picto = picto;
+	}
+
+
+	public WidgetContents getContents() {
+		return contents;
+	}
+
+
+	public void setContents(WidgetContents contents) {
+		this.contents = contents;
 	}
 
 	

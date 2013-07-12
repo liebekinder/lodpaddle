@@ -12,6 +12,18 @@
 <link rel="shortcut icon" type="image/ico" href="media/favicon.ico" />
 <script type="text/javascript" src="javascript/principal.js"></script>
 <script src="http://openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript" src="javascript/jquery.min.js"></script>
+<script type="text/javascript" src="javascript/blocksit.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#widgets').BlocksIt({
+			numOfCol : 6,
+			offsetX : 4,
+			offsetY : 4,
+			blockElement : '.grid'
+		});
+	});
+</script>
 </head>
 <body>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>

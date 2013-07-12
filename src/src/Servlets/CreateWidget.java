@@ -26,21 +26,33 @@ public class CreateWidget extends HttpServlet{
         /** Création des widgets **/
 		
 		String s= new String( "Pays : France \n"+" Region : Pays de la Loire \n "+"Departement : Loire Atlantique \n"+" Code commune : 44036 \n" );
-		Widget commune = new Widget(10,"Nantes",300,400,"blue",s);
+		Widget commune = new Widget(10,"Nantes",300,400,"blue",s,"");
 		
 		
 		String texteIntro= new String("LodPaddle est un service innovant qui premet de surfer à travers les données liées issues " +
 								"de l'open data de la Région des Pays de la Loire , le département de Loire-Atlantique, de Nantes métropole et la ville de Nantes. <a href=\"header.jsp\">Mon lien de texte</a>");
-		Widget introduction= new Widget(1,"Présentation",2, 1,"#C0C0C0",texteIntro);
-		Widget websemantique = new Widget(2,"Le Web Sémantique",2,1,"#C0C0C0","");
-		Widget endpoint = new Widget(3,"Accès développeurs",2,1, "#C0C0C0", "");
 
+		Widget introduction= new Widget(1,"Présentation",2, 1,"#C0C0C0",texteIntro,"red");
+		Widget websemantique = new Widget(2,"Le Web Sémantique",2,1,"#C0C0C0","lala","blue");
+		Widget endpoint = new Widget(3,"Accès développeurs",2,1, "#C0C0C0", "loulou","yellow");
+
+		Widget a= new Widget(1,"Présentation",4, 2,"#C0C0C0",texteIntro,"red");
+		Widget z = new Widget(2,"Le Web Sémantique",1,1,"#C0C0C0","lala","blue");
+		Widget e = new Widget(3,"Accès développeurs",2,2, "#C0C0C0", "loulou","yellow");
 		
+		
+
+		websemantique.getContents().addLink("My link 1", "index.jsp");
+		websemantique.getContents().addLink("My link 2", "footer.jspf");
+
 		//On ajoute qu'une fois
 		if(Compteur==1){
 		widgets.add(introduction);
 		widgets.add(websemantique);
 		widgets.add(endpoint);
+		widgets.add(a);
+		widgets.add(z);
+		widgets.add(e);
 		}
 		
 		// IL FAUT AJOUTER LE TYPE DES WIDGET=> SI CLIQUABLE ET OU SA REDIRIGE

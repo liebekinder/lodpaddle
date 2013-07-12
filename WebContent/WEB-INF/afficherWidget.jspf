@@ -7,10 +7,10 @@
 		
 		<c:forEach var="item" items="${communes}" >
 		
-			<div class="widget" style="width:<c:out value="${item.x}" />px; height:<c:out value="${item.y}" />px;
-				background-color:<c:out value="${item.color}" /> ">
-				<center> <h3><c:out value="${item.title}" /></h3> </center>
-				<c:out value="${ item.content}" />
+			<div class="grid widget" data-size="<c:out value="${item.x}"/>" style="height:<c:out value="${item.y}" />px;
+				background:<c:out value="${item.color}" /> ">
+				<h3 style="text-align:center;"><c:out value="${item.title}" /></h3>
+				<c:out value="${ item.contents.contentTexte}" />
 			</div>
 
 		</c:forEach>
