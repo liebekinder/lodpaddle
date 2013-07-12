@@ -23,7 +23,7 @@ html,body {
 #body {
 	padding: 10px;
 	height: 100%;
-	padding-bottom: 100px; /* Height of the footer */
+	padding-bottom: 150px; /* Height of the footer */
 	position: relative;
 	/*border:solid 2px red; */
 }
