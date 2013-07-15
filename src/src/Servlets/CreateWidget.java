@@ -37,7 +37,7 @@ public class CreateWidget extends HttpServlet{
 		Widget endpoint = new Widget(3,"Accès développeurs",2,1, "#C0C0C0", "loulou","yellow");
 
 		Widget a= new Widget(1,"Présentation",4, 2,"#C0C0C0",texteIntro,"red");
-		Widget z = new Widget(2,"Le Web Sémantique",1,1,"#C0C0C0","lala","blue");
+		Widget z = new Widget(2,"Hotels",1,1,"#C0C0C0","lala","blue");
 		Widget e = new Widget(3,"Accès développeurs",2,2, "#C0C0C0", "loulou","yellow");
 		
 		
@@ -46,6 +46,12 @@ public class CreateWidget extends HttpServlet{
 		websemantique.getContents().addLink("My link 2", "footer.jspf","./media/marqueur.png");
 		websemantique.getContents().addLink("My link 3", "footer.jspf","./media/marqueur.png");
 
+		
+		endpoint.setType("image");
+		endpoint.setPicto("./media/nantes.jpg");
+		
+		z.setType("presentation");
+		z.setPicto("./media/hotel.jpg");
 		//On ajoute qu'une fois
 		if(Compteur==1){
 		widgets.add(introduction);

@@ -9,19 +9,33 @@
 		
 			<div class="grid widget" data-size="<c:out value="${item.x}"/>" style="height:<c:out value="${item.y}" />px;
 				background:<c:out value="${item.color}" /> ">
-				<h3 style="text-align:center;"><c:out value="${item.title}" /></h3>
-				<c:out value="${ item.contents.contentTexte}" />
 				
-				<ul>
-					<c:forEach var="link" items="${item.contents.contentLinks}" >
-						<li>  
-							<div class="linkdiv">
-							<img class="linkImg" alt=" " src="<c:out value="${link.linkImage}" />" />
-							<a href="<c:out value="${ link.linkUri}" />"><c:out value="${ link.linkText}" /> </a>
-							</div>
-						</li>
-					</c:forEach>
-				</ul>
+				<c:choose>
+				<c:when test="${item.type=='image'}">
+					<img class="itemImage" alt=" " src="<c:out value="${item.picto}" />" style="width:100%; height: 100% " />
+				</c:when>
+				
+				<c:when test="${item.type=='presentation'}">
+					<h3 style="text-align:center;"><c:out value="${item.title}" /></h3>
+					<center> <img class="itemImage" alt=" " src="<c:out value="${item.picto}" />" style="width:70%; height: 50%; margin-top: 15px" /> </center>
+				</c:when>
+				
+				<c:otherwise>
+					<h3 style="text-align:center;"><c:out value="${item.title}" /></h3>
+					<c:out value="${ item.contents.contentTexte}" />
+					
+					<ul>
+						<c:forEach var="link" items="${item.contents.contentLinks}" >
+							<li>  
+								<div class="linkdiv">
+								<img class="linkImg" alt=" " src="<c:out value="${link.linkImage}" />" />
+								<a href="<c:out value="${link.linkUri}" />"><c:out value="${ link.linkText}" /> </a>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</c:otherwise>
+				</c:choose>
 			</div>
 		</c:forEach>
 

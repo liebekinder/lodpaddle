@@ -11,6 +11,8 @@ public class Widget {
 	private String title;
 	private String picto;
 	private WidgetContents contents;
+	private String type; /** Le type du widget : image, titre + image, thématique, simple **/
+						// Faire une classe widget pour les thématique
 
 	public Widget(int widgetid, String widgetTitle, int xCoord, int yCoord, String widgetColor, String widgetContent, String linksColor){
 		
@@ -21,6 +23,7 @@ public class Widget {
 		//content = widgetContent;
 		setContents(new WidgetContents(widgetContent, linksColor));
 		title = widgetTitle;
+		type="";
 	}
 
 
@@ -96,6 +99,16 @@ public class Widget {
 
 	public void setContents(WidgetContents contents) {
 		this.contents = contents;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	

@@ -1,10 +1,11 @@
 .widget {
-	padding-right: 10px;
-	padding-left: 10px;
+	/*padding-right: 10px;*/
+	padding-left: 15px;
 	padding-top: 0px;
-	padding-bottom: 10px;
+	/*padding-bottom: 10px;*/
 	font-size: 12px;
 	font-family: arial;
+	
 }
 
 
@@ -12,6 +13,7 @@
 	width: 10px;
 	height: 15px;
 	margin-bottom: 0px;
+	margin-left: 0px;
 }
 
 .linkdiv{
@@ -19,17 +21,28 @@
 	margin-left: 0px;
 }
 
+a{
+	text-decoration: none;
+}
+
 ul{
 	/* list-style-image: url("../media/loupe.png"); */
 	
-	list-style-type: none;
+	list-style: none;
 	text-align: left;
-	margin-left: 0px;
+	margin: 0;
 	left: 0px;
+	/* border: 2px #0568CD solid;*/
+	float: left;
+	padding-left: 0px;
 }
 
 li{
 	
 	margin-top: 5px;
-	margin-left: 0px;
+	margin: 0;
+}
+
+.itemImage{
+	background-color: white;
 }
