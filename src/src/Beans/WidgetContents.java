@@ -43,9 +43,9 @@ public class WidgetContents {
 	}
 	
 
-	public void addLink(String linktext, String linkuri){
+	public void addLink(String linktext, String linkuri, String image){
 		
-		WidgetLink wl= new WidgetLink(linktext, linkuri);
+		WidgetLink wl= new WidgetLink(linktext, linkuri,image);
 		contentLinks.add(wl);
 	}
 	

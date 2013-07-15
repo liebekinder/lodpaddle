@@ -11,8 +11,19 @@
 				background:<c:out value="${item.color}" /> ">
 				<h3 style="text-align:center;"><c:out value="${item.title}" /></h3>
 				<c:out value="${ item.contents.contentTexte}" />
+				
+				<ul>
+					<c:forEach var="link" items="${item.contents.contentLinks}" >
+						<li>  
+							<div class="linkdiv">
+							<img class="linkImg" alt=" " src="<c:out value="${link.linkImage}" />" />
+							<a href="<c:out value="${ link.linkUri}" />"><c:out value="${ link.linkText}" /> </a>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
 			</div>
-
 		</c:forEach>
 
 </div>
+<!-- style=" list-style-image: url('./media/loupe.png') ;" -->

@@ -6,3 +6,30 @@
 	font-size: 12px;
 	font-family: arial;
 }
+
+
+.linkImg{
+	width: 10px;
+	height: 15px;
+	margin-bottom: 0px;
+}
+
+.linkdiv{
+	left: 0px;
+	margin-left: 0px;
+}
+
+ul{
+	/* list-style-image: url("../media/loupe.png"); */
+	
+	list-style-type: none;
+	text-align: left;
+	margin-left: 0px;
+	left: 0px;
+}
+
+li{
+	
+	margin-top: 5px;
+	margin-left: 0px;
+}

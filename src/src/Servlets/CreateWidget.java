@@ -33,7 +33,7 @@ public class CreateWidget extends HttpServlet{
 								"de l'open data de la Région des Pays de la Loire , le département de Loire-Atlantique, de Nantes métropole et la ville de Nantes. <a href=\"header.jsp\">Mon lien de texte</a>");
 
 		Widget introduction= new Widget(1,"Présentation",2, 1,"#C0C0C0",texteIntro,"red");
-		Widget websemantique = new Widget(2,"Le Web Sémantique",2,1,"#C0C0C0","lala","blue");
+		Widget websemantique = new Widget(2,"Le Web Sémantique",2,1,"#C0C0C0","","blue");
 		Widget endpoint = new Widget(3,"Accès développeurs",2,1, "#C0C0C0", "loulou","yellow");
 
 		Widget a= new Widget(1,"Présentation",4, 2,"#C0C0C0",texteIntro,"red");
@@ -42,8 +42,9 @@ public class CreateWidget extends HttpServlet{
 		
 		
 
-		websemantique.getContents().addLink("My link 1", "index.jsp");
-		websemantique.getContents().addLink("My link 2", "footer.jspf");
+		websemantique.getContents().addLink("My link 1", "index.jsp","./media/marqueur.png");
+		websemantique.getContents().addLink("My link 2", "footer.jspf","./media/marqueur.png");
+		websemantique.getContents().addLink("My link 3", "footer.jspf","./media/marqueur.png");
 
 		//On ajoute qu'une fois
 		if(Compteur==1){
