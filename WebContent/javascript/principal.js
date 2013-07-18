@@ -2,34 +2,70 @@
  * main javascript file
  */
 
+function pageLoaded() {
+	var a = $('#query').autocomplete({
+		source:'/lodpaddleTest/AjaxListName',
+		minLength:3,
+		autoFocus:true
+		});
+	
+	
+}
+
 function init() {
-	map = new OpenLayers.Map("basicMap");
-	var mapnik = new OpenLayers.Layer.OSM();
+	
+	map = new OpenLayers.Map("basicMap",{
+        controls:[
+                  new OpenLayers.Control.Navigation(),
+                  new OpenLayers.Control.PanZoomBar(),
+                  new OpenLayers.Control.MousePosition(),
+                  new OpenLayers.Control.ScaleLine({geodesic: true}),
+                  new OpenLayers.Control.LayerSwitcher(),
+                  new OpenLayers.Control.Attribution()
+                  ],
+                  maxExtent: new OpenLayers.Bounds(-20037508.34,-20037508.34,20037508.34,20037508.34),
+                  maxResolution:'auto',
+                  numZoomLevels: 19,
+                  units: 'm',
+                  projection: new OpenLayers.Projection("EPSG:900913"),
+                  displayProjection: new OpenLayers.Projection("EPSG:4326")
+              });
+    
 
-	var renderer = OpenLayers.Util.getParameters(window.location.href).renderer;
+	var osm = new OpenLayers.Layer.OSM("OpenStreetMap");
+	map.addLayer(osm);
+	
+	var osmNoLayer =new OpenLayers.Layer.OSM('osm-no-labels',
+			["http://a.www.toolserver.org/tiles/osm-no-labels/${z}/${x}/${y}.png", 
+	         "http://b.www.toolserver.org/tiles/osm-no-labels/${z}/${x}/${y}.png", 
+	         "http://c.www.toolserver.org/tiles/osm-no-labels/${z}/${x}/${y}.png",
+	         "http://d.www.toolserver.org/tiles/osm-no-labels/${z}/${x}/${y}.png",
+	         "http://e.www.toolserver.org/tiles/osm-no-labels/${z}/${x}/${y}.png",
+	         "http://f.www.toolserver.org/tiles/osm-no-labels/${z}/${x}/${y}.png"],
+	         {tileOptions: {crossOriginKeyword: null}});
+	map.addLayer(osmNoLayer);
+	
+	var center = new OpenLayers.LonLat(-0.353394,47.546711);
+	var projFrom = new OpenLayers.Projection("EPSG:4326");
+	var projTo = new OpenLayers.Projection("EPSG:900913");
+	
+    
+	if( ! map.getCenter() ){
+		map.setCenter(center.transform(projFrom, projTo), 7);
+    }
 
-	renderer = (renderer) ? [ renderer ]
-			: OpenLayers.Layer.Vector.prototype.renderers;
+    var point = new OpenLayers.Geometry.Point(-0.353394,47.546711);
+    point.transform(projFrom, projTo);
+    
+	var vectorLayer = new OpenLayers.Layer.Vector("Point d'intérêt");
+	var features = new OpenLayers.Feature.Vector(
+            point,
+            {type:0}
+        );
 
-	vectors = new OpenLayers.Layer.Vector("Vector Layer", {
-		renderers : renderer
-	});
+	vectorLayer.addFeatures(features);
 
-	map.addLayers([ mapnik, vectors ]);
-
-	var fromProjection = new OpenLayers.Projection("EPSG:4326"); // transform
-																	// from WGS
-																	// 1984
-	var toProjection = new OpenLayers.Projection("EPSG:900913"); // to
-																	// Spherical
-																	// Mercator
-																	// Projection
-	var position = new OpenLayers.LonLat(-0.8419521, 47.6061394).transform(
-			fromProjection, toProjection);
-	var zoom = 8;
-
-	map.setCenter(position, zoom);
-
-	var drag = new OpenLayers.Control.DragFeature(vectors);
-
+	map.addLayer(vectorLayer);
+	
+	
 }

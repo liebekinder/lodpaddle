@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import src.Beans.Widget;
+import src.core.CalculDistance;
 
 
 public class CreateWidget extends HttpServlet{
@@ -78,6 +79,17 @@ public class CreateWidget extends HttpServlet{
 		request.setAttribute(VILLE,widgets);
 		request.setAttribute("Compteur",Compteur);
 		request.setAttribute("taille",taille);
+		
+		//ZONE TEST A COMMENTER
+		
+//		double lat = 47.716743;
+//		double lon = -1.376516;
+//		int distance = 1 ;
+//		
+//		String test = CalculDistance.allQuery(distance, lat, lon, "?lat", "?long", "?d2brgrad");
+//		request.setAttribute("TEST", test);
+		
+		//FIN ZONE DE TEST
 		
     	this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     	Compteur=Compteur+1;

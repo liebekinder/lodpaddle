@@ -46,3 +46,25 @@ html,body {
 	margin-top: 0px;
 	position: : relative;
 }
+
+
+.olControlAttribution {
+    bottom: 1.5em;
+    display: block;
+    font-size: smaller;
+    position: absolute;
+    right: 3px;
+}
+
+#superpo{
+	position: absolute;
+	top:200px;
+	left:200px;
+	z-index:5000;
+	width:200px;
+	height:150px;
+	background: blue;
+	opacity:0.4;	
+}
+
+

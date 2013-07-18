@@ -9,7 +9,7 @@
 			<img id="loupe" alt=" Une loupe " src="media/loupe.png" />
 		</div>
 		<div id="inputSearch">
-			<input class="search_data" name="saisie" type="text"
+			<input id="query" class="search_data" name="saisie" type="text" autocomplete="off"
 				placeholder="Nom de ville ou Code postal..." required="required" />
 		</div>
 		<div id="inputSubmit">

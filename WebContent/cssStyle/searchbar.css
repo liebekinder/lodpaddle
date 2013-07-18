@@ -1,53 +1,50 @@
 #searchBar {
-	
 	height: 30px;
-	background:#F5F2F0;
-	box-shadow:1px 1px 2px rgba(0,0,0,.3) inset;
+	background: #F5F2F0;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, .3) inset;
 	/* border: 2px #0568CD solid; */
 	margin-top: 10px;
-	position:relative;
+	position: relative;
 }
 
-#colorGray{
-	position:absolute;
-	top:0px;
-	left:0px;
-	height:30px;
-	width:34px;
+#colorGray {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 30px;
+	width: 34px;
 }
 
 #loupe {
- 	width:34px;
-	height:30px;
-	background: #708090;
- }
- 
- #inputSearch{ 
-	position:absolute;
-	top:0px;
-	left:36px;
-	height:30px;
-	width:900px;
- }
- 
- #inputSubmit{ 
-	position:absolute;
-	top:0px;
-	left:950px;
-	height:30px;
-	width:30px;
- }
- 
- .valid{
+	width: 34px;
+	height: 30px;
 	background: #708090;
 }
 
-.search_data{
-	position:absolute;
-	width:100%;
-	top:2px;
-	left:4px;
-	height:70%;
-	
+#inputSearch {
+	position: absolute;
+	top: 0px;
+	left: 36px;
+	height: 30px;
+	width: 900px;
 }
- 
+
+#inputSubmit {
+	position: absolute;
+	top: 0px;
+	left: 950px;
+	height: 30px;
+	width: 30px;
+}
+
+.valid {
+	background: #708090;
+}
+
+.search_data {
+	position: absolute;
+	width: 100%;
+	top: 2px;
+	left: 4px;
+	height: 70%;
+}
