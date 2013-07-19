@@ -5,20 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Lodpaddle - balades en terres sémantiques</title>
-<link rel="stylesheet" type="text/css" href="cssStyle/principal.css" />
-<link type="text/css" rel="stylesheet" href="cssStyle/Header.css" />
-<link type="text/css" rel="stylesheet" href="cssStyle/searchbar.css" />
-<link type="text/css" rel="stylesheet" href="cssStyle/Widget.css" />
-<link rel="stylesheet" href="cssStyle/ui-lightness/jquery-ui-1.10.3.custom.css">
 
-<link rel="shortcut icon" type="image/ico" href="media/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="${domain}cssStyle/principal.css" />
+<link type="text/css" rel="stylesheet" href="${domain}cssStyle/Header.css" />
+<link type="text/css" rel="stylesheet" href="${domain}cssStyle/searchbar.css" />
+<link type="text/css" rel="stylesheet" href="${domain}cssStyle/Widget.css" />
+<link rel="stylesheet" href="${domain}cssStyle/ui-lightness/jquery-ui-1.10.3.custom.css">
 
-<script type="text/javascript" src="javascript/principal.js"></script>
-<script src="OpenLayers/OpenLayers.debug.js"></script>
-<script type="text/javascript" src="javascript/jquery.min.js"></script>
-<script type="text/javascript" src="javascript/blocksit.min.js"></script>
-<!-- <script type="text/javascript" src="javascript/jquery.autocomplete.js"></script>-->
-<script type="text/javascript" src="javascript/jquery-ui-1.10.3.custom.js"></script>
+<link rel="shortcut icon" type="image/ico" href="${domain}media/favicon.ico" />
+
+<script type="text/javascript" src="${domain}javascript/principal.js"></script>
+<script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
+<script type="text/javascript" src="${domain}javascript/jquery.min.js"></script>
+<script type="text/javascript" src="${domain}javascript/blocksit.min.js"></script>
+<script type="text/javascript" src="${domain}javascript/jquery-ui-1.10.3.custom.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#widgets').BlocksIt({
@@ -30,7 +30,7 @@
 	});
 </script>
 </head>
-<body onload="pageLoaded();">
+<body onload="pageLoaded('${domain}');">
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<div id="principal">
 		<%@include file="header.jspf"%>

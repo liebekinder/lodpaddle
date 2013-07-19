@@ -2,9 +2,9 @@
  * main javascript file
  */
 
-function pageLoaded() {
+function pageLoaded(domainPath) {
 	var a = $('#query').autocomplete({
-		source:'/lodpaddleTest/AjaxListName',
+		source:domainPath+'AjaxListName',
 		minLength:3,
 		autoFocus:true
 		});

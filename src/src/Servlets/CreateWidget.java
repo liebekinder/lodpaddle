@@ -21,6 +21,8 @@ public class CreateWidget extends HttpServlet{
     public String VILLE;
     public List<Widget> widgets=new ArrayList<Widget>();
     public int Compteur=1;
+//    public final String domain = "http://localhost:8080/lodpaddleTest/";
+    public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		
@@ -43,16 +45,16 @@ public class CreateWidget extends HttpServlet{
 		
 		
 
-		websemantique.getContents().addLink("My link 1", "index.jsp","./media/marqueur.png");
-		websemantique.getContents().addLink("My link 2", "footer.jspf","./media/marqueur.png");
-		websemantique.getContents().addLink("My link 3", "footer.jspf","./media/marqueur.png");
+		websemantique.getContents().addLink("My link 1", "index.jsp",domain+"/media/marqueur.png");
+		websemantique.getContents().addLink("My link 2", "footer.jspf",domain+"/media/marqueur.png");
+		websemantique.getContents().addLink("My link 3", "footer.jspf",domain+"/media/marqueur.png");
 
 		
 		endpoint.setType("image");
-		endpoint.setPicto("./media/nantes.jpg");
+		endpoint.setPicto(domain+"media/nantes.jpg");
 		
 		z.setType("presentation");
-		z.setPicto("./media/hotel.jpg");
+		z.setPicto(domain+"/media/hotel.jpg");
 		//On ajoute qu'une fois
 		if(Compteur==1){
 		widgets.add(introduction);
@@ -79,6 +81,7 @@ public class CreateWidget extends HttpServlet{
 		request.setAttribute(VILLE,widgets);
 		request.setAttribute("Compteur",Compteur);
 		request.setAttribute("taille",taille);
+		request.setAttribute("domain", domain);
 		
 		//ZONE TEST A COMMENTER
 		

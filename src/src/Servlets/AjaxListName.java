@@ -44,7 +44,8 @@ public class AjaxListName extends HttpServlet {
 
 	private String getListName(String filtre) {
 
-		String proxyHost = "cache.etu.univ-nantes.fr";
+
+		String proxyHost = "193.52.105.147";
 		String proxyPort = "3128";
 
 		String queryString = "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"

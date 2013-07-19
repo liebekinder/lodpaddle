@@ -6,14 +6,14 @@
 	<form action="null" method="post">
 
 		<div id="colorGray">
-			<img id="loupe" alt=" Une loupe " src="media/loupe.png" />
+			<img id="loupe" alt=" Une loupe " src="${domain}media/loupe.png" />
 		</div>
 		<div id="inputSearch">
 			<input id="query" class="search_data" name="saisie" type="text" autocomplete="off"
 				placeholder="Nom de ville ou Code postal..." required="required" />
 		</div>
 		<div id="inputSubmit">
-			<input class="valid" border="0" src="media/fleche-min.png" type="image" value="submit"/> 
+			<input class="valid" src="${domain}media/fleche-min.png" type="image" value="submit"/> 
 		</div>
 
 	</form>
