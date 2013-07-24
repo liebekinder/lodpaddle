@@ -2,14 +2,40 @@
  * main javascript file
  */
 
-function pageLoaded(domainPath) {
-	var a = $('#query').autocomplete({
+function pageLoaded(domainPath,idChange) {
+	 $('#query').autocomplete({
 		source:domainPath+'AjaxListName',
 		minLength:3,
 		autoFocus:true
 		});
-	
-	
+	 doFlip(idChange);
+}
+
+
+function doFlip(idChange){	 
+	 $('.flipIt').click(function () {$(this).rotate3Di('toggle', 1000,        {
+         sideChange: mySideChange
+     }
+			 );});
+	 
+}
+
+
+function mySideChange(front,idChange) {
+    if (front) {
+    	$('#presentationVille').css('visibility', 'hidden');
+        $('.presentationVille').css('visibility', 'visible');
+        
+    } else {
+
+        $('#presentationVille').css('visibility', 'visible');
+        $('.presentationVille').css('visibility', 'hidden');
+    }
+}
+
+
+function afficheContenu(){ 
+	document.getElementById("presentationVille").style.visibility="visible";
 }
 
 function init() {

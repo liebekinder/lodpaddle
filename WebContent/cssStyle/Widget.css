@@ -1,13 +1,18 @@
 .widget {
 	/*padding-right: 10px;*/
-	padding-left: 15px;
-	padding-top: 0px;
 	/*padding-bottom: 10px;*/
 	font-size: 12px;
 	font-family: arial;
+	/*border-radius: 10px;*/
 	
 }
 
+.spacing{
+	padding-left: 15px;
+	padding-right: 10px;
+	padding-top: 0px;
+	text-align: center;
+}
 
 .linkImg{
 	width: 10px;
