@@ -1,8 +1,7 @@
 package src.Servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.charset.MalformedInputException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,65 +45,20 @@ public class AjaxListName extends HttpServlet {
 
 	private String getListName(String filtre) {
 
-//		String proxyHost = "193.52.105.147";
-//		String proxyPort = "3128";
-		 String proxyHost = "cache.etu.univ-nantes.fr";
-		 String proxyPort = "3128";
+		// String proxyHost = "193.52.105.147";
+		// String proxyPort = "3128";
+		String proxyHost = "cache.etu.univ-nantes.fr";
+		String proxyPort = "3128";
 
-		List<Character> listNombre = new ArrayList<Character>();
-		listNombre.add('0');
-		listNombre.add('1');
-		listNombre.add('2');
-		listNombre.add('3');
-		listNombre.add('4');
-		listNombre.add('5');
-		listNombre.add('6');
-		listNombre.add('7');
-		listNombre.add('8');
-		listNombre.add('9');
+		String queryString = "PREFIX foaf:<http://xmlns.com/foaf/0.1/> "
+				+ "SELECT ?nomVille "
+				+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises> "
+				+ "WHERE {" + "?commune foaf:name ?nomVille . "
+				+ "FILTER regex(?nomVille,\"^" + filtre + "\", \"i\") " + "}"
+				+ "ORDER BY ?nomVille" + "  LIMIT 10 ";
 
-		String queryString;
-		if (listNombre.contains(filtre.charAt(0))) {
-			// on est en présence d'un code postal
-			queryString = "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-					+ "PREFIX idemo:<http://rdf.insee.fr/def/demo#>"
-					+ "PREFIX igeo:<http://rdf.insee.fr/def/geo#>"
-					+ "SELECT ?nomVille ?codePostal WHERE {"
-					+ "?region igeo:subdivisionDirecte ?departement ."
-					+ "?region igeo:codeRegion \"52\" ."
-					+ "?departement igeo:nom ?nom ."
-					+ "?departement igeo:subdivisionDirecte ?subdiv."
-					+ "?commune igeo:subdivisionDe ?subdiv ."
-					+ "?commune a igeo:Commune ."
-					+ "?commune igeo:codeCommune ?codePostal ."
-					+ "?commune igeo:nom ?nomVille ."
-					+ "FILTER regex(?codePostal,\"^"
-					+ filtre
-					+ "\", \"i\") "
-					+ "}" + "ORDER BY ?nomVille" + "  LIMIT 10 ";
-		} else {
-			//il s'agit du nom de ville
-			queryString = "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
-					+ "PREFIX idemo:<http://rdf.insee.fr/def/demo#>"
-					+ "PREFIX igeo:<http://rdf.insee.fr/def/geo#>"
-					+ "SELECT ?nomVille ?codePostal WHERE {"
-					+ "?region igeo:subdivisionDirecte ?departement ."
-					+ "?region igeo:codeRegion \"52\" ."
-					+ "?departement igeo:nom ?nom ."
-					+ "?departement igeo:subdivisionDirecte ?subdiv."
-					+ "?commune igeo:subdivisionDe ?subdiv ."
-					+ "?commune a igeo:Commune ."
-					+ "?commune igeo:nom ?nomVille ."
-					+ "?commune igeo:codeCommune ?codePostal ."
-					+ "FILTER regex(?nomVille,\"^"
-					+ filtre
-					+ "\", \"i\") "
-					+ "}" + "ORDER BY ?nomVille" + "  LIMIT 10 ";
-		}
+		System.out.println(queryString);
 
-		//System.out.println(queryString);
-		
-		
 		System.setProperty("proxySet", "true");
 		System.setProperty("http.proxyHost", proxyHost);
 		System.setProperty("http.proxyPort", proxyPort);
@@ -112,7 +66,7 @@ public class AjaxListName extends HttpServlet {
 		com.hp.hpl.jena.query.Query query = QueryFactory.create(queryString);
 
 		QueryExecution qexec = QueryExecutionFactory.sparqlService(
-				"http://rdf.insee.fr/sparql", query);
+				"http://lodpaddle.univ-nantes.fr/sparql", query);
 
 		String retour = "[";
 		try {
@@ -124,10 +78,13 @@ public class AjaxListName extends HttpServlet {
 				RDFNode x = soln.get("nomVille");
 				retour += "\"" + x.toString() + "\",";
 			}
-
-		} finally {
+		}
+		catch (Exception e) {
+			System.out.println("probleme avec le retour de la requete :/");
+		}finally {
 			qexec.close();
 		}
+		System.out.println("ook?");
 		return retour.substring(0, retour.length() - 1) + "]";
 	}
 

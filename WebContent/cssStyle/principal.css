@@ -1,44 +1,70 @@
+/*######################################
+####          index.jsp				####
+######################################*/
 html,body {
-	margin: 0;
-	padding: 0;
 	height: 100%;
-}
-
-#principal {
-	min-height: 100%;
-	position: relative;
-	margin: auto;
-	width: 1000px;
-}
-
-#header {
-	background: #ff0;
-	padding: 10px;
-	margin-bottom: 0px;
-	background-color: white;
-	height: 20 px;
-}
-
-#body {
-	padding: 10px;
-	height: 100%;
-	padding-bottom: 0px; /* Height of the footer */
-	position: relative;
-}
-
-#widgets{
-	position: relative;
-	width: 100%;	
-	margin-top: 10px;
-}
-
-#footer {
-	position: relative;
-	bottom: 0px;
 	width: 100%;
-	height: 100px; /* Height of the footer */
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
 }
 
+#AllScreenDiv {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+header {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 35px;
+	z-index:1010;
+}
+
+#headerContainer {
+	border: 1px solid black;
+	background: #2c3e50;
+	opacity: 0.8;
+	height: 100%;
+}
+
+#content{
+	width:100%;
+	height:100%;
+}
+
+#contentContainer{
+	position:absolute;
+	left:20px;
+	bottom:170px;
+	width:250px;
+	height:320px;
+	background: green;
+	opacity:0.5;
+	z-index:1010;
+	border-radius: 15px;
+}
+
+footer {
+	position: absolute;
+	bottom: 0px;
+	height: 150px;
+	width: 100%;
+	z-index:1010;
+}
+
+#footerContainer {
+	border: 1px solid black;
+	background: #2c3e50;
+	opacity: 0.8;
+	height: 99%;
+}
+
+/*######################################
+####            OSM      			####
+######################################*/
 #basicMap {
 	width: 100%;
 	height: 400px;
@@ -47,24 +73,121 @@ html,body {
 	position: : relative;
 }
 
-
-.olControlAttribution {
-    bottom: 1.5em;
-    display: block;
+#olControlAttribution {
+	position:absolute;
     font-size: smaller;
+    z-index:1005;
+    right: 5px;
+    bottom: 160px;
     position: absolute;
-    right: 3px;
+    display: block;
 }
 
-#superpo{
+#scaleline-id {
+	position:absolute;
+	bottom:180px;
+	right:20px;
+    padding: 10px;
+    z-index:1005;
+    font-size: xx-small;
+}
+
+/*######################################
+####          searchbar				####
+######################################*/
+#searchBar {
+	height: 30px;
+	background: #F5F2F0;
+	box-shadow: 1px 1px 2px rgba(0, 0, 0, .3) inset;
+	/* border: 2px #0568CD solid; */
+	margin-top: 10px;
+	position: relative;
+}
+
+#colorGray {
 	position: absolute;
-	top:200px;
-	left:200px;
-	z-index:5000;
-	width:200px;
-	height:150px;
-	background: blue;
-	opacity:0.4;	
+	top: 0px;
+	left: 0px;
+	height: 30px;
+	width: 34px;
 }
 
+#loupe {
+	width: 34px;
+	height: 30px;
+	background: #708090;
+}
 
+#inputSearch {
+	position: absolute;
+	top: 0px;
+	left: 36px;
+	height: 30px;
+	width: 900px;
+}
+
+#inputSubmit {
+	position: absolute;
+	top: 0px;
+	left: 950px;
+	height: 30px;
+	width: 30px;
+}
+
+.valid {
+	background: #708090;
+}
+
+.search_data {
+	position: absolute;
+	width: 100%;
+	top: 2px;
+	left: 4px;
+	height: 70%;
+}
+
+/*######################################
+####          widget				####
+######################################*/
+.widget { /*padding-right: 10px;*/
+	padding-left: 15px;
+	padding-top: 0px;
+	/*padding-bottom: 10px;*/
+	font-size: 12px;
+	font-family: arial;
+}
+
+.linkImg {
+	width: 10px;
+	height: 15px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+
+.linkdiv {
+	left: 0px;
+	margin-left: 0px;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul { /* list-style-image: url("../media/loupe.png"); */
+	list-style: none;
+	text-align: left;
+	margin: 0;
+	left: 0px;
+	/* border: 2px #0568CD solid;*/
+	float: left;
+	padding-left: 0px;
+}
+
+li {
+	margin-top: 5px;
+	margin: 0;
+}
+
+.itemImage {
+	background-color: white;
+}
