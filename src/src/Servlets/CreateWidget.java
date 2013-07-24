@@ -8,14 +8,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import src.Beans.Widget;
-import src.core.CalculDistance;
 
 
 public class CreateWidget extends HttpServlet{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static final String VUE = "/index.jsp";
 			//    "/WEB-INF/afficherWidget.jsp";
     public String VILLE;
@@ -24,6 +26,7 @@ public class CreateWidget extends HttpServlet{
     public final String domain = "http://localhost:8080/lodpaddleTest/";
     public List<String> listIds= new ArrayList<String>();
     //public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		
