@@ -4,12 +4,14 @@ public class Widget {
 
 	private final int pitch = 162;
 	private int id;
+	private String theme;
 	private int x;
 	private int y;
 	private String color;
 	private String content;
 	private String title;
 	private String picto;
+	private String background;  // utiliser le background pour le fond
 	private WidgetContents contents;
 	private String type; /** Le type du widget : image, titre + image, thématique, simple **/
 						// Faire une classe widget pour les thématique
@@ -109,6 +111,26 @@ public class Widget {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+
+	public String getBackground() {
+		return background;
+	}
+
+
+	public void setBackground(String background) {
+		this.background = background;
+	}
+
+
+	public String getTheme() {
+		return theme;
+	}
+
+
+	public void setTheme(String theme) {
+		this.theme = theme;
 	}
 
 	

@@ -24,7 +24,9 @@ public class CreateWidget extends HttpServlet{
     public List<Widget> widgets=new ArrayList<Widget>();
     public int Compteur=1;
     public final String domain = "http://localhost:8080/lodpaddleTest/";
-//    public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+    public List<String> listIds= new ArrayList<String>();
+    //public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
 		
@@ -40,12 +42,16 @@ public class CreateWidget extends HttpServlet{
 		Widget introduction= new Widget(1,"Présentation",2, 1,"#C0C0C0",texteIntro,"red");
 		Widget websemantique = new Widget(2,"Le Web Sémantique",2,1,"#C0C0C0","","blue");
 		Widget endpoint = new Widget(3,"Accès développeurs",2,1, "#C0C0C0", "loulou","yellow");
-
-		Widget a= new Widget(1,"Présentation",4, 2,"#C0C0C0",texteIntro,"red");
-		Widget z = new Widget(2,"Hotels",1,1,"#C0C0C0","lala","blue");
-		Widget e = new Widget(3,"Accès développeurs",2,2, "#C0C0C0", "loulou","yellow");
 		
-		
+		Widget culture = new Widget(4, "CULTURE",2,3,"green","","");
+		Widget loisirs = new Widget(5, "LOISIRS",2,3,"blue","","");
+		Widget services_pratique = new Widget(6, "SERVICES PRATIQUE",2,2,"red","","");
+		Widget	a_visiter= new Widget(7,"À VISITER", 2,3,"brown", "","");
+		Widget	villes = new Widget(8, "VILLES",1,1,"yellow","","");
+		Widget	transport= new Widget(9,"TRANSPORT",2, 2,"purple","","");
+		Widget presentationVille = new Widget(10,"Chateaubriant", 2,2, "pink",texteIntro,"");
+		Widget monparcours= new Widget(11,"parcours", 1, 1,"","","");
+		Widget jeu= new Widget(12,"jeu", 1, 1,"","","");
 
 		websemantique.getContents().addLink("My link 1", "index.jsp",domain+"/media/marqueur.png");
 		websemantique.getContents().addLink("My link 2", "footer.jspf",domain+"/media/marqueur.png");
@@ -55,20 +61,61 @@ public class CreateWidget extends HttpServlet{
 		endpoint.setType("image");
 		endpoint.setPicto(domain+"media/nantes.jpg");
 		
-		z.setType("presentation");
-		z.setPicto(domain+"/media/hotel.jpg");
+		
+		presentationVille.setType("presentation");
+		presentationVille.setBackground(domain+"media/presentation.png");
+		presentationVille.setTheme("presentationVille");
+		culture.setType("image");
+		culture.setTheme("culture");
+		loisirs.setType("image");
+		loisirs.setTheme("loisirs");
+		services_pratique.setType("image");
+		services_pratique.setTheme("servicesPratique");
+		a_visiter.setType("image");
+		a_visiter.setTheme("aVisiter");
+		villes.setType("image");
+		villes.setTheme("villes");
+		transport.setType("image");
+		transport.setTheme("transport");
+		monparcours.setType("image");
+		monparcours.setTheme("monParcours");
+		jeu.setType("image");
+		jeu.setTheme("Jeu");
+		culture.setPicto(domain+"media/culture.png");
+		loisirs.setPicto(domain+"media/loisirs.png");
+		monparcours.setPicto(domain+"media/parcours.png");
+		jeu.setPicto(domain+"media/jeu.png");
+		services_pratique.setPicto(domain+"media/servicePratique.png");
+		a_visiter.setPicto(domain+"media/aVisiter.png");
+		transport.setPicto(domain+"media/transport.png");
+		
+		/*z.setType("presentation");
+		z.setPicto(domain+"/media/hotel.jpg"); */
 		//On ajoute qu'une fois
 		if(Compteur==1){
-		widgets.add(introduction);
-		widgets.add(websemantique);
-		widgets.add(endpoint);
-		widgets.add(a);
-		widgets.add(z);
-		widgets.add(e);
+		/** Premiere page**/
+		//widgets.add(introduction);
+		//widgets.add(websemantique);
+		//widgets.add(endpoint);
+		
+		widgets.add(presentationVille);
+		widgets.add(loisirs);
+		widgets.add(jeu);
+		widgets.add(monparcours);
+		widgets.add(culture);
+		widgets.add(services_pratique);
+		widgets.add(a_visiter);
+		widgets.add(transport);
+		
+		/** Page de widgets**/
+
 		}
 		
-		// IL FAUT AJOUTER LE TYPE DES WIDGET=> SI CLIQUABLE ET OU SA REDIRIGE
-		// IL FAUT MODIFIER LE CONTENU POUR QU'IL SOIT DE PLUSIEURS TYPES
+		/** Ajout les themes dans la liste **/
+		
+		for(Widget wg: widgets){
+			listIds.add(wg.getTheme());
+		}
 		
         /** Stockage du bean dans l'objet request **/
 		
@@ -84,6 +131,7 @@ public class CreateWidget extends HttpServlet{
 		request.setAttribute("Compteur",Compteur);
 		request.setAttribute("taille",taille);
 		request.setAttribute("domain", domain);
+		request.setAttribute("idsForChange", listIds);
 		
 		//ZONE TEST A COMMENTER
 		
