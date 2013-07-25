@@ -131,7 +131,7 @@ public class CreateWidget extends HttpServlet{
 		request.setAttribute("Compteur",Compteur);
 		request.setAttribute("taille",taille);
 		request.setAttribute("domain", domain);
-		request.setAttribute("idsForChange", listIds);
+		request.setAttribute("idsForChange",".loisir");
 		
 		//ZONE TEST A COMMENTER
 		

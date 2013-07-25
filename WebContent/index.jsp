@@ -41,7 +41,7 @@
 		<div id="body">
 			<%@ include file="map.jspf"%>
 			<%@include file="searchbar.jspf"%>
-			<%@include file="WEB-INF/afficherWidget.jspf"%>
+			<%@include file="flipTest.jspf"%>
 
 		</div>
 

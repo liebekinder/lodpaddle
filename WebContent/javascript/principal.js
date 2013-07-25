@@ -20,6 +20,22 @@ function doFlip(idChange){
      }
 			 );});
 	 
+	 $('.flipItb1').click(function () {$('.toflip').rotate3Di('toggle', 1000,        {
+         sideChange: mySideChangeb1,
+         easing : 'swing'
+     }
+			 );});
+	 
+	 $('.flipItb2').click(function () {$('.toflip').rotate3Di('toggle', 1000,        {
+         sideChange: mySideChangeb2
+     }
+			 );});
+	 
+	 $('.flipItb3').click(function () {$('.toflip').rotate3Di('toggle', 1000,        {
+         sideChange: mySideChangeb3
+     }
+			 );});
+	 
 }
 
 
@@ -33,6 +49,30 @@ function mySideChange(front,idChange) {
         $('#presentationVille').css('visibility', 'visible');
         $('.presentationVille').css('visibility', 'hidden');
     }
+}
+
+function mySideChangeb1(front) {
+	$('#toflip').css('visibility', 'hidden');
+	$('.loisir').css('visibility', 'visible');
+	$('.transport').css('visibility', 'hidden');
+    $('.culture').css('visibility', 'hidden');
+}
+
+function mySideChangeb2(front,idChange) {
+
+    	$('#toflip').css('visibility', 'hidden');
+    	$('.loisir').css('visibility', 'hidden');
+    	$('.transport').css('visibility', 'hidden');
+        $('.culture').css('visibility', 'visible');
+        
+}
+
+function mySideChangeb3(front,idChange) {
+	$('#toflip').css('visibility', 'hidden');
+	$('.loisir').css('visibility', 'hidden');
+	$('.culture').css('visibility', 'hidden');
+	$('.transport').css('visibility', 'visible');
+
 }
 
 
