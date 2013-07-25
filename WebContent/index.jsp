@@ -37,7 +37,8 @@
 
 		<footer>
 			<div id="footerContainer">
-				<p>Ceci est le footer</p>
+				<div id="staticTheme"></div>
+				<div id="widgetZone"></div>
 			</div>
 		</footer>
 
