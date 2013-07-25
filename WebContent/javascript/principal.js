@@ -2,7 +2,6 @@
  * main javascript file
  */
 
-
 function pageLoaded(domainPath,idChange) {
 	 $('#query').autocomplete({
 		source:domainPath+'AjaxListName',
@@ -126,14 +125,18 @@ function geoloc(monDiv) {
 
 function init() {
 
-	map = new OpenLayers.Map("basicMap", {
+	map = new OpenLayers.Map("content", {
 		controls : [ new OpenLayers.Control.Navigation(),
-				new OpenLayers.Control.PanZoomBar(),
+				//new OpenLayers.Control.PanZoomBar(),
 				new OpenLayers.Control.MousePosition(),
 				new OpenLayers.Control.ScaleLine({
+					div: document.getElementById("scaleline-id"),
 					geodesic : true
-				}), new OpenLayers.Control.LayerSwitcher(),
-				new OpenLayers.Control.Attribution() ],
+				}),
+				//new OpenLayers.Control.LayerSwitcher(),
+				new OpenLayers.Control.Attribution({
+					div: document.getElementById("olControlAttribution")
+				}) ],
 		maxExtent : new OpenLayers.Bounds(-20037508.34, -20037508.34,
 				20037508.34, 20037508.34),
 		maxResolution : 'auto',
