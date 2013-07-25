@@ -40,6 +40,7 @@
 		<div id="content">
 			<div id="scaleline-id"></div>
 			<div id="olControlAttribution"></div>
+			<div id="mousePosition"></div>
 			<div id="contentContainer">
 				<p>Ceci est le contenu</p>
 			</div>

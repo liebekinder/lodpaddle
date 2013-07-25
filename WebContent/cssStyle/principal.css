@@ -38,14 +38,14 @@ header {
 
 #contentContainer {
 	position: absolute;
-	left: 2px;
-	bottom: 170px;
-	width: 225px;
-	height: 320px;
+	left: 5px;
+	top: 40px;
+	width: 222px;
+	height: 350px;
 	background: green;
 	opacity: 0.5;
 	z-index: 5000;
-	border-radius: 8px;
+	border-radius: 3px;
 }
 
 footer {
@@ -79,18 +79,27 @@ footer {
 	font-size: smaller;
 	z-index: 1005;
 	right: 5px;
-	bottom: 160px;
+	bottom: 150px;
 	position: absolute;
 	display: block;
 }
 
 #scaleline-id {
 	position: absolute;
-	bottom: 180px;
-	right: 20px;
-	padding: 10px;
+	bottom: 190px;
+	right: 5px;
+	padding: 5px;
 	z-index: 1005;
 	font-size: xx-small;
+}
+
+#mousePosition{
+	position: absolute;
+	bottom: 145px;
+	right: -3px;
+	padding: 10px;
+	z-index: 1005;
+	font-size: small;
 }
 
 /*######################################
