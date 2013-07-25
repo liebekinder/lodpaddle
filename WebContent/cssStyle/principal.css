@@ -12,7 +12,8 @@ html,body {
 #AllScreenDiv {
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
+	overflow-y: hidden;
+	overflow-x: auto;
 }
 
 header {
@@ -37,14 +38,14 @@ header {
 
 #contentContainer {
 	position: absolute;
-	left: 20px;
+	left: 2px;
 	bottom: 170px;
-	width: 250px;
+	width: 225px;
 	height: 320px;
 	background: green;
 	opacity: 0.5;
 	z-index: 5000;
-	border-radius: 15px;
+	border-radius: 8px;
 }
 
 footer {
@@ -53,7 +54,7 @@ footer {
 	height: 150px;
 	width: 100%;
 	z-index: 5000;
-	border: 1px solid black;
+	border-top: 1px solid black;
 	background: rgba(44, 62, 80, 0.8);
 }
 
@@ -192,17 +193,67 @@ li {
 	background-color: white;
 }
 
+
 /*######################################
 ####          footer				####
 ######################################*/
 #staticTheme {
-	background-color: green;
+/* 	background-color: rgba(0,0,0,0.2); */
 	float: left;
-	height: 100%;
-	width: 0px;
+	height: 150px;
+	width: 300px;
+/* 	visibility: hidden; */
+}
+
+#calculatedTheme{
+	position:absolute;
+	height: 150px;
+	width: 298px;
+	left:3px;
+	top:0px;
 }
 
 #widgetZone {
 	height: 100%;
 	max-width: 100%;
+}
+
+.themeWidget{
+	height:71px;
+}
+
+#culture {
+	background-image:url("../media/cultureTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#visite {
+	background-image:url("../media/visiteTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#service {
+	background-image:url("../media/serviceTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#ville {
+	background-image:url("../media/villeTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#loisir {
+	background-image:url("../media/loisirTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#transport {
+	background-image:url("../media/transportTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
 }

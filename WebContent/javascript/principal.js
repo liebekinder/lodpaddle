@@ -3,15 +3,14 @@
  */
 
 function pageLoaded(domainPath,idChange) {
-	 $('#query').autocomplete({
-		source:domainPath+'AjaxListName',
-		minLength:3,
-		autoFocus:true
-		});
+//	 $('#query').autocomplete({
+//		source:domainPath+'AjaxListName',
+//		minLength:3,
+//		autoFocus:true
+//		});
 	 doFlip(idChange);
 //		geoloc("pos");
 }
-
 
 function doFlip(idChange){	 
 	 $('.flipIt').click(function () {$(this).rotate3Di('toggle', 1000,        {
@@ -73,6 +72,8 @@ function mySideChangeb3(front,idChange) {
 	$('.transport').css('visibility', 'visible');
 
 }
+
+
 
 
 function afficheContenu(){ 
