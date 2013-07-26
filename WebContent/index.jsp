@@ -8,7 +8,7 @@
 
 
 <link rel="stylesheet"
-	href="${domain}cssStyle/ui-lightness/jquery-ui-1.10.3.custom.css">
+	href="${domain}cssStyle/custom-theme/jquery-ui-1.10.3.custom.css">
 <link rel="shortcut icon" type="image/ico"
 	href="${domain}media/favicon.ico" />
 <link rel="stylesheet" type="text/css"
@@ -67,7 +67,7 @@
 	</div>
 
 	<script type="text/javascript">
-		//init();
+		init();
 	</script>
 
 </body>

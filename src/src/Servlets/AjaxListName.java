@@ -45,19 +45,38 @@ public class AjaxListName extends HttpServlet {
 
 	private String getListName(String filtre) {
 
-//		 String proxyHost = "193.52.105.147";
-//		 String proxyPort = "3128";
+		// String proxyHost = "193.52.105.147";
+		// String proxyPort = "3128";
 		String proxyHost = "cache.etu.univ-nantes.fr";
 		String proxyPort = "3128";
 
-		String queryString = "PREFIX foaf:<http://xmlns.com/foaf/0.1/> "
-				+ "SELECT ?nomVille "
-				+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises> "
-				+ "WHERE {" + "?commune foaf:name ?nomVille . "
-				+ "FILTER regex(?nomVille,\"^" + filtre + "\", \"i\") " + "}"
-				+ "ORDER BY ?nomVille" + "  LIMIT 10 ";
+		// Data from INSEE
+		String queryString = "PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+				+ "PREFIX idemo:<http://rdf.insee.fr/def/demo#>"
+				+ "PREFIX igeo:<http://rdf.insee.fr/def/geo#>"
+				+ "SELECT ?nom ?code WHERE {"
+				+ "  ?commune rdf:type igeo:Commune ."
+				+ "  ?commune igeo:codeCommune ?code ."
+				+ "  ?commune igeo:nom ?nom ."
+				+ "  ?commune igeo:subdivisionDe ?arrondissement ."
+				+ "  ?arrondissement igeo:subdivisionDe ?dep ."
+				+ "  ?dep igeo:subdivisionDe ?region ."
+				+ "  ?region igeo:codeRegion \"52\" ."
+				+ "FILTER regex(?nom,\"^"
+				+ filtre
+				+ "\", \"i\") "
+				+ "}"
+				+ "ORDER BY ?nom" + " LIMIT 10 ";
 
-		System.out.println(queryString);
+		// Data from our server
+		// String queryString = "PREFIX foaf:<http://xmlns.com/foaf/0.1/> "
+		// + "SELECT ?nomVille "
+		// + "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises> "
+		// + "WHERE {" + "?commune foaf:name ?nomVille . "
+		// + "FILTER regex(?nomVille,\"^" + filtre + "\", \"i\") " + "}"
+		// + "ORDER BY ?nomVille" + "  LIMIT 10 ";
+
+		// System.out.println(queryString);
 
 		System.setProperty("proxySet", "true");
 		System.setProperty("http.proxyHost", proxyHost);
@@ -65,8 +84,11 @@ public class AjaxListName extends HttpServlet {
 
 		com.hp.hpl.jena.query.Query query = QueryFactory.create(queryString);
 
+		// QueryExecution qexec = QueryExecutionFactory.sparqlService(
+		// "http://lodpaddle.univ-nantes.fr/sparql", query);
+
 		QueryExecution qexec = QueryExecutionFactory.sparqlService(
-				"http://lodpaddle.univ-nantes.fr/sparql", query);
+				"http://rdf.insee.fr/sparql", query);
 
 		String retour = "[";
 		try {
@@ -75,19 +97,28 @@ public class AjaxListName extends HttpServlet {
 			for (; results.hasNext();) {
 				// affiche chaque prochaine solution
 				QuerySolution soln = results.nextSolution();
-				RDFNode x = soln.get("nomVille");
-				retour += "\"" + x.toString() + "\",";
+				RDFNode x = soln.get("nom");
+				RDFNode y = soln.get("code");
+				retour += "\"" + x.toString() + " - "+y.toString().substring(0, 2)+"\",";
 			}
-		}
-		catch (Exception e) {
-			System.out.println("probleme avec le retour de la requete :/");
-		}finally {
+		} catch (Exception e) {
+//			System.out.println("probleme avec le retour de la requete :/");
+
+			if (retour.length() <= 2)
+				return "[\"aucune entrée\"]";
+			else
+				return retour.substring(0, retour.length() - 1) + "]";
+		} finally {
 			qexec.close();
+
 		}
-		System.out.println("ook?");
-		
-		if(retour.length() <=1) return "[\"aucune entrée\"]";
-		else return retour.substring(0, retour.length() - 1) + "]";
+
+//		System.out.println(retour);
+
+		if (retour.length() <= 2)
+			return "[\"aucune entrée\"]";
+		else
+			return retour.substring(0, retour.length() - 1) + "]";
 	}
 
 	/**

@@ -13,7 +13,7 @@ html,body {
 	height: 100%;
 	width: 100%;
 	overflow-y: hidden;
-	overflow-x: auto;
+	overflow-x: hidden;
 }
 
 header {
