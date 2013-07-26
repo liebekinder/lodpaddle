@@ -3,17 +3,19 @@
 
 
 <div id="searchBar">
-	<form action="null" method="post">
+	<form action="CreateWidget" method="post">
 
-		<div id="colorGray">
+	<!-- 	<div id="colorGray">
 			<img id="loupe" alt=" Une loupe " src="${domain}media/loupe.png" />
-		</div>
-		<div id="inputSearch">
+			required="required"
+		</div> -->
+		<div id="search">
 			<input id="query" class="search_data" name="saisie" type="text" autocomplete="off"
-				placeholder="Nom de ville ou Code postal..." required="required" />
+				placeholder="Nom de ville..." required="required" /> 
 		</div>
-		<div id="inputSubmit">
-			<input class="valid" src="${domain}media/fleche-min.png" type="image" value="submit"/> 
+	
+		<div id="submit">
+		   <input class="valid" src="${domain}media/loupe2.png" type="image" value="submit"/>
 		</div>
 
 	</form>

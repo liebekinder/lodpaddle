@@ -1,54 +1,14 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- A faire : une boucle qui lit la liste widgets et qui cré un div pour chaque -->
-
-
-	<!-- DEBUT DE TEST -->
-		<div style="z-index:0;"><c:out value="${TEST}"/></div>
-	<!-- FIN DE TEST -->
-
-<div id="widgets">
 
 	<c:forEach var="item" items="${communes}">
 
-		<div class="grid widget flipIt" id="flipIt" data-size="<c:out value="${item.x}"/>"
-			style="height:<c:out value="${item.y}" />px;
-				background:<c:out value="${item.color}" />; background-image: url( <c:out value="${item.background}" />); 
-				background-size : 100% 100% ">
+		<div class="widget"
+			style=" width: 200px; height: 90%; background:<c:out value="${item.color}" />; background-image: url( <c:out value="${item.background}" />); 
+				background-size : 100% 100%;">
 
-			<c:choose>
-				<c:when test="${item.type=='image'}">
-					<img class="itemImage" alt=" "
-						src="<c:out value="${item.picto}" />"
-						style="width: 100%; height: 100%" />
-						
-				</c:when>
 
-				<c:when test="${item.type=='presentation'}">
-				<div class="spacing ${item.theme }" onclick="alert('yess')">
-					<h3 style="text-align: center;">
-						<c:out value="${item.title}" />
-					</h3>
-					<center>
-						<img class="itemImage" alt=" "
-							src="<c:out value="${item.picto}" />"
-							style="width: 70%; height: 50%; margin-top: 15px" />
-					</center>
-				</div>
-					<c:if test="${item.theme=='presentationVille' }"> 
-					<div id="${item.theme }"  class="spacing" style="visibility: hidden;">
-						<h3 style="text-align: left;">
-						<c:out value="${item.title}" />
-						</h3>
-						<c:out value="${ item.contents.contentTexte}" />
-					</div>
-					</c:if>
-				</c:when>
-
-				<c:otherwise>
-					<div class="spacing">
-				
 					<h3 style="text-align: center;">
 						<c:out value="${item.title}" />
 					</h3>
@@ -66,12 +26,8 @@
 							</li>
 						</c:forEach>
 					</ul>
-					</div>
-					<!--  <a href="./CreateWidget" style="display:block;width:100%;height:100%;">MaxiMoi200 </a> -->
-				</c:otherwise>
-			</c:choose>
+
 		</div>
 	</c:forEach>
 
-</div>
 <!-- style=" list-style-image: url('./media/loupe.png') ;" -->

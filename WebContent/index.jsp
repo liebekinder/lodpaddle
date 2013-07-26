@@ -23,7 +23,7 @@
 
 		<header>
 			<div id="headerContainer">
-				<p>ceci est le header</p>
+				<%@ include file="WEB-INF/searchbar.jspf"%>
 			</div>
 		</header>
 		<div id="content">
@@ -37,7 +37,9 @@
 		<footer>
 			<div id="footerContainer">
 				<div id="staticTheme"></div>
-				<div id="widgetZone"></div>
+				<div id="widgetZone">
+				<%@ include file="WEB-INF/afficherWidget.jspf"%>
+				</div>
 			</div>
 		</footer>
 

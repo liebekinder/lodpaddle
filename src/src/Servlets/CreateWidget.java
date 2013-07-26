@@ -37,7 +37,7 @@ public class CreateWidget extends HttpServlet{
 		
 		
 		String texteIntro= new String("LodPaddle est un service innovant qui premet de surfer à travers les données liées issues " +
-								"de l'open data de la Région des Pays de la Loire , le département de Loire-Atlantique, de Nantes métropole et la ville de Nantes. <a href=\"header.jsp\">Mon lien de texte</a>");
+								"de l'open data de la Région des Pays de la Loire , le département de Loire-Atlantique");
 
 		Widget introduction= new Widget(1,"Présentation",2, 1,"#C0C0C0",texteIntro,"red");
 		Widget websemantique = new Widget(2,"Le Web Sémantique",2,1,"#C0C0C0","","blue");
@@ -58,7 +58,9 @@ public class CreateWidget extends HttpServlet{
 		websemantique.getContents().addLink("My link 3", "footer.jspf",domain+"/media/marqueur.png");
 
 		
-		endpoint.setType("image");
+		endpoint.setType("presentation");
+		//introduction.setType("presentation");
+		
 		endpoint.setPicto(domain+"media/nantes.jpg");
 		
 		
@@ -89,23 +91,21 @@ public class CreateWidget extends HttpServlet{
 		a_visiter.setPicto(domain+"media/aVisiter.png");
 		transport.setPicto(domain+"media/transport.png");
 		
-		/*z.setType("presentation");
-		z.setPicto(domain+"/media/hotel.jpg"); */
-		//On ajoute qu'une fois
+
 		if(Compteur==1){
 		/** Premiere page**/
-		//widgets.add(introduction);
-		//widgets.add(websemantique);
-		//widgets.add(endpoint);
+		widgets.add(introduction);
+		widgets.add(websemantique);
+		widgets.add(endpoint);
 		
-		widgets.add(presentationVille);
+		/*widgets.add(presentationVille);
 		widgets.add(loisirs);
 		widgets.add(jeu);
 		widgets.add(monparcours);
 		widgets.add(culture);
 		widgets.add(services_pratique);
 		widgets.add(a_visiter);
-		widgets.add(transport);
+		widgets.add(transport);*/
 		
 		/** Page de widgets**/
 
@@ -148,15 +148,34 @@ public class CreateWidget extends HttpServlet{
     	Compteur=Compteur+1;
 	}
 	
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-        /** Création des objets **/
+		/* Récupérer le nom de la ville request.getParameter( nomChamp );*/
 		
-
+		String nomVille= request.getParameter("search_data");
 		
-		/**  Affichage de la vue **/
-		this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        /* Préparation de l'objet de réponse à envoyer */
+         
+		Widget ficheVille;
+		Widget tweetVille;
+		Widget photoVille;
+		
+		ficheVille= new Widget(20,nomVille,0,0,"blue","contenu","");
+		tweetVille = new Widget(21,"Tweetville", 0,0,"blue", "", "");
+		
+        /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 
+        /* Stockage de la réponse et du bean (widget)  dans l'objet request */
+
+		if(Compteur==1){
+			widgets.add(ficheVille);
+			widgets.add(tweetVille);
+		
+		}
+			request.setAttribute(VILLE,widgets);
+        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        Compteur=Compteur+1;
 	}
 	
 	public void addInList(Widget w){

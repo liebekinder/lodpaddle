@@ -21,12 +21,11 @@ header {
 	width: 100%;
 	height: 35px;
 	z-index: 5000;
+	background: rgba(44, 62, 80, 0.8);
 }
 
 #headerContainer {
 	border: 1px solid black;
-	background: #2c3e50;
-	opacity: 0.8;
 	height: 100%;
 }
 
@@ -96,12 +95,15 @@ footer {
 ####          searchbar				####
 ######################################*/
 #searchBar {
-	height: 30px;
-	background: #F5F2F0;
-	box-shadow: 1px 1px 2px rgba(0, 0, 0, .3) inset;
-	/* border: 2px #0568CD solid; */
-	margin-top: 10px;
+	height: 24px;
+	background: white;
+    /*border: 2px #0568CD solid; */
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
 	position: relative;
+	width: 407px;
+	border-radius: 3px;
 }
 
 #colorGray {
@@ -114,7 +116,7 @@ footer {
 
 #loupe {
 	width: 34px;
-	height: 30px;
+	height: 20px;
 	background: #708090;
 }
 
@@ -130,31 +132,53 @@ footer {
 	position: absolute;
 	top: 0px;
 	left: 950px;
-	height: 30px;
-	width: 30px;
+	height: 20px;
+	width: 20px;
+}
+
+#submit{
+	position: relative;
 }
 
 .valid {
-	background: #708090;
+	background: #FF4500;
+	padding-top: 2px;
+	height: 22px;
+	width: 27px;
+	border-radius: 3px;
+}
+
+#search {
+	width: 380px;
+	float: left;
 }
 
 .search_data {
-	position: absolute;
-	width: 100%;
-	top: 2px;
-	left: 4px;
-	height: 70%;
+	position: relative;
+	width: 95%;
+	height: 15px;
+	margin-left: 2px;
+	top: 1px;
+	border: none;
 }
 
 /*######################################
 ####          widget				####
 ######################################*/
 .widget { /*padding-right: 10px;*/
+	/*border: 2px #FFFFFF solid;*/
+	position: relative;
+	float:left;
 	padding-left: 15px;
 	padding-top: 0px;
 	/*padding-bottom: 10px;*/
 	font-size: 12px;
 	font-family: arial;
+	margin-left: 10px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+		border-radius: 3px;
+	
 }
 
 .linkImg {
@@ -205,4 +229,7 @@ li {
 #widgetZone {
 	height: 100%;
 	max-width: 100%;
+	/*background-color: aqua;*/
+	border: 2px #0568CD solid;
+	padding-left: 25%;
 }

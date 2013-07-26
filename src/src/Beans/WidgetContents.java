@@ -2,6 +2,7 @@ package src.Beans;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class WidgetContents {
 	
@@ -9,6 +10,7 @@ public class WidgetContents {
 	private List<String> contentImages;
 	private List<WidgetLink> contentLinks;
 	private String linkColor;
+	private Map<String,String> blocks; //pour faire les blocs
 	
 	public WidgetContents(String texte, String linksColor){
 		

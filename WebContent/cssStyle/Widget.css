@@ -4,7 +4,7 @@
 	font-size: 12px;
 	font-family: arial;
 	/*border-radius: 10px;*/
-	
+	border: 2px #FFFFFF solid;
 }
 
 .spacing{
@@ -50,23 +50,4 @@ li{
 
 .itemImage{
 	background-color: white;
-}
-
-.bouton{
-	width: 60px;
-	height: 65px;
-}
-
-.boutons{
-	width: 100%;
-}
-
-.toflip{
-	width: 180px;
-	height: 180px;
-	/*opacity:0.5;*/
-	
-}
-
-.flipping{
 }
