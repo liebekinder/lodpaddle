@@ -172,7 +172,7 @@ public class CreateWidget extends HttpServlet{
 		
 		/* Récupérer le nom de la ville request.getParameter( nomChamp );*/
 		
-		String nomVille= request.getParameter("search_data");
+		String nomVille= request.getParameter("saisie");
 		
         /* Préparation de l'objet de réponse à envoyer */
          
@@ -187,12 +187,15 @@ public class CreateWidget extends HttpServlet{
 
         /* Stockage de la réponse et du bean (widget)  dans l'objet request */
 
-		if(Compteur==1){
+		widgets.clear();
+		//if(Compteur==3){
 			widgets.add(ficheVille);
 			widgets.add(tweetVille);
-		
-		}
+		//}
+		if(widgets.isEmpty()==false){
 			request.setAttribute(VILLE,widgets);
+		}
+		
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
         Compteur=Compteur+1;
 	}
