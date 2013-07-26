@@ -3,11 +3,11 @@
  */
 
 function pageLoaded(domainPath, idChange) {
-	// $('#query').autocomplete({
-	// source:domainPath+'AjaxListName',
-	// minLength:3,
-	// autoFocus:true
-	// });
+	 $('#query').autocomplete({
+	 source:domainPath+'AjaxListName',
+	 minLength:2,
+	 autoFocus:true
+	 });
 	doFlip(idChange);
 	// geoloc("pos");
 }
