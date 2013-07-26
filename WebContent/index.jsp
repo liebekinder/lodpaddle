@@ -18,7 +18,7 @@
 <script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
 <script type="text/javascript" src="${domain}javascript/jquery.min.js"></script>
 <script type="text/javascript"
-	src="http://lodpaddle.univ-nantes.fr/lodpaddle/javascript/blocksit.min.js"></script>
+	src="${domain}javascript/blocksit.min.js"></script>
 <script type="text/javascript"
 	src="${domain}javascript/jquery-ui-1.10.3.custom.js"></script>
 <script type="text/javascript"

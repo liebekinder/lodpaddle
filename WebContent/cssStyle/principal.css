@@ -92,7 +92,7 @@ footer {
 	font-size: xx-small;
 }
 
-#mousePosition{
+#mousePosition {
 	position: absolute;
 	bottom: 145px;
 	right: -3px;
@@ -107,7 +107,7 @@ footer {
 #searchBar {
 	height: 24px;
 	background: white;
-    /*border: 2px #0568CD solid; */
+	/*border: 2px #0568CD solid; */
 	margin-top: 5px;
 	margin-left: auto;
 	margin-right: auto;
@@ -146,7 +146,7 @@ footer {
 	width: 20px;
 }
 
-#submit{
+#submit {
 	position: relative;
 }
 
@@ -175,20 +175,17 @@ footer {
 /*######################################
 ####          widget				####
 ######################################*/
-.widget { /*padding-right: 10px;*/
-	/*border: 2px #FFFFFF solid;*/
+.widget {
 	position: relative;
-	float:left;
+	float: left;
 	padding-left: 15px;
 	padding-top: 0px;
-	/*padding-bottom: 10px;*/
 	font-size: 12px;
 	font-family: arial;
 	margin-left: 10px;
-	margin-top: 4px;
-	margin-bottom: 4px;
+	top: 4px;
 	border-radius: 3px;
-	
+	height: 142px;
 }
 
 .linkImg {
@@ -226,72 +223,66 @@ li {
 	background-color: white;
 }
 
-
 /*######################################
 ####          footer				####
 ######################################*/
-#staticTheme {
-/* 	background-color: rgba(0,0,0,0.2); */
+#staticTheme { /* 	background-color: rgba(0,0,0,0.2); */
 	float: left;
 	height: 150px;
 	width: 300px;
-/* 	visibility: hidden; */
+	/* 	visibility: hidden; */
 }
 
-#calculatedTheme{
-	position:absolute;
+#calculatedTheme {
+	position: absolute;
 	height: 150px;
 	width: 298px;
-	left:3px;
-	top:0px;
+	left: 3px;
+	top: 0px;
 }
 
 #widgetZone {
 	height: 100%;
 	max-width: 100%;
-	/*background-color: aqua;*/
-	border: 2px #0568CD solid;
 	padding-left: 25%;
 }
 
-
-.themeWidget{
-	height:71px;
+.themeWidget {
+	height: 71px;
 }
 
 #culture {
-	background-image:url("../media/cultureTheme.png");
-	background-size:71px 71px;
-	background-repeat:no-repeat;
+	background-image: url("../media/cultureTheme.png");
+	background-size: 71px 71px;
+	background-repeat: no-repeat;
 }
 
 #visite {
-	background-image:url("../media/visiteTheme.png");
-	background-size:71px 71px;
-	background-repeat:no-repeat;
+	background-image: url("../media/visiteTheme.png");
+	background-size: 71px 71px;
+	background-repeat: no-repeat;
 }
 
 #service {
-	background-image:url("../media/serviceTheme.png");
-	background-size:71px 71px;
-	background-repeat:no-repeat;
+	background-image: url("../media/serviceTheme.png");
+	background-size: 71px 71px;
+	background-repeat: no-repeat;
 }
 
 #ville {
-	background-image:url("../media/villeTheme.png");
-	background-size:71px 71px;
-	background-repeat:no-repeat;
+	background-image: url("../media/villeTheme.png");
+	background-size: 71px 71px;
+	background-repeat: no-repeat;
 }
 
 #loisir {
-	background-image:url("../media/loisirTheme.png");
-	background-size:71px 71px;
-	background-repeat:no-repeat;
+	background-image: url("../media/loisirTheme.png");
+	background-size: 71px 71px;
+	background-repeat: no-repeat;
 }
 
 #transport {
-	background-image:url("../media/transportTheme.png");
-	background-size:71px 71px;
-	background-repeat:no-repeat;
+	background-image: url("../media/transportTheme.png");
+	background-size: 71px 71px;
+	background-repeat: no-repeat;
 }
-
