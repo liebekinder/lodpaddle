@@ -32,6 +32,8 @@ public class CreateWidget extends HttpServlet{
 		
         /** Création des widgets **/
 		
+		themeManagmement(request, response);
+		
 		String s= new String( "Pays : France \n"+" Region : Pays de la Loire \n "+"Departement : Loire Atlantique \n"+" Code commune : 44036 \n" );
 		Widget commune = new Widget(10,"Nantes",300,400,"blue",s,"");
 		
@@ -147,8 +149,25 @@ public class CreateWidget extends HttpServlet{
     	this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     	Compteur=Compteur+1;
 	}
-	
-	
+
+	private void themeManagmement(HttpServletRequest request,
+			HttpServletResponse response) {
+		//this function manage static theme
+		List<String> listeTheme = new ArrayList<String>();
+		listeTheme.add("loisir");
+		listeTheme.add("culture");
+		listeTheme.add("ville");
+		listeTheme.add("service");
+		listeTheme.add("visite");
+		listeTheme.add("transport");	
+		
+		int nbCol =(listeTheme.size() % 2 == 0) ? listeTheme.size()/2 : listeTheme.size()/2+1;
+		
+		request.setAttribute("theme",listeTheme);
+		request.setAttribute("nbCol",nbCol);
+	}
+
+
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		/* Récupérer le nom de la ville request.getParameter( nomChamp );*/

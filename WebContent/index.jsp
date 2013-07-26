@@ -14,9 +14,20 @@
 <link rel="stylesheet" type="text/css"
 	href="${domain}cssStyle/principal.css" />
 
+<script type="text/javascript" src="${domain}javascript/principal.js"></script>
+<script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
+<script type="text/javascript" src="${domain}javascript/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://lodpaddle.univ-nantes.fr/lodpaddle/javascript/blocksit.min.js"></script>
+<script type="text/javascript"
+	src="${domain}javascript/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript"
+	src="${domain}javascript/jquery-css-transform.js"></script>
+<script type="text/javascript" src="${domain}javascript/rotate3Di.js"></script>
+
 
 </head>
-<body onload="doFlip('${idsForChange}')">
+<body onload="pageLoaded('${domain}','${idsForChange}');">
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	<div id="AllScreenDiv">
@@ -29,6 +40,7 @@
 		<div id="content">
 			<div id="scaleline-id"></div>
 			<div id="olControlAttribution"></div>
+			<div id="mousePosition"></div>
 			<div id="contentContainer">
 				<p>Ceci est le contenu</p>
 			</div>
@@ -36,7 +48,8 @@
 
 		<footer>
 			<div id="footerContainer">
-				<div id="staticTheme"></div>
+				<div id="staticTheme"><%@ include
+						file="WEB-INF/themeZone.jspf"%></div>
 				<div id="widgetZone">
 				<%@ include file="WEB-INF/afficherWidget.jspf"%>
 				</div>
@@ -45,16 +58,6 @@
 
 	</div>
 
-	<!-- Javascript placed at the end of the document so the pages load faster -->
-
-	<script type="text/javascript" src="${domain}javascript/principal.js"></script>
-	<script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
-	<script type="text/javascript" src="${domain}javascript/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="${domain}javascript/jquery-ui-1.10.3.custom.js"></script>
-	<script type="text/javascript"
-		src="${domain}javascript/jquery-css-transform.js"></script>
-	<script type="text/javascript" src="${domain}javascript/rotate3Di.js"></script>
 	<script type="text/javascript">
 		init();
 	</script>

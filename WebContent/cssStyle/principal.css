@@ -12,7 +12,8 @@ html,body {
 #AllScreenDiv {
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
+	overflow-y: hidden;
+	overflow-x: auto;
 }
 
 header {
@@ -36,14 +37,14 @@ header {
 
 #contentContainer {
 	position: absolute;
-	left: 20px;
-	bottom: 170px;
-	width: 250px;
-	height: 320px;
+	left: 5px;
+	top: 40px;
+	width: 222px;
+	height: 350px;
 	background: green;
 	opacity: 0.5;
 	z-index: 5000;
-	border-radius: 15px;
+	border-radius: 3px;
 }
 
 footer {
@@ -52,7 +53,7 @@ footer {
 	height: 150px;
 	width: 100%;
 	z-index: 5000;
-	border: 1px solid black;
+	border-top: 1px solid black;
 	background: rgba(44, 62, 80, 0.8);
 }
 
@@ -77,18 +78,27 @@ footer {
 	font-size: smaller;
 	z-index: 1005;
 	right: 5px;
-	bottom: 160px;
+	bottom: 150px;
 	position: absolute;
 	display: block;
 }
 
 #scaleline-id {
 	position: absolute;
-	bottom: 180px;
-	right: 20px;
-	padding: 10px;
+	bottom: 190px;
+	right: 5px;
+	padding: 5px;
 	z-index: 1005;
 	font-size: xx-small;
+}
+
+#mousePosition{
+	position: absolute;
+	bottom: 145px;
+	right: -3px;
+	padding: 10px;
+	z-index: 1005;
+	font-size: small;
 }
 
 /*######################################
@@ -216,14 +226,24 @@ li {
 	background-color: white;
 }
 
+
 /*######################################
 ####          footer				####
 ######################################*/
 #staticTheme {
-	background-color: green;
+/* 	background-color: rgba(0,0,0,0.2); */
 	float: left;
-	height: 100%;
-	width: 0px;
+	height: 150px;
+	width: 300px;
+/* 	visibility: hidden; */
+}
+
+#calculatedTheme{
+	position:absolute;
+	height: 150px;
+	width: 298px;
+	left:3px;
+	top:0px;
 }
 
 #widgetZone {
@@ -233,3 +253,45 @@ li {
 	border: 2px #0568CD solid;
 	padding-left: 25%;
 }
+
+
+.themeWidget{
+	height:71px;
+}
+
+#culture {
+	background-image:url("../media/cultureTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#visite {
+	background-image:url("../media/visiteTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#service {
+	background-image:url("../media/serviceTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#ville {
+	background-image:url("../media/villeTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#loisir {
+	background-image:url("../media/loisirTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
+#transport {
+	background-image:url("../media/transportTheme.png");
+	background-size:71px 71px;
+	background-repeat:no-repeat;
+}
+
