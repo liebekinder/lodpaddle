@@ -2,33 +2,58 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+<c:if test="${page=='accueil' }">
+<table style="padding-left: 300px;"> 
+</c:if>
+
+<c:if test="${page=='affichageDetail' }">
+<table>
+</c:if>
+
+<tr>
 <c:forEach var="item" items="${communes}">
 
+<td> 
 	<div class="widget"
 		style="
-	width: 200px; background:<c:out value="${item.color}" />; background-image: url( <c:out value="${item.background}" />); 
+	width: <c:out value="${item.x}px" />; background:<c:out value="${item.color}" />; background-image: url( <c:out value="${item.background}" />); 
 				background-size : 100% 100%;">
 
-
-		<h3 style="text-align: center;">
-			<c:out value="${item.title}" />
-		</h3>
-		<c:out value="${ item.contents.contentTexte}" />
-
-		<ul>
-			<c:forEach var="link" items="${item.contents.contentLinks}">
-				<li>
-					<div class="linkdiv">
-						<img class="linkImg" alt=" "
-							src="<c:out value="${link.linkImage}" />" /> <a
-							href="<c:out value="${link.linkUri}" />"><c:out
-								value="${ link.linkText}" /> </a>
-					</div>
-				</li>
-			</c:forEach>
-		</ul>
+	<c:choose>
+		<c:when test="${item.type=='image'}">
+			<img class="itemImage" alt=" "
+						src="<c:out value="${item.picto}" />"
+						style="width: 100%; height: 100%" />
+						
+		</c:when>
+		
+		<c:otherwise>
+			<div class="spacing" >
+				<h3 style="text-align: center;">
+					<c:out value="${item.title}" />
+				</h3>
+				<c:out value="${ item.contents.contentTexte}" escapeXml="false" />
+	
+				<ul>
+					<c:forEach var="link" items="${item.contents.contentLinks}">
+						<li>
+							<div class="linkdiv">
+								<img class="linkImg" alt=" "
+									src="<c:out value="${link.linkImage}" />" /> <a
+									href="<c:out value="${link.linkUri}" />"><c:out
+										value="${ link.linkText}" /> </a>
+							</div>
+						</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:otherwise>
+	</c:choose>
 
 	</div>
+</td>
 </c:forEach>
+</tr>
+</table>
 
 <!-- style=" list-style-image: url('./media/loupe.png') ;" -->
