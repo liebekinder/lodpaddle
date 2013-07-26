@@ -52,6 +52,7 @@
 						file="WEB-INF/themeZone.jspf"%></div>
 				<div id="widgetZone">
 				<%@ include file="WEB-INF/afficherWidget.jspf"%>
+				<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
 				</div>
 			</div>
 		</footer>
