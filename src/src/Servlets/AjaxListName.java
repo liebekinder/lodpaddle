@@ -45,8 +45,8 @@ public class AjaxListName extends HttpServlet {
 
 	private String getListName(String filtre) {
 
-		// String proxyHost = "193.52.105.147";
-		// String proxyPort = "3128";
+//		 String proxyHost = "193.52.105.147";
+//		 String proxyPort = "3128";
 		String proxyHost = "cache.etu.univ-nantes.fr";
 		String proxyPort = "3128";
 
@@ -85,7 +85,9 @@ public class AjaxListName extends HttpServlet {
 			qexec.close();
 		}
 		System.out.println("ook?");
-		return retour.substring(0, retour.length() - 1) + "]";
+		
+		if(retour.length() <=1) return "[\"aucune entrée\"]";
+		else return retour.substring(0, retour.length() - 1) + "]";
 	}
 
 	/**

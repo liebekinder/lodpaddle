@@ -23,10 +23,10 @@ header {
 	height: 35px;
 	z-index: 5000;
 	background: rgba(44, 62, 80, 0.8);
+	border-bottom: 1px solid black;
 }
 
 #headerContainer {
-	border: 1px solid black;
 	height: 100%;
 }
 
@@ -41,8 +41,7 @@ header {
 	top: 40px;
 	width: 222px;
 	height: 350px;
-	background: green;
-	opacity: 0.5;
+	background: rgba(56,172,83,0.67);
 	z-index: 5000;
 	border-radius: 3px;
 }
@@ -104,18 +103,6 @@ footer {
 /*######################################
 ####          searchbar				####
 ######################################*/
-#searchBar {
-	height: 24px;
-	background: white;
-	/*border: 2px #0568CD solid; */
-	margin-top: 5px;
-	margin-left: auto;
-	margin-right: auto;
-	position: relative;
-	width: 407px;
-	border-radius: 3px;
-}
-
 #colorGray {
 	position: absolute;
 	top: 0px;
@@ -128,6 +115,7 @@ footer {
 	width: 34px;
 	height: 20px;
 	background: #708090;
+	padding-bottom:0px;
 }
 
 #inputSearch {
@@ -138,29 +126,44 @@ footer {
 	width: 900px;
 }
 
-#inputSubmit {
-	position: absolute;
-	top: 0px;
-	left: 950px;
-	height: 20px;
-	width: 20px;
-}
-
-#submit {
+#searchBar {
+	height: 24px;
+	background: white;
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
 	position: relative;
-}
-
-.valid {
-	background: #FF4500;
-	padding-top: 2px;
-	height: 22px;
-	width: 27px;
+	width: 407px;
 	border-radius: 3px;
 }
 
 #search {
 	width: 380px;
 	float: left;
+	z-index:5010;
+}
+
+#submit {
+	position: relative;
+	height: 22px;
+	width: 27px;
+	float:left;
+}
+
+#inputSubmit {
+	position: absolute;
+	top: 0px;
+	left: 950px;
+	height: 20px;
+	width: 20px;
+	float: left;
+}
+
+.valid {
+	background: #FF4500;
+	height: 24px;
+	width: 27px;
+	border-radius: 3px;
 }
 
 .search_data {
@@ -285,4 +288,30 @@ li {
 	background-image: url("../media/transportTheme.png");
 	background-size: 71px 71px;
 	background-repeat: no-repeat;
+}
+
+/*######################################
+####          footer				####
+######################################*/
+#oneContent {
+	position: relative;
+	margin: auto;
+	opacity: 1;
+	text-align: center;
+	color: white;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#anotherContent {
+	position: relative;
+	margin: auto;
+	color: white;
+	opacity: 1;
+}
+
+#lastContent {
+	position: relative;
+	margin: auto;
+	color: black;
+	opacity: 1;
 }
