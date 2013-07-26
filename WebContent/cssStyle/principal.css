@@ -101,7 +101,7 @@ footer {
 }
 
 /*######################################
-####          searchbar				####
+####          header				####
 ######################################*/
 #colorGray {
 	position: absolute;
@@ -137,10 +137,25 @@ footer {
 	border-radius: 3px;
 }
 
+#geoLoc {
+	position: relative;
+	height: 22px;
+	width: 27px;
+	float:left;
+}
+
+.geoLocImg {
+	background: #FF4500;
+	height: 24px;
+	width: 27px;
+	border-radius: 3px;
+}
+
 #search {
-	width: 380px;
+	width: 348px;
 	float: left;
 	z-index:5010;
+	padding-left:5px;
 }
 
 #submit {
@@ -173,6 +188,30 @@ footer {
 	margin-left: 2px;
 	top: 1px;
 	border: none;
+}
+
+#lodpaddleZone{
+	position:absolute;
+	width:300px;
+	min-width:100px;
+	height:35px;
+	left:0px;
+	top:0px;
+	font-weight: bold;
+}
+
+.lodpaddleTitle a:hover,
+.lodpaddleTitle a:visited{
+	color:black;
+}
+
+#creditZone{
+	position:absolute;
+	width:300px;
+	min-width:100px;
+	height:35px;
+	right:0px;
+	top:0px;
 }
 
 /*######################################

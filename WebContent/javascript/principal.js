@@ -86,11 +86,13 @@ function geoloc(monDiv) {
 		// Fonction de callback en cas de succès
 		function affichePosition(position) {
 
-			var infopos = "Position déterminée : <br>";
-			infopos += "Latitude : " + position.coords.latitude + "<br>";
-			infopos += "Longitude: " + position.coords.longitude + "<br>";
-			infopos += "Altitude : " + position.coords.altitude + "<br>";
-			document.getElementById(monDiv).innerHTML = infopos;
+			var infopos = "Position déterminée :\n";
+			infopos += "Latitude : " + position.coords.latitude + "\n";
+			infopos += "Longitude: " + position.coords.longitude + "\n";
+			infopos += "Altitude : " + position.coords.altitude + "\n";
+			
+			if(monDiv == 'alert') alert("succès!\n"+infopos);
+			else document.getElementById(monDiv).innerHTML = infopos;
 
 		}
 
@@ -111,7 +113,8 @@ function geoloc(monDiv) {
 				info += "Erreur inconnue";
 				break;
 			}
-			document.getElementById(monDiv).innerHTML = info;
+			if(monDiv == 'alert') alert("échec!\n"+infopos);
+			else document.getElementById(monDiv).innerHTML = infopos;
 		}
 
 		navigator.geolocation.getCurrentPosition(affichePosition,

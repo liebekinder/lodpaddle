@@ -32,7 +32,6 @@ public class CreateWidget extends HttpServlet{
 		
         /** Création des widgets **/
 		
-		themeManagmement(request, response);
 		
 		String s= new String( "Pays : France \n"+" Region : Pays de la Loire \n "+"Departement : Loire Atlantique \n"+" Code commune : 44036 \n" );
 		Widget commune = new Widget(10,"Nantes",300,400,"blue",s,"");
@@ -171,8 +170,13 @@ public class CreateWidget extends HttpServlet{
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		/* Récupérer le nom de la ville request.getParameter( nomChamp );*/
+
 		
 		String nomVille= request.getParameter("saisie");
+		
+		if(nomVille != null && nomVille != ""){
+			themeManagmement(request, response);
+		}
 		
         /* Préparation de l'objet de réponse à envoyer */
          
