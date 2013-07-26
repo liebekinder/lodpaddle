@@ -15,7 +15,7 @@
 		</div>
 	
 		<div id="submit">
-		   <input class="valid" src="${domain}media/loupe2.png" type="image" value="submit"/>
+		   <input class="valid" src="${domain}media/loupe2.png" type="image" alt="submit"/>
 		</div>
 
 	</form>
