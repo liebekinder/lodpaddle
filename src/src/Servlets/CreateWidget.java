@@ -32,18 +32,22 @@ public class CreateWidget extends HttpServlet{
 		
         /** Création des widgets **/
 		
-		themeManagmement(request, response);
+
+		request.setAttribute("page", "accueil");
+		
+		if (request.getAttribute("page")!="accueil"){
+			themeManagmement(request, response);
+		}
 		
 		String s= new String( "Pays : France \n"+" Region : Pays de la Loire \n "+"Departement : Loire Atlantique \n"+" Code commune : 44036 \n" );
 		Widget commune = new Widget(10,"Nantes",300,400,"blue",s,"");
 		
 		
-		String texteIntro= new String("LodPaddle est un service innovant qui premet de surfer à travers les données liées issues " +
-								"de l'open data de la Région des Pays de la Loire , le département de Loire-Atlantique");
+		String texteIntro= new String("LodPaddle est un <br /> service innovant qui premet de surfer <br /> de <a href=\"blabla.jsp\"> l'open data de la Région des Pays de la Loire </a> ");
 
-		Widget introduction= new Widget(1,"Présentation",2, 1,"#C0C0C0",texteIntro,"red");
-		Widget websemantique = new Widget(2,"Le Web Sémantique",2,1,"#C0C0C0","","blue");
-		Widget endpoint = new Widget(3,"Accès développeurs",2,1, "#C0C0C0", "loulou","yellow");
+		Widget introduction= new Widget(1,"Présentation",200, 1,"#1abc9c",texteIntro,"red");
+		Widget websemantique = new Widget(2,"Le Web Sémantique",200,1,"#2ecc71","","blue");
+		Widget endpoint = new Widget(3,"Accès développeurs",200,1, "#5dabe3", "","yellow");
 		
 		Widget culture = new Widget(4, "CULTURE",2,3,"green","","");
 		Widget loisirs = new Widget(5, "LOISIRS",2,3,"blue","","");
@@ -55,9 +59,9 @@ public class CreateWidget extends HttpServlet{
 		Widget monparcours= new Widget(11,"parcours", 1, 1,"","","");
 		Widget jeu= new Widget(12,"jeu", 1, 1,"","","");
 
-		websemantique.getContents().addLink("My link 1", "index.jsp",domain+"/media/marqueur.png");
-		websemantique.getContents().addLink("My link 2", "footer.jspf",domain+"/media/marqueur.png");
-		websemantique.getContents().addLink("My link 3", "footer.jspf",domain+"/media/marqueur.png");
+		//websemantique.getContents().addLink("My link 1", "index.jsp",domain+"/media/marqueur.png");
+		//websemantique.getContents().addLink("My link 2", "footer.jspf",domain+"/media/marqueur.png");
+		//websemantique.getContents().addLink("My link 3", "footer.jspf",domain+"/media/marqueur.png");
 
 		
 		endpoint.setType("presentation");
@@ -94,7 +98,7 @@ public class CreateWidget extends HttpServlet{
 		transport.setPicto(domain+"media/transport.png");
 		
 
-		if(Compteur==1){
+		//if(Compteur==1){
 		/** Premiere page**/
 		widgets.add(introduction);
 		widgets.add(websemantique);
@@ -111,7 +115,7 @@ public class CreateWidget extends HttpServlet{
 		
 		/** Page de widgets**/
 
-		}
+		//}
 		
 		/** Ajout les themes dans la liste **/
 		
@@ -147,6 +151,7 @@ public class CreateWidget extends HttpServlet{
 		//FIN ZONE DE TEST
 		
     	this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+    	widgets.clear();
     	Compteur=Compteur+1;
 	}
 
@@ -170,33 +175,67 @@ public class CreateWidget extends HttpServlet{
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
+		themeManagmement(request, response);
 		/* Récupérer le nom de la ville request.getParameter( nomChamp );*/
 		
 		String nomVille= request.getParameter("saisie");
+
+		System.out.println(nomVille);
 		
         /* Préparation de l'objet de réponse à envoyer */
+		
+		String ficheVilleText;
          
 		Widget ficheVille;
 		Widget tweetVille;
 		Widget photoVille;
+		Widget photoBateau;
 		
-		ficheVille= new Widget(20,nomVille,0,0,"blue","contenu","");
-		tweetVille = new Widget(21,"Tweetville", 0,0,"blue", "", "");
+		ficheVilleText="<div style=\"width:100px; float:left; position: relative;\"><b>Administration</b> " +
+				"<br />Département :" +
+				"<br />Canton : " +
+				"<br />Intercommunalité: " +
+				"<br />Maire : " +
+				"<br />Mandat : " +
+				"<br />Site web : " +
+				"</div>" +
+				"<div style=\"width:200px; float:right; position: relative;\"><b>Démographie</b> " +
+				"<br />Les habitants s'appellent les cantonnais." +
+				"<br />La population est de 10000 personnes pour une densité de 258 hab au km2." +
+				"<br />" +
+				"<b>Geographie</b> " +
+				"<br />Altitude :" +
+				"<br />Superficie : " +
+				"</div>";
+		ficheVille= new Widget(20,nomVille,400,0,"#2980b9",ficheVilleText,"");
+		tweetVille = new Widget(21,"",200,0,"#2980b9", "", "");
+		photoVille = new Widget(22,"Photos",200,0, "#2980b9", "", "");
+		photoBateau = new Widget(23,"",300,0, "#2980b9", "", "");
+		tweetVille.setBackground(domain+"media/tweet.png");
+		photoVille.setType("image");
+		photoVille.setPicto(domain+"media/nantesTown.jpg");
+		photoBateau.setType("image");
+		photoBateau.setPicto(domain+"media/photoBateau.jpg");
 		
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-
+		
         /* Stockage de la réponse et du bean (widget)  dans l'objet request */
 
+		if(nomVille!=""){
 		widgets.clear();
-		//if(Compteur==3){
-			widgets.add(ficheVille);
-			widgets.add(tweetVille);
-		//}
+		widgets.add(ficheVille);
+		widgets.add(tweetVille);
+		widgets.add(photoVille);
+		widgets.add(photoBateau);
+		}
+			
 		if(widgets.isEmpty()==false){
 			request.setAttribute(VILLE,widgets);
 		}
 		
+		request.setAttribute("page","affichageDetail");
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
+        widgets.clear();
         Compteur=Compteur+1;
 	}
 	

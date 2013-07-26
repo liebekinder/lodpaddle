@@ -12,8 +12,8 @@ html,body {
 #AllScreenDiv {
 	height: 100%;
 	width: 100%;
-	overflow-y: hidden;
-	overflow-x: auto;
+	/*overflow-y: hidden;
+	overflow-x: auto;*/
 }
 
 header {
@@ -178,14 +178,19 @@ footer {
 .widget {
 	position: relative;
 	float: left;
-	padding-left: 15px;
-	padding-top: 0px;
 	font-size: 12px;
 	font-family: arial;
 	margin-left: 10px;
 	top: 4px;
 	border-radius: 3px;
 	height: 142px;
+}
+
+.spacing{
+	padding-left: 15px;
+	padding-top: 0px;
+	padding-right: 10px;
+	text-align: left;
 }
 
 .linkImg {
@@ -244,11 +249,21 @@ li {
 #widgetZone {
 	height: 100%;
 	max-width: 100%;
-	padding-left: 25%;
+	/*padding-left: 25%;
+	overflow: auto;*/ 
+	overflow-y: hidden;
+	overflow-x: auto;
+	scrollbar-face-color: blue;
 }
+
+#widgetZone::-webkit-scrollbar {
+
+  height: 100px; /*hauteur de la scrollbar horizontale*/
+  background-color: #000000;}
 
 .themeWidget {
 	height: 71px;
+
 }
 
 #culture {
