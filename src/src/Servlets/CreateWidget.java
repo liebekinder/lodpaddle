@@ -23,9 +23,9 @@ public class CreateWidget extends HttpServlet{
     public String VILLE;
     public List<Widget> widgets=new ArrayList<Widget>();
     public int Compteur=1;
-    public final String domain = "http://localhost:8080/lodpaddleTest/";
     public List<String> listIds= new ArrayList<String>();
-    //public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+    public final String domain = "http://localhost:8080/lodpaddleTest/";
+//    public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{

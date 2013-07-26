@@ -8,7 +8,7 @@
 
 
 <link rel="stylesheet"
-	href="${domain}cssStyle/ui-lightness/jquery-ui-1.10.3.custom.css">
+	href="${domain}cssStyle/custom-theme/jquery-ui-1.10.3.custom.css">
 <link rel="shortcut icon" type="image/ico"
 	href="${domain}media/favicon.ico" />
 <link rel="stylesheet" type="text/css"
@@ -17,8 +17,7 @@
 <script type="text/javascript" src="${domain}javascript/principal.js"></script>
 <script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
 <script type="text/javascript" src="${domain}javascript/jquery.min.js"></script>
-<script type="text/javascript"
-	src="${domain}javascript/blocksit.min.js"></script>
+<script type="text/javascript" src="${domain}javascript/blocksit.min.js"></script>
 <script type="text/javascript"
 	src="${domain}javascript/jquery-ui-1.10.3.custom.js"></script>
 <script type="text/javascript"
@@ -42,7 +41,15 @@
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
 			<div id="contentContainer">
-				<p>Ceci est le contenu</p>
+				<div id="oneContent">
+					<p>Ceci est le contenu</p>
+				</div>
+				<div id="anotherContent">
+					<p>Ceci est le contenu</p>
+				</div>
+				<div id="lastContent">
+					<p>Ceci est le contenu</p>
+				</div>
 			</div>
 		</div>
 
@@ -51,8 +58,8 @@
 				<div id="staticTheme"><%@ include
 						file="WEB-INF/themeZone.jspf"%></div>
 				<div id="widgetZone">
-				<%@ include file="WEB-INF/afficherWidget.jspf"%>
-				<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
+					<%@ include file="WEB-INF/afficherWidget.jspf"%>
+					<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
 				</div>
 			</div>
 		</footer>

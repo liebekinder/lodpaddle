@@ -3,7 +3,7 @@
  */
 
 function pageLoaded(domainPath, idChange) {
-	 $('#query').autocomplete({
+	 $('#searchInput').autocomplete({
 	 source:domainPath+'AjaxListName',
 	 minLength:2,
 	 autoFocus:true
