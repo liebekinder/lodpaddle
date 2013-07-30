@@ -134,7 +134,7 @@ footer {
 	margin-right: auto;
 	position: relative;
 	width: 407px;
-	border-radius: 3px;
+	border-radius: 4px;
 }
 
 #geoLoc {
@@ -288,20 +288,6 @@ li {
 	top: 0px;
 }
 
-#widgetZone {
-	height: 100%;
-	max-width: 100%;
-	/*padding-left: 25%;
-	overflow: auto;*/ 
-	overflow-y: hidden;
-	overflow-x: auto;
-	scrollbar-face-color: blue;
-}
-
-#widgetZone::-webkit-scrollbar {
-
-  height: 100px; /*hauteur de la scrollbar horizontale*/
-  background-color: #000000;}
 
 .themeWidget {
 	height: 71px;

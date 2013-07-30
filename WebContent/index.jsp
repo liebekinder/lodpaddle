@@ -23,6 +23,7 @@
 <script type="text/javascript"
 	src="${domain}javascript/jquery-css-transform.js"></script>
 <script type="text/javascript" src="${domain}javascript/rotate3Di.js"></script>
+<script type="text/javascript" src="${domain}javascript/jquery.mCustomScrollbar.js"></script>
 
 
 </head>
@@ -40,7 +41,7 @@
 			<div id="scaleline-id"></div>
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
-			<div id="contentContainer">
+			<div id="contentContainer" style="line-height:25%; font-size:9pt;">
 				<div id="oneContent">
 					<p>Ceci est le contenu</p>
 				</div>
@@ -50,6 +51,7 @@
 				<div id="lastContent">
 					<p>Ceci est le contenu</p>
 				</div>
+
 			</div>
 		</div>
 
@@ -57,7 +59,7 @@
 			<div id="footerContainer">
 				<div id="staticTheme"><%@ include
 						file="WEB-INF/themeZone.jspf"%></div>
-				<div id="widgetZone">
+				<div id="widgetZone" class="specificScroll">
 					<%@ include file="WEB-INF/afficherWidget.jspf"%>
 					<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
 				</div>
@@ -68,6 +70,13 @@
 
 	<script type="text/javascript">
 		init();
+		$(window).load(function(){
+			$("#widgetZone").mCustomScrollbar({
+				scrollButtons:{
+					enable:true
+				}
+			});
+		});
 	</script>
 
 </body>

@@ -3,11 +3,11 @@
 
 <div id="lodpaddleZone"><span class="lodpaddleTitle"><a href=".">LODPADDLE</a></span></div>
 <div id="searchBar">
-	<form action="." method="POST">
+	<form action="${domain}" method="POST">
 
 		<div id="geoLoc">
 			<img class="geoLocImg" alt="geolocalise moi!"
-				src="${domain}media/loupe2.png" onclick="geoloc('alert')" />
+				src="${domain}media/geoloc.png" onclick="geoloc('alert')" />
 		</div>
 		<div id="search">
 			<input id="searchInput" class="search_data" name="saisie" type="text"
@@ -15,7 +15,7 @@
 		</div>
 
 		<div id="submit">
-			<input class="valid" src="${domain}media/loupe2.png" type="image"
+			<input class="valid" src="${domain}media/loupe.png" type="image"
 				alt="submit" />
 		</div>
 
