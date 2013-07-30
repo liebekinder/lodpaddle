@@ -12,8 +12,8 @@
 	</c:forEach>
 </div>
 	<script type="text/javascript">
-	$("#staticTheme").width(${nbCol*75+3}+'px');
-	$("#calculatedTheme").width(${nbCol*75}+'px');
+	$("#staticTheme").width(${nbCol*85+3}+'px');
+	$("#calculatedTheme").width(${nbCol*85}+'px');
 	$('#calculatedTheme').BlocksIt({
 		numOfCol : ${nbCol},
 		offsetX : 2,

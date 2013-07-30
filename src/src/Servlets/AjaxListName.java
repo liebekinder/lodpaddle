@@ -23,7 +23,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 public class AjaxListName extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public final boolean isBehindProxy = false;
+	public final boolean isBehindProxy = true;
 
 	// PREFIX foaf:<http://xmlns.com/foaf/0.1/>
 	//

@@ -13,6 +13,8 @@
 	href="${domain}media/favicon.ico" />
 <link rel="stylesheet" type="text/css"
 	href="${domain}cssStyle/principal.css" />
+<link rel="stylesheet" type="text/css"
+	href="${domain}cssStyle/jquery.mCustomScrollbar.css" />
 
 <script type="text/javascript" src="${domain}javascript/principal.js"></script>
 <script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
@@ -70,13 +72,17 @@
 
 	<script type="text/javascript">
 		init();
-		$(window).load(function(){
-			$("#widgetZone").mCustomScrollbar({
-				scrollButtons:{
-					enable:true
-				}
+		(function($){
+			$(window).load(function(){
+				$("#widgetZone").mCustomScrollbar({
+					scrollButtons:{
+						enable:true
+					},
+					horizontalScroll:true,
+					advanced:{autoExpandHorizontalScroll:true,updateOnContentResize:false}
+				});
 			});
-		});
+		})(jQuery);
 	</script>
 
 </body>
