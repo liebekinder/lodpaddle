@@ -1,5 +1,8 @@
 package src.Beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Widget {
 
 	private final int pitch = 162;
@@ -13,6 +16,7 @@ public class Widget {
 	private String picto;
 	private String background;  // utiliser le background pour le fond
 	private WidgetContents contents;
+	private List<WidgetContents> themeItems;
 	private String type; /** Le type du widget : image, titre + image, thématique, simple **/
 						// Faire une classe widget pour les thématique
 
@@ -22,8 +26,8 @@ public class Widget {
 		x = xCoord;
 		y = yCoord;
 		color = widgetColor;
-		//content = widgetContent;
 		setContents(new WidgetContents(widgetContent, linksColor));
+		themeItems= new ArrayList<WidgetContents>();
 		title = widgetTitle;
 		type="";
 	}
@@ -131,6 +135,20 @@ public class Widget {
 
 	public void setTheme(String theme) {
 		this.theme = theme;
+	}
+
+
+	public void addthemeItems(WidgetContents thm){
+		themeItems.add(thm);
+	}
+	
+	public List<WidgetContents> getThemeItems() {
+		return themeItems;
+	}
+
+
+	public void setThemeItems(List<WidgetContents> themeItems) {
+		this.themeItems = themeItems;
 	}
 
 	

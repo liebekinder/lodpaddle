@@ -8,7 +8,7 @@
 
 <div id="calculatedTheme">
 	<c:forEach var="item" items="${theme}">
-		<div id="${item}" class="themeWidget grid"  data-size="1"></div>
+		<div id="${item}" class="themeWidget grid flip${item}"  data-size="1"></div>
 	</c:forEach>
 </div>
 	<script type="text/javascript">

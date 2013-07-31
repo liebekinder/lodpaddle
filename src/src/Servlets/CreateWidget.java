@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import src.Beans.Widget;
+import src.Beans.WidgetContents;
 
 
 public class CreateWidget extends HttpServlet{
@@ -26,6 +27,7 @@ public class CreateWidget extends HttpServlet{
     public List<String> listIds= new ArrayList<String>();
     public final String domain = "http://localhost:8080/lodpaddleTest/";
 //    public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+    public List<Widget> thematiques= new ArrayList<Widget>();
 
 	
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException{
@@ -187,7 +189,7 @@ public class CreateWidget extends HttpServlet{
 			themeManagmement(request, response);
 		}
 		
-        /* Préparation de l'objet de réponse à envoyer */
+        /** widgets footer **/
 		
 		String ficheVilleText;
          
@@ -222,7 +224,61 @@ public class CreateWidget extends HttpServlet{
 		photoBateau.setType("image");
 		photoBateau.setPicto(domain+"media/photoBateau.jpg");
 		
-        /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+        /** widget items for flip  **/
+		Widget loisir= new Widget(25,"Loisir",0,0,"","","");
+		String texteRestau;
+		String texteHotel;
+		WidgetContents restaurants;
+		WidgetContents Hotels;
+		WidgetContents Golf;
+		WidgetContents Plages;
+		WidgetContents  sportLoisir;
+		
+		texteRestau="Le poellon d'or <br />" +
+				"Hotelerie de la ferrerie <br />" +
+				"Plusieurs gourmands <br />";
+		
+		
+		restaurants = new WidgetContents(texteRestau,"");
+		restaurants.setTheme("RESTAURANT");
+		restaurants.setThemePicto(domain+"/media/restaurantPicto.png");
+		restaurants.addLink("Le poellon d'or","index.jsp","");
+		restaurants.addLink("Hotelerie de la ferrerie","index.jsp","");
+		restaurants.addLink("Plusieurs gourmands","index.jsp","");
+		
+		Hotels = new WidgetContents("","");
+		Hotels.setTheme("HOTELS");
+		Hotels.setThemePicto(domain+"/media/hotelPicto.png");
+		Hotels.addLink("le Chateau de vincenne","index.jsp","");
+		Hotels.addLink("baf hotel","index.jsp","");
+		Hotels.addLink("le relais de la grange","index.jsp","");
+		
+		Golf = new WidgetContents("","");
+		Golf.setTheme("GOLF");
+		Golf.setThemePicto(domain+"/media/golfPicto.png");
+		Golf.addLink("Golf de carquefou","index.jsp","");
+		Golf.addLink("Golf de jump up","index.jsp","");
+		Golf.addLink("Golf de vander woodsen","index.jsp","");
+		
+		Plages = new WidgetContents("","");
+		Plages.setTheme("PLAGES");
+		Plages.setThemePicto(domain+"/media/plagePicto.png");
+		Plages.addLink("Pornic","index.jsp","");
+		Plages.addLink("La baule les pins","index.jsp","");
+		Plages.addLink("Plages du cantonnais","index.jsp","");
+		
+		sportLoisir = new WidgetContents("","");
+		sportLoisir.setTheme("SPORT ET LOISIRS");
+		sportLoisir.setThemePicto(domain+"/media/sportPicto.png");
+		sportLoisir.addLink("Stade de la tourniere","index.jsp","");
+		sportLoisir.addLink("Tennis municipaux maine et Loire","index.jsp","");
+		sportLoisir.addLink("Gymnase Aman du blac","index.jsp","");
+
+		loisir.addthemeItems(restaurants);
+		loisir.addthemeItems(Hotels);
+		loisir.addthemeItems(Golf);
+		loisir.addthemeItems(Plages);
+		loisir.addthemeItems(sportLoisir);
 		
         /* Stockage de la réponse et du bean (widget)  dans l'objet request */
 
@@ -236,6 +292,10 @@ public class CreateWidget extends HttpServlet{
 			
 		if(widgets.isEmpty()==false){
 			request.setAttribute(VILLE,widgets);
+		}
+		
+		if(loisir.getThemeItems().isEmpty()==false){
+			request.setAttribute("themeLoisir",loisir);
 		}
 		
 		request.setAttribute("page","affichageDetail");

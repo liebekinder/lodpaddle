@@ -41,15 +41,12 @@
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
 			<div id="contentContainer">
-				<div id="oneContent">
-					<p>Ceci est le contenu</p>
-				</div>
-				<div id="anotherContent">
-					<p>Ceci est le contenu</p>
-				</div>
-				<div id="lastContent">
-					<p>Ceci est le contenu</p>
-				</div>
+				<div class="loisirWidget flipItem" style="visibility: hidden;"><div class="title">Loisir </div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenu.jspf"%></div></div>
+				<div class="cultureWidget flipItem" style="visibility: hidden;"><div class="title">Culture</div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuCulture.jspf"%></div></div>
+				<div class="villeWidget flipItem" style="visibility: hidden;"><div class="title">Ville </div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuVille.jspf"%></div></div>
+				<div class="serviceWidget flipItem" style="visibility: hidden;"><div class="title">Service </div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuService.jspf"%></div></div>
+				<div class="visiteWidget flipItem" style="visibility: hidden;"><div class="title">Visite </div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuVisite.jspf"%></div></div>
+				<div class="transportWidget flipItem" style="visibility: hidden;"><div class="title">Transport</div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuTransport.jspf"%></div></div>
 			</div>
 		</div>
 
