@@ -289,7 +289,7 @@ li:first-line {
 	width: 47%;
 	position: relative;
 	/*border: 2px black solid;*/
-	float: left;
+	/*float: left;*/
 	margin-right: 5px;
 	padding: 0;
 	margin-bottom: 0px;

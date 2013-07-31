@@ -2,14 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:if test="${not empty themeLoisir.themeItems}"> 
+
 	<c:forEach var="item" items="${themeLoisir.themeItems}">
 
-		<div class="themeitem">
 
-					<p style="text-align: left;">
+<h6 style="text-align: left;">
 						<img class="linkImg" alt=" " src="<c:out value="${item.themePicto}" />" />
 						<span style=" border-bottom: solid white 1px;"><c:out value="${item.theme}" /> </span>
-					</p>
+					</h6>
+		<div>
 
 					<ul>
 						<c:forEach var="link" items="${item.contentLinks}">

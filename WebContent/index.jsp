@@ -15,7 +15,12 @@
 	href="${domain}cssStyle/principal.css" />
 <link rel="stylesheet" type="text/css"
 	href="${domain}cssStyle/jquery.mCustomScrollbar.css" />
+<link rel="stylesheet" 
+    href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
+
+ <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script type="text/javascript" src="${domain}javascript/principal.js"></script>
 <script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
 <script type="text/javascript" src="${domain}javascript/jquery.min.js"></script>
@@ -27,6 +32,11 @@
 <script type="text/javascript" src="${domain}javascript/rotate3Di.js"></script>
 <script type="text/javascript" src="${domain}javascript/jquery.mCustomScrollbar.js"></script>
 
+						 <script>
+				$(function() {
+				$( "#testflipbla" ).accordion();
+				});
+			</script>
 
 </head>
 <body onload="pageLoaded('${domain}','${idsForChange}');">
@@ -44,7 +54,7 @@
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
 			<div id="contentContainer">
-				<div class="loisirWidget flipItem" style="visibility: hidden;"><div class="title">Loisir </div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenu.jspf"%></div></div>
+				<div class="loisirWidget flipItem" style="visibility: hidden;"><div class="title">Loisir </div><div class="contenuFlip" id="testflipbla"><%@ include file="WEB-INF/afficherContenu.jspf"%></div></div>
 				<div class="cultureWidget flipItem" style="visibility: hidden;"><div class="title">Culture</div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuCulture.jspf"%></div></div>
 				<div class="villeWidget flipItem" style="visibility: hidden;"><div class="title">Ville </div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuVille.jspf"%></div></div>
 				<div class="serviceWidget flipItem" style="visibility: hidden;"><div class="title">Service </div><div class="contenuFlip"><%@ include file="WEB-INF/afficherContenuService.jspf"%></div></div>
