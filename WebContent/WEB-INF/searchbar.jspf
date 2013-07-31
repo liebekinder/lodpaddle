@@ -7,7 +7,7 @@
 
 		<div id="geoLoc">
 			<img class="geoLocImg" alt="geolocalise moi!"
-				src="${domain}media/geoloc.png" onclick="geoloc('alert')" />
+				src="${domain}media/geoloc.png" onclick="geoloc()" />
 		</div>
 		<div id="search">
 			<input id="searchInput" class="search_data" name="saisie" type="text"
@@ -21,4 +21,4 @@
 
 	</form>
 </div>
-<div id="creditZone">Credit | blabla | encore un truc &copy;</div>
+<div id="creditZone"><span onclick="del(vectorLayer);">Credit</span> | blabla | encore un truc &copy;</div>

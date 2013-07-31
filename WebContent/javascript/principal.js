@@ -3,19 +3,19 @@
  */
 
 function pageLoaded(domainPath, idChange) {
-	 $('#searchInput').autocomplete({
-	 source:domainPath+'AjaxListName',
-	 minLength:2,
-	 autoFocus:true,
-	 delay:500,
-	 open: function( event, ui){
-		 $("#ui-id-1").zIndex(5010); 
-	 },
-	 select: function( event, ui ) {
-		 $("#searchInput").val(ui.item.value);
-	     $("#searchBarForm").submit();
-	 }
-	 });
+	$('#searchInput').autocomplete({
+		source : domainPath + 'AjaxListName',
+		minLength : 2,
+		autoFocus : true,
+		delay : 500,
+		open : function(event, ui) {
+			$("#ui-id-1").zIndex(5010);
+		},
+		select : function(event, ui) {
+			$("#searchInput").val(ui.item.value);
+			$("#searchBarForm").submit();
+		}
+	});
 	doFlip(idChange);
 	// geoloc("pos");
 }
@@ -45,7 +45,7 @@ function doFlip(idChange) {
 			sideChange : mySideChangeb3
 		});
 	});
-	
+
 	$('.flipservice').click(function() {
 		$('#contentContainer').rotate3Di('toggle', 1000, {
 			sideChange : mySideChangeb4
@@ -63,7 +63,6 @@ function doFlip(idChange) {
 			sideChange : mySideChangeb6
 		});
 	});
-
 
 }
 
@@ -100,7 +99,7 @@ function mySideChangeb2(front) {
 }
 
 function mySideChangeb3(front) {
-	
+
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -111,7 +110,7 @@ function mySideChangeb3(front) {
 }
 
 function mySideChangeb4(front) {
-	
+
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -121,7 +120,7 @@ function mySideChangeb4(front) {
 }
 
 function mySideChangeb5(front) {
-	
+
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -131,7 +130,7 @@ function mySideChangeb5(front) {
 }
 
 function mySideChangeb6(front) {
-	
+
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'visible');
@@ -150,13 +149,9 @@ function geoloc(monDiv) {
 		// Fonction de callback en cas de succès
 		function affichePosition(position) {
 
-			var infopos = "Position déterminée :\n";
-			infopos += "Latitude : " + position.coords.latitude + "\n";
-			infopos += "Longitude: " + position.coords.longitude + "\n";
-			infopos += "Altitude : " + position.coords.altitude + "\n";
-			
-			if(monDiv == 'alert') alert("succès!\n"+infopos);
-			else document.getElementById(monDiv).innerHTML = infopos;
+			var lat = position.coords.latitude;
+			var lon = position.coords.longitude;
+			addPoint(vectorLayer, lat, lon);
 
 		}
 
@@ -177,8 +172,7 @@ function geoloc(monDiv) {
 				info += "Erreur inconnue";
 				break;
 			}
-			if(monDiv == 'alert') alert("échec!\n"+infopos);
-			else document.getElementById(monDiv).innerHTML = infopos;
+			alert("échec de la géolocalisation! Erreur: " + info);
 		}
 
 		navigator.geolocation.getCurrentPosition(affichePosition,
@@ -191,7 +185,34 @@ function geoloc(monDiv) {
 	}
 }
 
-function init() {
+function del(vectorLayer) {
+	vectorLayer.removeAllFeatures();
+}
+
+function addPoint(vectorLayer, lat, lon) {
+
+	var point = new OpenLayers.Geometry.Point(lon, lat);
+	point.transform(new OpenLayers.Projection("EPSG:4326"),
+			new OpenLayers.Projection("EPSG:900913"));
+
+	var features = new OpenLayers.Feature.Vector(point, {
+		type : 0
+	});
+
+	vectorLayer.addFeatures(features);
+}
+
+function vectorLayerCreation() {
+
+	return new OpenLayers.Layer.Vector("POI");
+}
+
+/**
+ * Cette fonction initialise la carte
+ * 
+ * @returns la carte de type Openlayers.Map
+ */
+function mapCreation() {
 
 	map = new OpenLayers.Map("content", {
 		controls : [ new OpenLayers.Control.Navigation(),
@@ -204,9 +225,9 @@ function init() {
 		// geodesic : true
 		// }),
 		new OpenLayers.Control.LayerSwitcher(),
-		new OpenLayers.Control.Attribution({
-			div : document.getElementById("olControlAttribution")
-		}) ],
+				new OpenLayers.Control.Attribution({
+					div : document.getElementById("olControlAttribution")
+				}) ],
 		maxExtent : new OpenLayers.Bounds(-20037508.34, -20037508.34,
 				20037508.34, 20037508.34),
 		maxResolution : 'auto',
@@ -219,18 +240,15 @@ function init() {
 	var osm = new OpenLayers.Layer.OSM("OpenStreetMap");
 	map.addLayer(osm);
 
-	var mapquest = new OpenLayers.Layer.OSM(
-			'mapquest',
-			[
-					"http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
-					"http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
-					"http://otile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
-					"http://otile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",],
-			{
-				tileOptions : {
-					crossOriginKeyword : null
-				}
-			});
+	var mapquest = new OpenLayers.Layer.OSM('mapquest', [
+			"http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
+			"http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
+			"http://otile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg",
+			"http://otile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg", ], {
+		tileOptions : {
+			crossOriginKeyword : null
+		}
+	});
 	map.addLayer(mapquest);
 
 	var osmNoLayer = new OpenLayers.Layer.OSM(
@@ -257,16 +275,13 @@ function init() {
 		map.setCenter(center.transform(projFrom, projTo), 7);
 	}
 
-	var point = new OpenLayers.Geometry.Point(-0.353394, 47.546711);
-	point.transform(projFrom, projTo);
+	return map;
 
-	var vectorLayer = new OpenLayers.Layer.Vector("Point d'intérêt");
-	var features = new OpenLayers.Feature.Vector(point, {
-		type : 0
-	});
+}
 
-	vectorLayer.addFeatures(features);
+function gestionCarte() {
 
+	map = mapCreation();
+	vectorLayer = vectorLayerCreation();
 	map.addLayer(vectorLayer);
-
 }
