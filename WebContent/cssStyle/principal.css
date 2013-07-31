@@ -39,8 +39,8 @@ header {
 	position: absolute;
 	left: 5px;
 	top: 40px;
-	width: 222px;
-	height: 350px;
+	width: 250px;
+	height: 335px;
 	background: rgba(56,172,83,0.67);
 	z-index: 5000;
 	border-radius: 3px;
@@ -254,20 +254,78 @@ a {
 ul { /* list-style-image: url("../media/loupe.png"); */
 	list-style: none;
 	text-align: left;
-	margin: 0;
 	left: 0px;
 	/* border: 2px #0568CD solid;*/
-	float: left;
 	padding-left: 0px;
+	color: white;
 }
 
-li {
-	margin-top: 5px;
+li{
+	padding-bottom: 3px;
 	margin: 0;
+	color: white;
+	text-color : white;
+	font-size: 11px;
+} 
+
+li a{
+	color: white;
+}
+
+li a:HOVER{
+	color: #2c3e50;
+}
+
+li:first-line {
+	color:black;
 }
 
 .itemImage {
 	background-color: white;
+}
+
+.themeitem{
+	height: 95px; 
+	width: 47%;
+	position: relative;
+	/*border: 2px black solid;*/
+	/*float: left;*/
+	margin-right: 5px;
+	padding: 0;
+	margin-bottom: 0px;
+	margin-top: 5px;
+}
+
+/*######################################
+####          Flip  				####
+######################################*/
+
+.flipItem{
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	color: white;
+	top: 0px;
+	margin-top: 0px;
+	padding: 0;
+	font-size: 12px;
+	/*border: 2px #0568CD solid;*/
+}
+
+.title{
+	border-bottom: 2px white solid;
+	width: 100%;
+	text-align: center;
+	height: 30px;
+	padding-top: 10px;
+	font-weight : 900;
+	font-size: 16px;
+}
+
+.contenuFlip{
+	height: 323px;
+	padding-left: 5px;
 }
 
 /*######################################

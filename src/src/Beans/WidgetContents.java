@@ -10,7 +10,8 @@ public class WidgetContents {
 	private List<String> contentImages;
 	private List<WidgetLink> contentLinks;
 	private String linkColor;
-	private Map<String,String> blocks; //pour faire les blocs
+	private String themePicto;
+	private String theme;
 	
 	public WidgetContents(String texte, String linksColor){
 		
@@ -62,6 +63,22 @@ public class WidgetContents {
 
 	public void setLinkColor(String linkColor) {
 		this.linkColor = linkColor;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
+	public String getThemePicto() {
+		return themePicto;
+	}
+
+	public void setThemePicto(String themePicto) {
+		this.themePicto = themePicto;
 	}
 	
 }
