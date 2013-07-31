@@ -932,8 +932,8 @@ along with this program.  If not, see http://www.gnu.org/licenses/lgpl.html.
 	$.support.msPointer=window.navigator.msPointerEnabled; /*MSPointer support*/
 	/*plugin dependencies*/
 	var _dlp=("https:"==document.location.protocol) ? "https:" : "http:";
-//	$.event.special.mousewheel || document.write('<script src="'+_dlp+'//lodpaddle.univ-nantes.fr/lodpaddleTest/javascript/jquery.mousewheel.js"><\/script>');
-	$.event.special.mousewheel || document.write('<script src="'+_dlp+'//localhost:8080/lodpaddleTest/javascript/jquery.mousewheel.js"><\/script>');
+	$.event.special.mousewheel || document.write('<script src="'+_dlp+'//lodpaddle.univ-nantes.fr/lodpaddle/javascript/jquery.mousewheel.js"><\/script>');
+//	$.event.special.mousewheel || document.write('<script src="'+_dlp+'//localhost:8080/lodpaddleTest/javascript/jquery.mousewheel.js"><\/script>');
 	/*plugin fn*/
 	$.fn.mCustomScrollbar=function(method){
 		if(methods[method]){

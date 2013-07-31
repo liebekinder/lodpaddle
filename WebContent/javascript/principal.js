@@ -6,7 +6,12 @@ function pageLoaded(domainPath, idChange) {
 	 $('#searchInput').autocomplete({
 	 source:domainPath+'AjaxListName',
 	 minLength:2,
-	 autoFocus:true
+	 autoFocus:true,
+	 delay:500,
+	 select: function( event, ui ) {
+		 $("#searchInput").val(ui.item.value);
+	     $("#searchBarForm").submit();
+	 }
 	 });
 	doFlip(idChange);
 	// geoloc("pos");

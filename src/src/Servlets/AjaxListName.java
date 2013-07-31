@@ -23,17 +23,8 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 public class AjaxListName extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public final boolean isBehindProxy = true;
+	public final boolean isBehindProxy = false;
 
-	// PREFIX foaf:<http://xmlns.com/foaf/0.1/>
-	//
-	// SELECT ?nomVille
-	// FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises>
-	// WHERE {
-	// ?commune owl:sameAs ?nomVille .
-	// FILTER regex(?nomVille,"^sain", "i")
-	// }
-	// ORDER BY ?nomVille LIMIT 10
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -86,8 +77,9 @@ public class AjaxListName extends HttpServlet {
 				+ filtre + "\", \"i\") " + "}" + "ORDER BY ?nom"
 				+ "  LIMIT 10 ";
 
-		 System.out.println(queryString);
-		if (isBehindProxy) {
+//		System.out.println(queryString);
+		
+		 if (isBehindProxy) {
 
 			String proxyHost = "193.52.105.147";
 			String proxyPort = "3128";
@@ -126,7 +118,8 @@ public class AjaxListName extends HttpServlet {
 		} catch (Exception e) {
 			// System.out.println("probleme avec le retour de la requete :/");
 			if (retour.length() <= 2)
-				return "[\""+query+" - " + e.getLocalizedMessage() + "\"]";
+//				return "[\""+query+" - " + e.getLocalizedMessage() + "\"]";
+				return "[\"pas de résultat\"]";
 			else
 				return retour.substring(0, retour.length() - 1) + "]";
 		} finally {
