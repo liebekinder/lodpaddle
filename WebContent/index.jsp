@@ -13,6 +13,8 @@
 	href="${domain}media/favicon.ico" />
 <link rel="stylesheet" type="text/css"
 	href="${domain}cssStyle/principal.css" />
+<link rel="stylesheet" type="text/css"
+	href="${domain}cssStyle/jquery.mCustomScrollbar.css" />
 
 <script type="text/javascript" src="${domain}javascript/principal.js"></script>
 <script src="${domain}OpenLayers/OpenLayers.debug.js"></script>
@@ -23,6 +25,7 @@
 <script type="text/javascript"
 	src="${domain}javascript/jquery-css-transform.js"></script>
 <script type="text/javascript" src="${domain}javascript/rotate3Di.js"></script>
+<script type="text/javascript" src="${domain}javascript/jquery.mCustomScrollbar.js"></script>
 
 
 </head>
@@ -54,7 +57,7 @@
 			<div id="footerContainer">
 				<div id="staticTheme"><%@ include
 						file="WEB-INF/themeZone.jspf"%></div>
-				<div id="widgetZone">
+				<div id="widgetZone" class="specificScroll">
 					<%@ include file="WEB-INF/afficherWidget.jspf"%>
 					<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
 				</div>
@@ -65,6 +68,17 @@
 
 	<script type="text/javascript">
 		init();
+		(function($){
+			$(window).load(function(){
+				$("#widgetZone").mCustomScrollbar({
+					scrollButtons:{
+						enable:true
+					},
+					horizontalScroll:true,
+					advanced:{autoExpandHorizontalScroll:true,updateOnContentResize:false}
+				});
+			});
+		})(jQuery);
 	</script>
 
 </body>
