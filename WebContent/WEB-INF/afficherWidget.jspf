@@ -55,5 +55,3 @@
 </c:forEach>
 </tr>
 </table>
-
-<!-- style=" list-style-image: url('./media/loupe.png') ;" -->
