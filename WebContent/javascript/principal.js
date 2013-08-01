@@ -79,6 +79,7 @@ function mySideChange(front, idChange) {
 }
 
 function mySideChangeb1(front) {
+	$('#contentContainer').css('visibility', 'visible');
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'visible');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -88,7 +89,8 @@ function mySideChangeb1(front) {
 }
 
 function mySideChangeb2(front) {
-
+	
+	$('#contentContainer').css('visibility', 'visible');
 	$('.cultureWidget').css('visibility', 'visible');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -100,6 +102,7 @@ function mySideChangeb2(front) {
 
 function mySideChangeb3(front) {
 
+	$('#contentContainer').css('visibility', 'visible');
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -111,6 +114,7 @@ function mySideChangeb3(front) {
 
 function mySideChangeb4(front) {
 
+	$('#contentContainer').css('visibility', 'visible');
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -121,6 +125,7 @@ function mySideChangeb4(front) {
 
 function mySideChangeb5(front) {
 
+	$('#contentContainer').css('visibility', 'visible');
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'hidden');
@@ -131,6 +136,7 @@ function mySideChangeb5(front) {
 
 function mySideChangeb6(front) {
 
+	$('#contentContainer').css('visibility', 'visible');
 	$('.cultureWidget').css('visibility', 'hidden');
 	$('.loisirWidget').css('visibility', 'hidden');
 	$('.transportWidget').css('visibility', 'visible');

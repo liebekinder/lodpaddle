@@ -198,23 +198,22 @@ public class CreateWidget extends HttpServlet{
 		Widget photoVille;
 		Widget photoBateau;
 		
-		ficheVilleText="<div style=\"width:100px; float:left; position: relative;\"><b>Administration</b> " +
-				"<br />Département :" +
-				"<br />Canton : " +
-				"<br />Intercommunalité: " +
-				"<br />Maire : " +
-				"<br />Mandat : " +
-				"<br />Site web : " +
+		ficheVilleText="<div style=\"width: 53%; float:left; position: relative; height:100%; line-height: 1.4;\"><b>Administration</b>" +
+				"<br />Département : Loire - Atlantique" +
+				"<br />Maire : Alain Humault " +
+				"<br />Mandat : 2008 - 2014 " +
+				"<br />Site web : http://www.marie-chateaubriant.fr " +
 				"</div>" +
-				"<div style=\"width:200px; float:right; position: relative;\"><b>Démographie</b> " +
+				"<div style=\"width: 45%;float:left; position: relative; height:100%; line-height: 1.2;\"><b>Démographie</b> " +
 				"<br />Les habitants s'appellent les cantonnais." +
 				"<br />La population est de 10000 personnes pour une densité de 258 hab au km2." +
+				"<br />" +
 				"<br />" +
 				"<b>Geographie</b> " +
 				"<br />Altitude :" +
 				"<br />Superficie : " +
 				"</div>";
-		ficheVille= new Widget(20,nomVille,400,0,"#2980b9",ficheVilleText,"");
+		ficheVille= new Widget(20,nomVille,550,0,"#2980b9",ficheVilleText,"");
 		tweetVille = new Widget(21,"",200,0,"#2980b9", "", "");
 		photoVille = new Widget(22,"Photos",200,0, "#2980b9", "", "");
 		photoBateau = new Widget(23,"",300,0, "#2980b9", "", "");

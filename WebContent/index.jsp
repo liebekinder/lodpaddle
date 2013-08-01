@@ -51,7 +51,11 @@
 			<div id="scaleline-id"></div>
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
-			<div id="contentContainer">
+
+
+<div id="contentContainer" style="visibility: hidden">
+
+			
 				<div class="loisirWidget flipItem" style="visibility: hidden;">
 					<div class="title">Loisir</div>
 					<div class="contenuFlip" id="testflipbla"><%@ include
