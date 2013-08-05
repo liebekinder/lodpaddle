@@ -15,8 +15,8 @@
 	href="${domain}cssStyle/principal.css" />
 <link rel="stylesheet" type="text/css"
 	href="${domain}cssStyle/jquery.mCustomScrollbar.css" />
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<!-- <link rel="stylesheet" -->
+<!-- 	href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
 
 <script type="text/javascript" src="${domain}javascript/principal.js"></script>
 <script src="${domain}OpenLayers/OpenLayers.debug.js"></script>

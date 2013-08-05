@@ -3,7 +3,7 @@
 
 <div id="lodpaddleZone"><span class="lodpaddleTitle"><a href=".">LODPADDLE</a></span></div>
 <div id="searchBar">
-	<form id="searchBarForm" action="${domain}" method="POST">
+	<form id="searchBarForm" action="${domain}" method="GET">
 
 		<div id="geoLoc">
 			<img class="geoLocImg" alt="geolocalise moi!"
@@ -11,7 +11,7 @@
 		</div>
 		<div id="search">
 			<input id="searchInput" class="search_data" name="saisie" type="text"
-				autocomplete="off" placeholder="Nom de ville..." />
+				autocomplete="off" <c:choose><c:when test="${typePage != 'accueil'}">placeholder="${typePage}"</c:when><c:otherwise>placeholder="Nom de ville..."</c:otherwise></c:choose> />
 		</div>
 
 		<div id="submit">

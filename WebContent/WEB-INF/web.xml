@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>lodpaddleTest</display-name>
   <welcome-file-list>
-    <welcome-file>CreateWidget</welcome-file>
+    <welcome-file>Index</welcome-file>
   </welcome-file-list>
   <error-page>
     <error-code>404</error-code>
@@ -13,8 +13,8 @@
     <location>/error/error.jsp</location>
   </error-page>
   <servlet>
-    <servlet-name>CreateWidget</servlet-name>
-    <servlet-class>src.Servlets.CreateWidget</servlet-class>
+    <servlet-name>Index</servlet-name>
+    <servlet-class>src.Servlets.Index</servlet-class>
     <init-param>
       <param-name>Widget</param-name>
       <param-value>WidgetServlet</param-value>
@@ -22,7 +22,7 @@
     <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CreateWidget</servlet-name>
-    <url-pattern>/CreateWidget</url-pattern>
+    <servlet-name>Index</servlet-name>
+    <url-pattern>/Index</url-pattern>
   </servlet-mapping>
 </web-app>

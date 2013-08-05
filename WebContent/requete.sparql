@@ -1,0 +1,26 @@
+#Cette requete sert à la recupération des infos sur http://fr.dbpedia.org/sparql
+#Problème détecté: le maire et le département donne par moment un résultat sous la forme d'une ressource
+#
+
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX prop-fr: <http://fr.dbpedia.org/property/>
+PREFIX pr: <http://purl.org/ontology/prv/core#>
+PREFIX pro: <http://purl.org/hpi/patchr#>
+
+SELECT ?dep ?min ?max ?gentile ?maire ?mandat ?superficie ?description ?site WHERE {
+  ?ville prop-fr:insee 44108 .
+  ?ville prop-fr:département ?dep .
+  ?ville prop-fr:gentilé ?gentile .
+  ?ville dbpedia-owl:abstract ?description .
+  ?ville prop-fr:superficie ?superficie .
+  	OPTIONAL{?ville prop-fr:siteweb ?site . }
+    OPTIONAL{?ville prop-fr:maire ?maire .}
+    OPTIONAL{?maire prop-fr:nom ?mairenom .}
+    OPTIONAL{?ville prop-fr:mandatMaire ?mandat .}
+    OPTIONAL{?ville prop-fr:coucou ?Z .}
+    OPTIONAL{?ville prop-fr:altMini ?min .}
+    OPTIONAL{?ville prop-fr:altMaxi ?max .}
+  FILTER( lang(?description) = "fr")
+} LIMIT 10

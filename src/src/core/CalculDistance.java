@@ -2,6 +2,19 @@ package src.core;
 
 public class CalculDistance {
 
+	
+	// ZONE TEST A COMMENTER
+
+	// double lat = 47.716743;
+	// double lon = -1.376516;
+	// int distance = 1 ;
+	//
+	// String test = CalculDistance.allQuery(distance, lat, lon, "?lat",
+	// "?long", "?d2brgrad");
+	// request.setAttribute("TEST", test);
+
+	// FIN ZONE DE TEST
+	
 	final static double brgrad = 111.1949;
 	final static double phi = 47.0;
 

@@ -12,8 +12,8 @@ html,body {
 #AllScreenDiv {
 	height: 100%;
 	width: 100%;
-/* 	overflow-y: scroll; */
-/* 	overflow-x: hidden; */
+	/* 	overflow-y: scroll; */
+	/* 	overflow-x: hidden; */
 }
 
 header {
@@ -41,7 +41,7 @@ header {
 	top: 40px;
 	width: 250px;
 	height: 335px;
-	background: rgba(56,172,83,0.67);
+	background: rgba(56, 172, 83, 0.67);
 	z-index: 5000;
 	border-radius: 3px;
 }
@@ -59,6 +59,23 @@ footer {
 #footerContainer {
 	position: relative;
 	height: 99%;
+}
+
+/*######################################
+####            general    			####
+######################################*/
+.center {
+	text-align: center;
+}
+
+.interligneReduit {
+	line-height: 1.2;
+}
+
+.noInfo{
+	color:white;
+	font-size:16pt;
+	text-align:center;
 }
 
 /*######################################
@@ -115,7 +132,7 @@ footer {
 	width: 34px;
 	height: 20px;
 	background: #708090;
-	padding-bottom:0px;
+	padding-bottom: 0px;
 }
 
 #inputSearch {
@@ -141,7 +158,7 @@ footer {
 	position: relative;
 	height: 22px;
 	width: 27px;
-	float:left;
+	float: left;
 }
 
 .geoLocImg {
@@ -154,15 +171,15 @@ footer {
 #search {
 	width: 348px;
 	float: left;
-	z-index:5010;
-	padding-left:5px;
+	z-index: 5010;
+	padding-left: 5px;
 }
 
 #submit {
 	position: relative;
 	height: 22px;
 	width: 27px;
-	float:left;
+	float: left;
 }
 
 #inputSubmit {
@@ -190,28 +207,27 @@ footer {
 	border: none;
 }
 
-#lodpaddleZone{
-	position:absolute;
-	width:300px;
-	min-width:100px;
-	height:35px;
-	left:0px;
-	top:0px;
+#lodpaddleZone {
+	position: absolute;
+	width: 300px;
+	min-width: 100px;
+	height: 35px;
+	left: 0px;
+	top: 0px;
 	font-weight: bold;
 }
 
-.lodpaddleTitle a:hover,
-.lodpaddleTitle a:visited{
-	color:black;
+.lodpaddleTitle a:hover,.lodpaddleTitle a:visited {
+	color: black;
 }
 
-#creditZone{
-	position:absolute;
-	width:300px;
-	min-width:100px;
-	height:35px;
-	right:0px;
-	top:0px;
+#creditZone {
+	position: absolute;
+	width: 300px;
+	min-width: 100px;
+	height: 35px;
+	right: 0px;
+	top: 0px;
 }
 
 /*######################################
@@ -228,7 +244,46 @@ footer {
 	height: 142px;
 }
 
-.spacing{
+#presentationCadre {
+	height: 100%;
+	width: 100%;
+	word-wrap: break-word;
+	color: white;
+}
+
+#presentationTitre {
+	position: absolute;
+	width: 540px;
+	height: 35px;
+	left: 5px;
+	top:-5px;
+	border-bottom: 2px solid white;
+	line-height: 0;
+	padding-top:0px;
+	font-size: 14pt;
+	text-transform:uppercase;
+}
+
+#presentationGauche {
+	position: absolute;
+	height: 105px;
+	width: 265px;
+	top: 32px;
+	left:5px;
+	line-height: 1.2;
+	border-right: 2px solid white;
+}
+
+#presentationDroite {
+	position: absolute;
+	width: 265px;
+	height: 105px;
+	top: 32px;
+	left: 277px;
+	line-height: 1.2;
+}
+
+.spacing {
 	padding-left: 15px;
 	padding-top: 0px;
 	padding-right: 10px;
@@ -260,32 +315,32 @@ ul { /* list-style-image: url("../media/loupe.png"); */
 	color: white;
 }
 
-li{
+li {
 	padding-bottom: 3px;
 	margin: 0;
 	color: white;
-	text-color : white;
+	text-color: white;
 	font-size: 11px;
-} 
+}
 
-li a{
+li a {
 	color: white;
 }
 
-li a:HOVER{
+li a:HOVER {
 	color: #2c3e50;
 }
 
 li:first-line {
-	color:black;
+	color: black;
 }
 
 .itemImage {
 	background-color: white;
 }
 
-.themeitem{
-	height: 95px; 
+.themeitem {
+	height: 95px;
 	width: 47%;
 	position: relative;
 	/*border: 2px black solid;*/
@@ -299,8 +354,7 @@ li:first-line {
 /*######################################
 ####          Flip  				####
 ######################################*/
-
-.flipItem{
+.flipItem {
 	top: 0px;
 	width: 100%;
 	height: 100%;
@@ -313,17 +367,17 @@ li:first-line {
 	/*border: 2px #0568CD solid;*/
 }
 
-.title{
+.title {
 	border-bottom: 2px white solid;
 	width: 100%;
 	text-align: center;
 	height: 30px;
 	padding-top: 10px;
-	font-weight : 900;
+	font-weight: 900;
 	font-size: 16px;
 }
 
-.contenuFlip{
+.contenuFlip {
 	height: 323px;
 	padding-left: 5px;
 }
@@ -346,10 +400,8 @@ li:first-line {
 	top: 0px;
 }
 
-
 .themeWidget {
 	height: 81px;
-
 }
 
 #culture {

@@ -12,10 +12,15 @@ function pageLoaded(domainPath, idChange) {
 			$("#ui-id-1").zIndex(5010);
 		},
 		select : function(event, ui) {
-			$("#searchInput").val(ui.item.value);
+			$("#searchInput").val(ui.item.label);
 			$("#searchBarForm").submit();
 		}
-	});
+	}).data("ui-autocomplete")._renderItem = function( ul, item) {
+        return $( "<li></li>" )
+        .data( "item.autocomplete", item )
+        .append( $( "<a></a>" ).html( item.label.slice(0,-3) ) )
+        .appendTo( ul );
+        };
 	doFlip(idChange);
 	// geoloc("pos");
 }
@@ -290,4 +295,12 @@ function gestionCarte() {
 	map = mapCreation();
 	vectorLayer = vectorLayerCreation();
 	map.addLayer(vectorLayer);
+}
+
+function centrerAccueil(totalDiv){
+	var ecran = $(document).width();
+	if(ecran >= totalDiv){
+		var padding = (ecran - totalDiv)/2;
+		$("#tableAccueil").css("padding-left",padding+"px");
+	}
 }
