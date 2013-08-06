@@ -32,7 +32,7 @@
 
 <script>
 	$(function() {
-		$("#testflipbla").accordion();
+		$(".accordion").accordion();
 	});
 </script>
 
@@ -53,40 +53,42 @@
 			<div id="mousePosition"></div>
 
 
-<div id="contentContainer" style="visibility: hidden">
+			<div id="contentContainer" style="visibility: hidden">
 
 			
-				<div class="loisirWidget flipItem" style="visibility: hidden;">
+				<div class="flipLoisir flipItem" style="visibility: hidden;">
 					<div class="title">Loisir</div>
-					<div class="contenuFlip" id="testflipbla"><%@ include
-							file="WEB-INF/afficherContenu.jspf"%></div>
+					<div class="contenuFlip accordion"><%@ include
+							file="WEB-INF/afficherContenuLoisir.jspf"%></div>
 				</div>
-				<div class="cultureWidget flipItem" style="visibility: hidden;">
+				<div class="flipCulture flipItem" style="visibility: hidden;">
 					<div class="title">Culture</div>
 					<div class="contenuFlip"><%@ include
 							file="WEB-INF/afficherContenuCulture.jspf"%></div>
 				</div>
-				<div class="villeWidget flipItem" style="visibility: hidden;">
+				<div class="flipVille flipItem" style="visibility: hidden;">
 					<div class="title">Ville</div>
 					<div class="contenuFlip"><%@ include
 							file="WEB-INF/afficherContenuVille.jspf"%></div>
 				</div>
-				<div class="serviceWidget flipItem" style="visibility: hidden;">
+				<div class="flipService flipItem" style="visibility: hidden;">
 					<div class="title">Service</div>
 					<div class="contenuFlip"><%@ include
 							file="WEB-INF/afficherContenuService.jspf"%></div>
 				</div>
-				<div class="visiteWidget flipItem" style="visibility: hidden;">
+				<div class="flipVisite flipItem" style="visibility: hidden;">
 					<div class="title">Visite</div>
 					<div class="contenuFlip"><%@ include
 							file="WEB-INF/afficherContenuVisite.jspf"%></div>
 				</div>
-				<div class="transportWidget flipItem" style="visibility: hidden;">
+				<div class="flipTransport flipItem" style="visibility: hidden;">
 					<div class="title">Transport</div>
 					<div class="contenuFlip"><%@ include
 							file="WEB-INF/afficherContenuTransport.jspf"%></div>
 				</div>
 			</div>
+			
+			
 		</div>
 
 		<footer>

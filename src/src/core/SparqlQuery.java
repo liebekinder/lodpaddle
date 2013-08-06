@@ -12,7 +12,7 @@ import com.hp.hpl.jena.query.ResultSet;
 
 public class SparqlQuery {
 
-	private final static boolean isBehindProxy = true;
+	private final static boolean isBehindProxy = false;
 	
 	private SparqlQuery(){		
 	}

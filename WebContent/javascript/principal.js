@@ -26,49 +26,60 @@ function pageLoaded(domainPath, idChange) {
 }
 
 function doFlip(idChange) {
-	$('.flipIt').click(function() {
-		$(this).rotate3Di('toggle', 1000, {
-			sideChange : mySideChange
-		});
-	});
-
 	$('.fliploisir').click(function() {
 		$('#contentContainer').rotate3Di('toggle', 1000, {
 			sideChange : mySideChangeb1,
-			easing : 'swing'
+			complete: flipOver(1)
 		});
 	});
 
 	$('.flipculture').click(function() {
 		$('#contentContainer').rotate3Di('toggle', 1000, {
-			sideChange : mySideChangeb2
+			sideChange : mySideChangeb2,
+			complete: flipOver(2)
 		});
 	});
 
 	$('.flipville').click(function() {
 		$('#contentContainer').rotate3Di('toggle', 1000, {
-			sideChange : mySideChangeb3
+			sideChange : mySideChangeb3,
+			complete: flipOver(3)
 		});
 	});
 
 	$('.flipservice').click(function() {
 		$('#contentContainer').rotate3Di('toggle', 1000, {
-			sideChange : mySideChangeb4
+			sideChange : mySideChangeb4,
+			complete: flipOver(4)
 		});
 	});
 
 	$('.flipvisite').click(function() {
 		$('#contentContainer').rotate3Di('toggle', 1000, {
-			sideChange : mySideChangeb5
+			sideChange : mySideChangeb5,
+			complete: flipOver(5)
 		});
 	});
 
 	$('.fliptransport').click(function() {
 		$('#contentContainer').rotate3Di('toggle', 1000, {
-			sideChange : mySideChangeb6
+			sideChange : mySideChangeb6,
+			complete: flipOver(6)
 		});
 	});
 
+}
+
+function flipOver(cat){
+	//cette fonction est appelée à la fin de l'animation
+	//on s'en servira notemment pour afficher les infos sur la carte
+	//cat = 1 => loisir
+	//cat = 1 => culture
+	//cat = 1 => ville
+	//cat = 1 => service
+	//cat = 1 => visite
+	//cat = 1 => transport
+	
 }
 
 function mySideChange(front, idChange) {
@@ -85,69 +96,69 @@ function mySideChange(front, idChange) {
 
 function mySideChangeb1(front) {
 	$('#contentContainer').css('visibility', 'visible');
-	$('.cultureWidget').css('visibility', 'hidden');
-	$('.loisirWidget').css('visibility', 'visible');
-	$('.transportWidget').css('visibility', 'hidden');
-	$('.villeWidget').css('visibility', 'hidden');
-	$('.serviceWidget').css('visibility', 'hidden');
-	$('.visiteWidget').css('visibility', 'hidden');
+	$('.flipCulture').css('visibility', 'hidden');
+	$('.flipLoisir').css('visibility', 'visible');
+	$('.flipTransport').css('visibility', 'hidden');
+	$('.flipVille').css('visibility', 'hidden');
+	$('.flipService').css('visibility', 'hidden');
+	$('.flipVisite').css('visibility', 'hidden');
 }
 
 function mySideChangeb2(front) {
 	
 	$('#contentContainer').css('visibility', 'visible');
-	$('.cultureWidget').css('visibility', 'visible');
-	$('.loisirWidget').css('visibility', 'hidden');
-	$('.transportWidget').css('visibility', 'hidden');
-	$('.villeWidget').css('visibility', 'hidden');
-	$('.serviceWidget').css('visibility', 'hidden');
-	$('.visiteWidget').css('visibility', 'hidden');
+	$('.flipCulture').css('visibility', 'visible');
+	$('.flipLoisir').css('visibility', 'hidden');
+	$('.flipTransport').css('visibility', 'hidden');
+	$('.flipVille').css('visibility', 'hidden');
+	$('.flipService').css('visibility', 'hidden');
+	$('.flipVisite').css('visibility', 'hidden');
 
 }
 
 function mySideChangeb3(front) {
 
 	$('#contentContainer').css('visibility', 'visible');
-	$('.cultureWidget').css('visibility', 'hidden');
-	$('.loisirWidget').css('visibility', 'hidden');
-	$('.transportWidget').css('visibility', 'hidden');
-	$('.villeWidget').css('visibility', 'visible');
-	$('.serviceWidget').css('visibility', 'hidden');
-	$('.visiteWidget').css('visibility', 'hidden');
+	$('.flipCulture').css('visibility', 'hidden');
+	$('.flipLoisir').css('visibility', 'hidden');
+	$('.flipTransport').css('visibility', 'hidden');
+	$('.flipVille').css('visibility', 'visible');
+	$('.flipService').css('visibility', 'hidden');
+	$('.flipVisite').css('visibility', 'hidden');
 
 }
 
 function mySideChangeb4(front) {
 
 	$('#contentContainer').css('visibility', 'visible');
-	$('.cultureWidget').css('visibility', 'hidden');
-	$('.loisirWidget').css('visibility', 'hidden');
-	$('.transportWidget').css('visibility', 'hidden');
-	$('.villeWidget').css('visibility', 'hidden');
-	$('.serviceWidget').css('visibility', 'visible');
-	$('.visiteWidget').css('visibility', 'hidden');
+	$('.flipCulture').css('visibility', 'hidden');
+	$('.flipLoisir').css('visibility', 'hidden');
+	$('.flipTransport').css('visibility', 'hidden');
+	$('.flipVille').css('visibility', 'hidden');
+	$('.flipService').css('visibility', 'visible');
+	$('.flipVisite').css('visibility', 'hidden');
 }
 
 function mySideChangeb5(front) {
 
 	$('#contentContainer').css('visibility', 'visible');
-	$('.cultureWidget').css('visibility', 'hidden');
-	$('.loisirWidget').css('visibility', 'hidden');
-	$('.transportWidget').css('visibility', 'hidden');
-	$('.villeWidget').css('visibility', 'hidden');
-	$('.serviceWidget').css('visibility', 'hidden');
-	$('.visiteWidget').css('visibility', 'visible');
+	$('.flipCulture').css('visibility', 'hidden');
+	$('.flipLoisir').css('visibility', 'hidden');
+	$('.flipTransport').css('visibility', 'hidden');
+	$('.flipVille').css('visibility', 'hidden');
+	$('.flipService').css('visibility', 'hidden');
+	$('.flipVisite').css('visibility', 'visible');
 }
 
 function mySideChangeb6(front) {
 
 	$('#contentContainer').css('visibility', 'visible');
-	$('.cultureWidget').css('visibility', 'hidden');
-	$('.loisirWidget').css('visibility', 'hidden');
-	$('.transportWidget').css('visibility', 'visible');
-	$('.villeWidget').css('visibility', 'hidden');
-	$('.serviceWidget').css('visibility', 'hidden');
-	$('.visiteWidget').css('visibility', 'hidden');
+	$('.flipCulture').css('visibility', 'hidden');
+	$('.flipLoisir').css('visibility', 'hidden');
+	$('.flipTransport').css('visibility', 'visible');
+	$('.flipVille').css('visibility', 'hidden');
+	$('.flipService').css('visibility', 'hidden');
+	$('.flipVisite').css('visibility', 'hidden');
 }
 
 function afficheContenu() {

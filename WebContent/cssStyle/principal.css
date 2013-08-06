@@ -41,7 +41,7 @@ header {
 	top: 40px;
 	width: 250px;
 	height: 335px;
-	background: rgba(56, 172, 83, 0.67);
+/* 	background: rgba(56, 172, 83, 0.67); */
 	z-index: 5000;
 	border-radius: 3px;
 }
@@ -352,37 +352,6 @@ li:first-line {
 }
 
 /*######################################
-####          Flip  				####
-######################################*/
-.flipItem {
-	top: 0px;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	color: white;
-	top: 0px;
-	margin-top: 0px;
-	padding: 0;
-	font-size: 12px;
-	/*border: 2px #0568CD solid;*/
-}
-
-.title {
-	border-bottom: 2px white solid;
-	width: 100%;
-	text-align: center;
-	height: 30px;
-	padding-top: 10px;
-	font-weight: 900;
-	font-size: 16px;
-}
-
-.contenuFlip {
-	height: 323px;
-	padding-left: 5px;
-}
-
-/*######################################
 ####          footer				####
 ######################################*/
 #staticTheme { /* 	background-color: rgba(0,0,0,0.2); */
@@ -440,9 +409,6 @@ li:first-line {
 	background-repeat: no-repeat;
 }
 
-/*######################################
-####          footer				####
-######################################*/
 #oneContent {
 	position: relative;
 	margin: auto;
@@ -465,3 +431,55 @@ li:first-line {
 	color: black;
 	opacity: 1;
 }
+
+/*######################################
+####          flip				####
+######################################*/
+.flipItem {
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	color: white;
+	top: 0px;
+	margin-top: 0px;
+	padding: 0;
+	font-size: 12px;
+}
+
+.title {
+	border-bottom: 2px white solid;
+	width: 100%;
+	text-align: center;
+	height: 30px;
+	padding-top: 10px;
+	font-weight: 900;
+	font-size: 16px;
+}
+
+.contenuFlip {
+	height: 325px;
+	width: 240px;
+	padding-left: 5px;
+	padding-top: 2px;
+}
+
+.flipLoisir{
+	background-color:#37ac53;
+}
+.flipCulture{
+	background-color:#e75735;
+}
+.flipVille{
+	background-color:#2c9f82;
+}
+.flipService{
+	background-color:#db7b00;
+}
+.flipTransport{
+	background-color:#5ea4df;
+}
+.flipVisite{
+	background-color:#dab300;
+}
+
