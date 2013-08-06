@@ -36,7 +36,7 @@ public class CalculDistance {
 	}
 	
 	public static String selectPartString(int radius_, double lat_, double lon_,
-			String lats, String lons, String varName) {
+			String lats, String lons) {
 		return "(" + laFormule(radius_, lat_, lon_, lats, lons) + ")";
 	}
 
@@ -53,8 +53,8 @@ public class CalculDistance {
 	}
 	
 	public static String allQuery(int radius_, double lat_, double lon_,
-			String lats, String lons, String varName){
-		return "SELECT ?nom "+selectPartString(radius_, lat_, lon_, lats, lons, varName)+"\n" +
+			String lats, String lons){
+		return "SELECT ?nom "+selectPartString(radius_, lat_, lon_, lats, lons)+"\n" +
 				"WHERE{" + "\n" +
 				"?sub geo:lat " + lats + ".\n" +
 				"?sub geo:long" + lons + ".\n" +

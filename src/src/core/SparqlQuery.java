@@ -54,6 +54,10 @@ public class SparqlQuery {
 			qexec = QueryExecutionFactory.sparqlService(
 					"http://rdf.insee.fr/sparql", query);
 			break;
+		case Local:
+			qexec = QueryExecutionFactory.sparqlService(
+					"http://localhost:8890/sparql", query);
+			break;
 		default:
 			qexec = QueryExecutionFactory.sparqlService(
 					"http://lodpaddle.univ-nantes.fr/sparql", query);
@@ -82,5 +86,63 @@ public class SparqlQuery {
 		}
 
 		return resultat;
+	}
+	
+	public static ResultSet requeteResultSet(String requete, EndPoint serveur) {
+		ResultSet results;
+		
+		if(requete == null) return null;
+		
+		// la gestion du proxy n'est necessaire uniquement pour le dev. En prod
+		// il est systématiquement à valider
+		if (isBehindProxy) {
+
+			String proxyHost = "193.52.105.147";
+			String proxyPort = "3128";
+//			String proxyHost = "cache.etu.univ-nantes.fr";
+//			String proxyPort = "3128";
+
+			System.setProperty("proxySet", "true");
+			System.setProperty("http.proxyHost", proxyHost);
+			System.setProperty("http.proxyPort", proxyPort);
+		}
+
+		com.hp.hpl.jena.query.Query query = QueryFactory.create(requete);
+
+		// on switche en fonction du serveur d'exécution. Le defaut est notre
+		// serveur, mais il ne sera jamais utilisé
+		QueryExecution qexec;
+		switch (serveur) {
+		case Fac:
+			qexec = QueryExecutionFactory.sparqlService(
+					"http://lodpaddle.univ-nantes.fr/sparql", query);
+			break;
+		case DBpedia:
+			qexec = QueryExecutionFactory.sparqlService(
+					"http://fr.dbpedia.org/sparql", query);
+			break;
+		case Insee:
+			qexec = QueryExecutionFactory.sparqlService(
+					"http://rdf.insee.fr/sparql", query);
+			break;
+		case Local:
+			qexec = QueryExecutionFactory.sparqlService(
+					"localhost:8890/sparql", query);
+			break;
+		default:
+			qexec = QueryExecutionFactory.sparqlService(
+					"http://lodpaddle.univ-nantes.fr/sparql", query);
+			break;
+		}
+
+		try {
+			results = qexec.execSelect();
+		} catch (Exception e) {
+			System.err.println(e.getLocalizedMessage());
+			return null;
+		} finally {
+			qexec.close();
+		}
+		return results;
 	}
 }

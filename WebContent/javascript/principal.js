@@ -27,6 +27,7 @@ function pageLoaded(domainPath, idChange) {
 
 function doFlip(idChange) {
 	$('.fliploisir').click(function() {
+		$('#contentContainer').height(25+$('#loisirContenu').height()+"px");
 		$('#contentContainer').rotate3Di('toggle', 1000, {
 			sideChange : mySideChangeb1,
 			complete: flipOver(1)
@@ -74,11 +75,12 @@ function flipOver(cat){
 	//cette fonction est appelée à la fin de l'animation
 	//on s'en servira notemment pour afficher les infos sur la carte
 	//cat = 1 => loisir
-	//cat = 1 => culture
-	//cat = 1 => ville
-	//cat = 1 => service
-	//cat = 1 => visite
-	//cat = 1 => transport
+	//cat = 2 => culture
+	//cat = 3 => ville
+	//cat = 4 => service
+	//cat = 5 => visite
+	//cat = 6 => transport
+	
 	
 }
 
@@ -222,6 +224,9 @@ function addPoint(vectorLayer, lat, lon) {
 	});
 
 	vectorLayer.addFeatures(features);
+	alert(point.transform(new OpenLayers.Projection("EPSG:4326"),
+			new OpenLayers.Projection("EPSG:900913")).x+"  "+point.transform(new OpenLayers.Projection("EPSG:4326"),
+					new OpenLayers.Projection("EPSG:900913")).y);
 }
 
 function vectorLayerCreation() {
@@ -256,6 +261,7 @@ function mapCreation() {
 		numZoomLevels : 19,
 		units : 'm',
 		projection : new OpenLayers.Projection("EPSG:900913"),
+//		projection : new OpenLayers.Projection("EPSG:4326"),
 		displayProjection : new OpenLayers.Projection("EPSG:4326")
 	});
 
@@ -295,10 +301,22 @@ function mapCreation() {
 
 	if (!map.getCenter()) {
 		map.setCenter(center.transform(projFrom, projTo), 7);
+//		map.setCenter(center.transform(projFrom, projTo), 2);
 	}
 
 	return map;
 
+}
+
+function ajoutVille(lon, lat) {
+	villeLayer.clearMarkers();
+	var size = new OpenLayers.Size(14,21);
+	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+	var icon = new OpenLayers.Icon('http://lodpaddle.univ-nantes.fr/lodpaddle/media/marqueur.png', size, offset);
+	var position = new OpenLayers.LonLat(lon, lat);
+	var projFrom = new OpenLayers.Projection("EPSG:4326");
+	var projTo = new OpenLayers.Projection("EPSG:900913");
+	villeLayer.addMarker(new OpenLayers.Marker(position.transform(projFrom, projTo),icon));
 }
 
 function gestionCarte() {
@@ -306,6 +324,9 @@ function gestionCarte() {
 	map = mapCreation();
 	vectorLayer = vectorLayerCreation();
 	map.addLayer(vectorLayer);
+	
+	villeLayer = new OpenLayers.Layer.Markers( "Markers" );
+	map.addLayer(villeLayer);
 }
 
 function centrerAccueil(totalDiv){

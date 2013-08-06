@@ -57,8 +57,8 @@
 
 			
 				<div class="flipLoisir flipItem" style="visibility: hidden;">
-					<div class="title">Loisir</div>
-					<div class="contenuFlip accordion"><%@ include
+					<div class="title">Loisirs</div>
+					<div class="contenuFlip accordion" id="loisirContenu"><%@ include
 							file="WEB-INF/afficherContenuLoisir.jspf"%></div>
 				</div>
 				<div class="flipCulture flipItem" style="visibility: hidden;">
@@ -123,6 +123,15 @@
 				});
 			});
 		})(jQuery);
+		
+		
+		<c:choose>
+		<c:when test="${not empty position}">
+			ajoutVille(${position.longitude}, ${position.latitude});
+		</c:when>
+		<c:otherwise>
+		</c:otherwise>
+		</c:choose>
 	</script>
 
 </body>

@@ -15,9 +15,11 @@ import src.Beans.SousTheme;
 import src.Beans.Theme;
 import src.Beans.Widget;
 import src.core.Categorie;
+import src.core.Coordonnee;
 import src.core.EndPoint;
 import src.core.Resultat;
 import src.core.SparqlQuery;
+import src.core.Utilitaires;
 
 public class Index extends HttpServlet {
 
@@ -28,8 +30,8 @@ public class Index extends HttpServlet {
 	public static final String VUE = "/index.jsp";
 	public List<String> listIds = new ArrayList<String>();
 	public final String domain = "http://localhost:8080/lodpaddleTest/";
-//	 public final String domain =
-//	 "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	// public final String domain =
+	// "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 	public List<Widget> thematiques = new ArrayList<Widget>();
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,9 +46,6 @@ public class Index extends HttpServlet {
 		 * saisie est non null et non vide alors on considère qu'on est en mode
 		 * navigation.
 		 * 
-		 * TODO désactivé le bouton submit : la validation ne se fait qu'à
-		 * partir de l'autocomplétion? + pas de recherche vide, - si problème
-		 * réseau, aucune navigation possible
 		 * **/
 
 		String nomVille = request.getParameter("saisie");
@@ -58,27 +57,29 @@ public class Index extends HttpServlet {
 			String insee = nomVille.split(" - ")[1];
 			nomVille = nomVille.split(" - ")[0];
 
-			//gestion des widgets du footer. Creation et passage en GET
+			// gestion des widgets du footer. Creation et passage en GET
 			MyWidget ficheVille;
 			MyWidget tweetVille;
 			MyWidget photoVille;
 
+			Coordonnee positionVille = recuperePosition(insee);
+
 			ficheVille = new MyWidget(nomVille, getVillePresentation(nomVille,
 					insee), "PresentationVille", "#2980b9", 550);
-			
+
 			tweetVille = new MyWidget("twitter", "", "twitter", "#2980b9", 250);
 			tweetVille.setImageFond(domain + "media/tweet.png");
-			
+
 			photoVille = new MyWidget("photo", "", "photo1", "#2980b9", 200);
 			photoVille.setImageFond(domain + "media/nantesTown.jpg");
-			
-			
-			creationDataFlip(request, response, nomVille, insee);
+
+			creationDataFlip(request, response, nomVille, insee, positionVille);
 
 			widgets.add(ficheVille);
 			widgets.add(tweetVille);
 			widgets.add(photoVille);
-
+			
+			request.setAttribute("position", positionVille);
 			request.setAttribute("widgets", widgets);
 			request.setAttribute("typePage", nomVille);
 
@@ -107,32 +108,58 @@ public class Index extends HttpServlet {
 				.forward(request, response);
 	}
 
-	private void creationDataFlip(HttpServletRequest request,
-			HttpServletResponse response, String nomVille, String insee) {
-		
-		/** widget items for flip **/
-		Theme loisirs = new Theme("Loisirs", ".flipLoisir");
-//		Theme culture = new Theme("Culture", ".flipCulture");
-//		Theme ville = new Theme("Ville", ".flipVille");
-//		Theme service = new Theme("Service", ".flipService");
-//		Theme transport = new Theme("Transport", ".flipTransport");
-//		Theme aVisiter = new Theme("&Agrave; visiter", ".flipVisite");
+	private Coordonnee recuperePosition(String insee) {
 
-		
-		SousTheme restaurant = new SousTheme("Restaurants", domain + "/media/restaurantPicto.png", Categorie.RESTAURANT);
-		SousTheme hotel = new SousTheme("Hotels", domain + "/media/hotelPicto.png", Categorie.HOTEL);
-		SousTheme golf = new SousTheme("Parcs de golf", domain + "/media/golfPicto.png", Categorie.GOLF);
-		SousTheme plage = new SousTheme("Plages", domain + "/media/plagePicto.png", Categorie.PLAGE);
-		SousTheme sport = new SousTheme("Centres sportifs", domain + "/media/sportPicto.png", Categorie.SPORT);
-		
+		String requete = new String(
+				"PREFIX dbpprop: <http://dbpedia.org/property/> "
+						+ "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> "
+						+ "SELECT ?lat ?lon "
+						+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises> "
+						+ "WHERE { " + "?commune dbpprop:insee "+insee+" . "
+						+ "?commune geo:lat ?lat . "
+						+ "?commune geo:long ?lon . " + "}");
+		Resultat resultats = SparqlQuery.requete(requete, EndPoint.Fac);
+
+		// on teste si la requete à bien retourné quelque chose
+		if (resultats.estVide())
+			return null;
+		Double lat = Double.valueOf(Utilitaires.nettoieRessource(resultats.at(0).get("lat")));
+		Double lon = Double.valueOf(Utilitaires.nettoieRessource(resultats.at(0).get("lon")));
+		Coordonnee position = new Coordonnee(lat, lon);
+
+		return position;
+	}
+
+	private void creationDataFlip(HttpServletRequest request,
+			HttpServletResponse response, String nomVille, String insee, Coordonnee position) {
+
+		/** widget items for flip **/
+		Theme loisirs = new Theme("Loisirs", ".flipLoisir", position);
+		// Theme culture = new Theme("Culture", ".flipCulture");
+		// Theme ville = new Theme("Ville", ".flipVille");
+		// Theme service = new Theme("Service", ".flipService");
+		// Theme transport = new Theme("Transport", ".flipTransport");
+		// Theme aVisiter = new Theme("&Agrave; visiter", ".flipVisite");
+
+		SousTheme restaurant = new SousTheme("Restaurants", domain
+				+ "/media/restaurantPicto.png", Categorie.RESTAURANT);
+		SousTheme hotel = new SousTheme("Hotels", domain
+				+ "/media/hotelPicto.png", Categorie.HOTEL);
+		SousTheme golf = new SousTheme("Parcs de golf", domain
+				+ "/media/golfPicto.png", Categorie.GOLF);
+		SousTheme plage = new SousTheme("Plages", domain
+				+ "/media/plagePicto.png", Categorie.PLAGE);
+		SousTheme sport = new SousTheme("Centres sportifs", domain
+				+ "/media/sportPicto.png", Categorie.SPORT);
+
 		loisirs.ajoutSousTheme(restaurant);
 		loisirs.ajoutSousTheme(hotel);
 		loisirs.ajoutSousTheme(golf);
 		loisirs.ajoutSousTheme(plage);
 		loisirs.ajoutSousTheme(sport);
-		
+
 		request.setAttribute("themeLoisir", loisirs);
-		
+
 	}
 
 	private String getVillePresentation(String nomVille, String insee) {
@@ -146,7 +173,9 @@ public class Index extends HttpServlet {
 						+ "PREFIX prop-fr: <http://fr.dbpedia.org/property/>"
 						+ "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>"
 						+ "SELECT ?dep ?min ?max ?gentile ?maire ?mandat ?superficie ?description ?site WHERE {"
-						+ "?ville prop-fr:insee " + insee + " ."
+						+ "?ville prop-fr:insee "
+						+ insee
+						+ " ."
 						+ "OPTIONAL{?ville prop-fr:département ?dep .}"
 						+ "OPTIONAL{?ville prop-fr:gentilé ?gentile .}"
 						+ "OPTIONAL{?ville dbpedia-owl:abstract ?description .}"
@@ -177,21 +206,34 @@ public class Index extends HttpServlet {
 		HashMap<String, String> ligne = resultat.at(0);
 		HashMap<String, String> ligne2 = resultat2.at(0);
 
-		String dep = nettoieRessource(
+		String dep = Utilitaires.nettoieRessource(
 				(ligne.get("dep") != null && !ligne.get("dep").isEmpty()) ? ligne.get("dep")
 						: "néant", "dep");
-		String min = nettoieRessource((ligne.get("min") != null && !ligne.get("min").isEmpty()) ? ligne.get("min") : "néant");
-		String max = nettoieRessource((ligne.get("max") != null && !ligne.get("max").isEmpty()) ? ligne.get("max") : "néant");
-		String gentile = nettoieRessource((ligne.get("gentile") != null && !ligne.get("gentile").isEmpty()) ? ligne.get("gentile") : "néant");
-		String maire = nettoieRessource((ligne.get("maire") != null && !ligne.get("maire").isEmpty()) ? ligne.get("maire") : "néant");
-		String mandat = nettoieRessource((ligne.get("mandat") != null && !ligne.get("mandat").isEmpty()) ? ligne.get("mandat") : "néant");
-		String superficie = nettoieRessource((ligne.get("superficie") != null && !ligne.get("superficie").isEmpty()) ? ligne.get("superficie"): "néant");
+		String min = Utilitaires.nettoieRessource((ligne.get("min") != null && !ligne.get(
+				"min").isEmpty()) ? ligne.get("min") : "néant");
+		String max = Utilitaires.nettoieRessource((ligne.get("max") != null && !ligne.get(
+				"max").isEmpty()) ? ligne.get("max") : "néant");
+		String gentile = Utilitaires.nettoieRessource((ligne.get("gentile") != null && !ligne
+				.get("gentile").isEmpty()) ? ligne.get("gentile") : "néant");
+		String maire = Utilitaires.nettoieRessource((ligne.get("maire") != null && !ligne
+				.get("maire").isEmpty()) ? ligne.get("maire") : "néant");
+		String mandat = Utilitaires.nettoieRessource((ligne.get("mandat") != null && !ligne
+				.get("mandat").isEmpty()) ? ligne.get("mandat") : "néant");
+		String superficie = Utilitaires.nettoieRessource((ligne.get("superficie") != null && !ligne
+				.get("superficie").isEmpty()) ? ligne.get("superficie")
+				: "néant");
 		// String description = (ligne.get("description") != null &&
 		// !ligne.get("description").isEmpty())?ligne.get("description"):"néant";
-		String site = (ligne.get("site") != null && !ligne.get("site").isEmpty()) ? "<a href=\""+ligne.get("site")+ "\" alt=\"lien vers le site de la commune\" target=\"_blank\">"+ ligne.get("site") + "</a>": "néant";
+		String site = (ligne.get("site") != null && !ligne.get("site")
+				.isEmpty()) ? "<a href=\""
+				+ ligne.get("site")
+				+ "\" alt=\"lien vers le site de la commune\" target=\"_blank\">"
+				+ ligne.get("site") + "</a>"
+				: "néant";
 		String pop = "néant";
-		if(ligne2 != null) pop = nettoieRessource((ligne2.get("pop") != null && !ligne2.get("pop").isEmpty()) ? ligne2.get("pop") : "néant");
-
+		if (ligne2 != null)
+			pop = Utilitaires.nettoieRessource((ligne2.get("pop") != null && !ligne2.get(
+					"pop").isEmpty()) ? ligne2.get("pop") : "néant");
 
 		String ficheVilleText = new String("<div id=\"presentationCadre\">"
 				+ "<div id=\"presentationTitre\">" + "<h3 class=\"center\">"
@@ -238,30 +280,6 @@ public class Index extends HttpServlet {
 			String retour = Double.toString(h / s);
 			return retour.substring(0, retour.indexOf('.') + 2) + " hab/km²";
 		}
-	}
-
-	private String nettoieRessource(String string, String autre) {
-		String retour = nettoieRessource(string);
-		if (autre.equals("dep") && retour.contains("_")) {
-			return retour.substring(0, retour.indexOf('_'));
-		}
-		return retour;
-	}
-
-	private String nettoieRessource(String string) {
-		// on suppose qu'une string commençant par " est malformée, ie ressource
-		// ou littéral avec type
-		if (string.split("@").length > 1) {
-			return string.split("@")[0];
-		}
-		if (string.split("http://fr.dbpedia.org/resource/").length > 1) {
-			return string.split("http://fr.dbpedia.org/resource/")[1];
-		}
-		if (string.contains("^^http")) {
-			int pos = string.indexOf("^^http");
-			return string.substring(0, pos);
-		}
-		return string;
 	}
 
 	private String contenuVide(String nomVille) {

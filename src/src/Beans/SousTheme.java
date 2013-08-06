@@ -6,9 +6,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import src.core.Categorie;
+import src.core.Coordonnee;
 import src.core.EndPoint;
 import src.core.Resultat;
 import src.core.SparqlQuery;
+import src.core.Utilitaires;
 
 public class SousTheme {
 
@@ -53,9 +55,9 @@ public class SousTheme {
 		entree.add(monLien);
 	}
 
-	public void creeLiens() {
+	public void creeLiens(Coordonnee position) {
 		Resultat resultats = SparqlQuery
-				.requete(cat.getRequete(), EndPoint.Fac);
+				.requete(cat.getRequete(position), EndPoint.Fac);
 		if (resultats == null || resultats.estVide())
 			return;
 
@@ -65,7 +67,7 @@ public class SousTheme {
 		Iterator<HashMap<String, String>> it = resultats.iterator();
 		while (it.hasNext()) {
 			HashMap<String, String> map = it.next();
-			this.ajoutLien(map.get("nom"), map.get("ressource"));
+			this.ajoutLien(Utilitaires.nettoieRessource(map.get("nom")).toLowerCase(), map.get("ressource"));
 		}
 	}
 

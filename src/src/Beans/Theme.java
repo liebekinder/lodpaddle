@@ -3,16 +3,20 @@ package src.Beans;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.core.Coordonnee;
+
 
 public class Theme {
 
 	String titre;
 	String style;
 	List<SousTheme> listeSousTheme;
+	Coordonnee position;
 	
-	public Theme(String titre, String style) {
+	public Theme(String titre, String style, Coordonnee position) {
 		this.titre = titre;
 		this.style = style;
+		this.position = position;
 		listeSousTheme = new ArrayList<SousTheme>();
 	}
 
@@ -46,8 +50,8 @@ public class Theme {
 	
 	public void ajoutSousTheme(SousTheme sstheme){
 		if(sstheme != null){
-			//sstheme.creeLiens();
-			sstheme.creeLienTemp();
+			sstheme.creeLiens(position);
+//			sstheme.creeLienTemp();
 			listeSousTheme.add(sstheme);
 		}
 	}

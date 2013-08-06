@@ -1,5 +1,5 @@
 package src.core;
 
 public enum EndPoint {
-	Fac, DBpedia, Insee
+	Fac, DBpedia, Insee, Local
 }
