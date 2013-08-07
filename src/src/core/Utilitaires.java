@@ -26,4 +26,18 @@ public class Utilitaires {
 		}
 		return string;
 	}
+	
+	public static String nettoieRessourceLeger(String string) {
+		if (string.contains("^^http")) {
+			int pos = string.indexOf("^^http");
+			return string.substring(0, pos);
+		}
+		return string;
+	}
+	
+	public static String nettoieAffichage(String s){
+		String retour = nettoieRessourceLeger(s);
+		retour = retour.substring(0, 1).toUpperCase()+retour.substring(1).toLowerCase();
+		return retour;
+	}
 }

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import src.Beans.MyWidget;
 import src.Beans.SousTheme;
 import src.Beans.Theme;
-import src.Beans.Widget;
 import src.core.Categorie;
 import src.core.Coordonnee;
 import src.core.EndPoint;
@@ -28,11 +27,9 @@ public class Index extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final String VUE = "/index.jsp";
-	public List<String> listIds = new ArrayList<String>();
-	public final String domain = "http://localhost:8080/lodpaddleTest/";
-	// public final String domain =
-	// "http://lodpaddle.univ-nantes.fr/lodpaddle/";
-	public List<Widget> thematiques = new ArrayList<Widget>();
+	
+//	public final String domain = "http://localhost:8080/lodpaddleTest/";
+	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -125,7 +122,7 @@ public class Index extends HttpServlet {
 			return null;
 		Double lat = Double.valueOf(Utilitaires.nettoieRessource(resultats.at(0).get("lat")));
 		Double lon = Double.valueOf(Utilitaires.nettoieRessource(resultats.at(0).get("lon")));
-		Coordonnee position = new Coordonnee(lat, lon);
+		Coordonnee position = new Coordonnee(lon, lat);
 
 		return position;
 	}
@@ -135,30 +132,105 @@ public class Index extends HttpServlet {
 
 		/** widget items for flip **/
 		Theme loisirs = new Theme("Loisirs", ".flipLoisir", position);
-		// Theme culture = new Theme("Culture", ".flipCulture");
-		// Theme ville = new Theme("Ville", ".flipVille");
-		// Theme service = new Theme("Service", ".flipService");
-		// Theme transport = new Theme("Transport", ".flipTransport");
-		// Theme aVisiter = new Theme("&Agrave; visiter", ".flipVisite");
+		Theme culture = new Theme("Culture", ".flipCulture", position);
+//		Theme ville = new Theme("Ville", ".flipVille", position);
+		Theme service = new Theme("Service", ".flipService", position);
+		// Theme transport = new Theme("Transport", ".flipTransport", position);
+		Theme aVisiter = new Theme("&Agrave; visiter", ".flipVisite", position);
 
 		SousTheme restaurant = new SousTheme("Restaurants", domain
-				+ "/media/restaurantPicto.png", Categorie.RESTAURANT);
+				+ "media/picto/restaurantPicto.png",domain
+				+ "media/marker/M-restaurant.png", Categorie.RESTAURANT);
 		SousTheme hotel = new SousTheme("Hotels", domain
-				+ "/media/hotelPicto.png", Categorie.HOTEL);
+				+ "media/picto/hotelPicto.png", domain
+				+ "media/marker/M-hotel.png",Categorie.HOTEL);
 		SousTheme golf = new SousTheme("Parcs de golf", domain
-				+ "/media/golfPicto.png", Categorie.GOLF);
+				+ "media/picto/golfPicto.png",domain
+				+ "media/marker/M-golf.png", Categorie.GOLF);
 		SousTheme plage = new SousTheme("Plages", domain
-				+ "/media/plagePicto.png", Categorie.PLAGE);
+				+ "media/picto/plagePicto.png",domain
+				+ "media/marker/M-plage.png",Categorie.PLAGE);
 		SousTheme sport = new SousTheme("Centres sportifs", domain
-				+ "/media/sportPicto.png", Categorie.SPORT);
+				+ "media/picto/sportPicto.png",domain
+				+ "media/marker/M-sport.png", Categorie.SPORT);
 
 		loisirs.ajoutSousTheme(restaurant);
 		loisirs.ajoutSousTheme(hotel);
 		loisirs.ajoutSousTheme(golf);
 		loisirs.ajoutSousTheme(plage);
 		loisirs.ajoutSousTheme(sport);
+		
+		SousTheme cinema = new SousTheme("Cinéma", domain
+				+ "media/picto/cinemaPicto.png",domain
+				+ "media/marker/M-cinema.png", Categorie.CINEMA);
+		SousTheme equipementCulturel = new SousTheme("Equipement Culturel", domain
+				+ "media/picto/equipementPicto.png",domain
+				+ "media/marker/M-equipement.png", Categorie.EQUIPEMENT_CULTURE);
+		SousTheme mediatheque = new SousTheme("Médiathèque", domain
+				+ "media/picto/mediathequePicto.png",domain
+				+ "media/marker/M-mediatheque.png", Categorie.MEDIATHEQUE);
+		SousTheme salleSpectacle = new SousTheme("Salle de Spectacle", domain
+				+ "media/picto/salle-de-spectaclePicto.png",domain
+				+ "media/marker/M-spectacle.png", Categorie.SALLE_SPECTACLE);
+
+		culture.ajoutSousTheme(cinema);
+		culture.ajoutSousTheme(equipementCulturel);
+		culture.ajoutSousTheme(mediatheque);
+		culture.ajoutSousTheme(salleSpectacle);
+		
+		SousTheme actionSociale = new SousTheme("Action sociale", domain
+				+ "media/picto/action-socialePicto.png",domain
+				+ "media/marker/M-action-sociale.png", Categorie.ACTION_SOCIALE);
+		SousTheme decheterie = new SousTheme("Décheterie", domain
+				+ "media/picto/decheteriePicto.png",domain
+				+ "media/marker/M-dechetterie.png", Categorie.DECHETERIE);
+		SousTheme justice = new SousTheme("Justice", domain
+				+ "media/picto/justicePicto.png",domain
+				+ "media/marker/M-justice.png", Categorie.JUSTICE);
+		SousTheme poste = new SousTheme("Poste", domain
+				+ "media/picto/postePicto.png",domain
+				+ "media/marker/M-poste.png", Categorie.POSTE);
+		SousTheme vieSociale = new SousTheme("Vie sociale", domain
+				+ "media/picto/vie-socialePicto.png",domain
+				+ "media/marker/M-vie-sociale.png", Categorie.VIE_SOCIALE);
+		SousTheme servicePublic = new SousTheme("Service public", domain
+				+ "media/picto/noImage.png",domain
+				+ "media/marker/marqueur.png", Categorie.SERVICE_PUBLIC);
+
+		service.ajoutSousTheme(actionSociale);
+		service.ajoutSousTheme(decheterie);
+		service.ajoutSousTheme(justice);
+		service.ajoutSousTheme(poste);
+		service.ajoutSousTheme(vieSociale);
+		service.ajoutSousTheme(servicePublic);
+
+		
+		SousTheme chateau = new SousTheme("Château", domain
+				+ "media/picto/cinemaPicto.png",domain
+				+ "media/marker/M-chateau.png", Categorie.CHATEAU);
+		SousTheme citeCaractere = new SousTheme("Petites cités de caractère", domain
+				+ "media/picto/equipementPicto.png",domain
+				+ "media/marker/M-cite-de-caractere.png", Categorie.CITE);
+		SousTheme jardin = new SousTheme("Jardin familiaux", domain
+				+ "media/picto/mediathequePicto.png",domain
+				+ "media/marker/M-jardin.png", Categorie.JARDIN);
+		SousTheme patrimoine = new SousTheme("Patrimoine", domain
+				+ "media/picto/noImage.png",domain
+				+ "media/marker/marqueur.png", Categorie.PATRIMOINE);
+		SousTheme parc = new SousTheme("Parc animalier et à thème", domain
+				+ "media/picto/noImage.png",domain
+				+ "media/marker/marqueur.png", Categorie.PARC_ANIMALIER);
+
+		aVisiter.ajoutSousTheme(chateau);
+		aVisiter.ajoutSousTheme(citeCaractere);
+		aVisiter.ajoutSousTheme(jardin);
+		aVisiter.ajoutSousTheme(patrimoine);
+		aVisiter.ajoutSousTheme(parc);
 
 		request.setAttribute("themeLoisir", loisirs);
+		request.setAttribute("themeCulture", culture);
+		request.setAttribute("themeService", service);
+		request.setAttribute("themeVisite", aVisiter);
 
 	}
 
@@ -227,7 +299,7 @@ public class Index extends HttpServlet {
 		String site = (ligne.get("site") != null && !ligne.get("site")
 				.isEmpty()) ? "<a href=\""
 				+ ligne.get("site")
-				+ "\" alt=\"lien vers le site de la commune\" target=\"_blank\">"
+				+ "\" target=\"_blank\">"
 				+ ligne.get("site") + "</a>"
 				: "néant";
 		String pop = "néant";

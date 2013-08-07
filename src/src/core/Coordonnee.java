@@ -2,12 +2,17 @@ package src.core;
 
 public class Coordonnee {
 
-	double latitude;
 	double longitude;
+	double latitude;
 	
-	public Coordonnee(double latitude, double longitude) {
-		this.latitude = latitude;
+	public Coordonnee(double longitude, double latitude) {
 		this.longitude = longitude;
+		this.latitude = latitude;
+	}
+	
+	public Coordonnee(String longitude, String latitude) {
+		this.longitude = Double.valueOf(longitude);
+		this.latitude = Double.valueOf(latitude);
 	}
 
 	public double getLatitude() {

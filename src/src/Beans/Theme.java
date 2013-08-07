@@ -50,8 +50,7 @@ public class Theme {
 	
 	public void ajoutSousTheme(SousTheme sstheme){
 		if(sstheme != null){
-			sstheme.creeLiens(position);
-//			sstheme.creeLienTemp();
+			sstheme.creeEntrees(position);
 			listeSousTheme.add(sstheme);
 		}
 	}

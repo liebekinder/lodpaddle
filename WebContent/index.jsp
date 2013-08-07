@@ -32,12 +32,13 @@
 
 <script>
 	$(function() {
-		$(".accordion").accordion();
+		$(".accordion").accordion({ heightStyle: "fill" });
+		doFlip();
 	});
 </script>
 
 </head>
-<body onload="pageLoaded('${domain}','${idsForChange}');">
+<body onload="pageLoaded('${domain}');">
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	<div id="AllScreenDiv">
@@ -63,27 +64,27 @@
 				</div>
 				<div class="flipCulture flipItem" style="visibility: hidden;">
 					<div class="title">Culture</div>
-					<div class="contenuFlip"><%@ include
+					<div class="contenuFlip accordion" id="cultureContenu"><%@ include
 							file="WEB-INF/afficherContenuCulture.jspf"%></div>
 				</div>
 				<div class="flipVille flipItem" style="visibility: hidden;">
 					<div class="title">Ville</div>
-					<div class="contenuFlip"><%@ include
+					<div class="contenuFlip accordion" id="villeContenu"><%@ include
 							file="WEB-INF/afficherContenuVille.jspf"%></div>
 				</div>
 				<div class="flipService flipItem" style="visibility: hidden;">
 					<div class="title">Service</div>
-					<div class="contenuFlip"><%@ include
+					<div class="contenuFlip accordion" id="serviceContenu"><%@ include
 							file="WEB-INF/afficherContenuService.jspf"%></div>
 				</div>
 				<div class="flipVisite flipItem" style="visibility: hidden;">
 					<div class="title">Visite</div>
-					<div class="contenuFlip"><%@ include
+					<div class="contenuFlip accordion" id="visiteContenu"><%@ include
 							file="WEB-INF/afficherContenuVisite.jspf"%></div>
 				</div>
 				<div class="flipTransport flipItem" style="visibility: hidden;">
 					<div class="title">Transport</div>
-					<div class="contenuFlip"><%@ include
+					<div class="contenuFlip accordion" id="transportContenu"><%@ include
 							file="WEB-INF/afficherContenuTransport.jspf"%></div>
 				</div>
 			</div>
@@ -124,14 +125,58 @@
 			});
 		})(jQuery);
 		
+		<c:if test="${not empty position}">
+			ajoutPoint(villeSearch, ${position.longitude}, ${position.latitude},'http://lodpaddle.univ-nantes.fr/lodpaddle/media/marqueur.png');
+		</c:if>
 		
-		<c:choose>
-		<c:when test="${not empty position}">
-			ajoutVille(${position.longitude}, ${position.latitude});
-		</c:when>
-		<c:otherwise>
-		</c:otherwise>
-		</c:choose>
+		<c:if test="${not empty themeCulture}"> 
+			<c:forEach var="item" items="${themeCulture.listeSousTheme}">
+				<c:forEach var="link" items="${item.entrees}">
+					ajoutPoint(cultureLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+				</c:forEach>
+			</c:forEach>
+		</c:if>
+		
+		<c:if test="${not empty themeLoisir}"> 
+			<c:forEach var="item" items="${themeLoisir.listeSousTheme}">
+				<c:forEach var="link" items="${item.entrees}">
+					ajoutPoint(loisirLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+				</c:forEach>
+			</c:forEach>
+		</c:if>
+		
+		<c:if test="${not empty themeVille}"> 
+			<c:forEach var="item" items="${themeVille.listeSousTheme}">
+				<c:forEach var="link" items="${item.entrees}">
+					ajoutPoint(villeLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+				</c:forEach>
+			</c:forEach>
+		</c:if>
+		
+		<c:if test="${not empty themeVisite}"> 
+			<c:forEach var="item" items="${themeVisite.listeSousTheme}">
+				<c:forEach var="link" items="${item.entrees}">
+					ajoutPoint(visiteLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+				</c:forEach>
+			</c:forEach>
+		</c:if>
+		
+		<c:if test="${not empty themeTransport}"> 
+			<c:forEach var="item" items="${themeTransport.listeSousTheme}">
+				<c:forEach var="link" items="${item.entrees}">
+					ajoutPoint(transportLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+				</c:forEach>
+			</c:forEach>
+		</c:if>
+		
+		<c:if test="${not empty themeService}"> 
+			<c:forEach var="item" items="${themeService.listeSousTheme}">
+				<c:forEach var="link" items="${item.entrees}">
+					ajoutPoint(serviceLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+				</c:forEach>
+			</c:forEach>
+		</c:if>
+		
 	</script>
 
 </body>

@@ -1,0 +1,15 @@
+<h6 style="text-align: left;">
+			<img class="linkImg" alt=" " src="<c:out value="${item.picto}" />" />
+			<span style=" border-bottom: solid white 1px;"><c:out value="${item.titre}" /> </span>
+		</h6>
+		<div>
+
+			<ul>
+				<c:forEach var="link" items="${item.entrees}">
+					<li>
+						<span id="${link.entreeUrl}" onclick="alert(this.id);"><c:out value="${ link.entreeNom}" /> </span>
+					</li>
+				</c:forEach>
+			</ul>
+
+		</div>

@@ -1,24 +1,24 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:if test="${not empty themeService.themeItems}"> 
-	<c:forEach var="item" items="${themeService.themeItems}">
+<c:if test="${not empty themeService}"> 
+
+	<c:forEach var="item" items="${themeService.listeSousTheme}">
 
 		<h6 style="text-align: left;">
-			<img class="linkImg" alt=" " src="<c:out value="${item.themePicto}" />" />
-			<span style=" border-bottom: solid white 1px;"><c:out value="${item.theme}" /> </span>
+			<img class="linkImg" alt=" " src="<c:out value="${item.picto}" />" />
+			<span style=" border-bottom: solid white 1px;"><c:out value="${item.titre}" /> </span>
 		</h6>
 		<div>
 
 			<ul>
-				<c:forEach var="link" items="${item.contentLinks}">
+				<c:forEach var="link" items="${item.entrees}">
 					<li>
-						<a href="<c:out value="${link.linkUri}" />">
-						<c:out value="${ link.linkText}" /> </a>
+						<a href="<c:out value="${link.entreeUrl}" />">
+						<c:out value="${ link.entreeNom}" /> </a>
 					</li>
 				</c:forEach>
 			</ul>
-					<!--  <a href="./CreateWidget" style="display:block;width:100%;height:100%;">MaxiMoi200 </a> -->
 
 		</div>
 	</c:forEach>

@@ -16,14 +16,32 @@ public class SousTheme {
 
 	String titre;
 	String picto;
+	String marker;
 	Categorie cat;
-	List<Lien> entree;
+	List<Entree> entrees;
 
-	public SousTheme(String titre, String picto, Categorie cat) {
+	public SousTheme(String titre, String picto, String marker, Categorie cat) {
 		this.titre = titre;
 		this.picto = picto;
+		this.marker = marker;
 		this.cat = cat;
-		entree = new ArrayList<Lien>();
+		entrees = new ArrayList<Entree>();
+	}
+
+	public String getMarker() {
+		return marker;
+	}
+
+	public void setMarker(String marker) {
+		this.marker = marker;
+	}
+
+	public Categorie getCat() {
+		return cat;
+	}
+
+	public void setCat(Categorie cat) {
+		this.cat = cat;
 	}
 
 	public String getTitre() {
@@ -42,20 +60,20 @@ public class SousTheme {
 		this.picto = picto;
 	}
 
-	public List<Lien> getEntree() {
-		return entree;
+	public List<Entree> getEntrees() {
+		return entrees;
 	}
 
-	public void setEntree(List<Lien> entree) {
-		this.entree = entree;
+	public void setEntrees(List<Entree> entrees) {
+		this.entrees = entrees;
 	}
 
-	public void ajoutLien(String nom, String lien) {
-		Lien monLien = new Lien(nom, lien);
-		entree.add(monLien);
+	public void ajoutEntree(String nom, String lien, Coordonnee position) {
+		Entree monLien = new Entree(nom, lien, position);
+		entrees.add(monLien);
 	}
 
-	public void creeLiens(Coordonnee position) {
+	public void creeEntrees(Coordonnee position) {
 		Resultat resultats = SparqlQuery
 				.requete(cat.getRequete(position), EndPoint.Fac);
 		if (resultats == null || resultats.estVide())
@@ -67,39 +85,9 @@ public class SousTheme {
 		Iterator<HashMap<String, String>> it = resultats.iterator();
 		while (it.hasNext()) {
 			HashMap<String, String> map = it.next();
-			this.ajoutLien(Utilitaires.nettoieRessource(map.get("nom")).toLowerCase(), map.get("ressource"));
-		}
-	}
-
-	public void creeLienTemp() {
-		switch (cat) {
-		case RESTAURANT:
-			this.ajoutLien("Le poellon d'or", "index.jsp");
-			this.ajoutLien("Hotelerie de la ferrerie", "index.jsp");
-			this.ajoutLien("Plusieurs gourmands", "index.jsp");
-			break;
-		case HOTEL:
-			this.ajoutLien("le Chateau de vincenne", "index.jsp");
-			this.ajoutLien("baf hotel", "index.jsp");
-			this.ajoutLien("le relais de la grange", "index.jsp");
-			break;
-		case GOLF:
-			this.ajoutLien("Golf de carquefou", "index.jsp");
-			this.ajoutLien("Golf de jump up", "index.jsp");
-			this.ajoutLien("Golf de vander woodsen", "index.jsp");
-			break;
-		case PLAGE:
-			this.ajoutLien("Pornic", "index.jsp");
-			this.ajoutLien("La baule les pins", "index.jsp");
-			this.ajoutLien("Plages du cantonnais", "index.jsp");
-			break;
-		case SPORT:
-			this.ajoutLien("Stade de la tourniere", "index.jsp");
-			this.ajoutLien("Tennis municipaux maine et Loire", "index.jsp");
-			this.ajoutLien("Gymnase Aman du blac", "index.jsp");
-			break;
-		default:
-			break;
+			this.ajoutEntree(Utilitaires.nettoieAffichage(map.get("nom")),
+					map.get("ressource"),new Coordonnee(Utilitaires.nettoieAffichage(map.get("long")),
+					Utilitaires.nettoieAffichage(map.get("lat"))));
 		}
 	}
 }

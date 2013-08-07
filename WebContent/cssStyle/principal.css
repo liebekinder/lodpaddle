@@ -40,7 +40,7 @@ header {
 	left: 5px;
 	top: 40px;
 	width: 250px;
-	height: 335px;
+	height: 400px;
 /* 	background: rgba(56, 172, 83, 0.67); */
 	z-index: 5000;
 	border-radius: 3px;
@@ -374,37 +374,37 @@ li:first-line {
 }
 
 #culture {
-	background-image: url("../media/cultureTheme.png");
+	background-image: url("../media/theme/cultureTheme.png");
 	background-size: 81px 81px;
 	background-repeat: no-repeat;
 }
 
 #visite {
-	background-image: url("../media/visiteTheme.png");
+	background-image: url("../media/theme/visiteTheme.png");
 	background-size: 81px 81px;
 	background-repeat: no-repeat;
 }
 
 #service {
-	background-image: url("../media/serviceTheme.png");
+	background-image: url("../media/theme/serviceTheme.png");
 	background-size: 81px 81px;
 	background-repeat: no-repeat;
 }
 
 #ville {
-	background-image: url("../media/villeTheme.png");
+	background-image: url("../media/theme/villeTheme.png");
 	background-size: 81px 81px;
 	background-repeat: no-repeat;
 }
 
 #loisir {
-	background-image: url("../media/loisirTheme.png");
+	background-image: url("../media/theme/loisirTheme.png");
 	background-size: 81px 81px;
 	background-repeat: no-repeat;
 }
 
 #transport {
-	background-image: url("../media/transportTheme.png");
+	background-image: url("../media/theme/transportTheme.png");
 	background-size: 81px 81px;
 	background-repeat: no-repeat;
 }
@@ -442,8 +442,8 @@ li:first-line {
 	position: absolute;
 	color: white;
 	top: 0px;
-	margin-top: 0px;
 	padding: 0;
+	padding-bottom: 10px;
 	font-size: 12px;
 }
 
@@ -458,7 +458,7 @@ li:first-line {
 }
 
 .contenuFlip {
-	height: 325px;
+	height: 100%;
 	width: 240px;
 	padding-left: 5px;
 	padding-top: 2px;
