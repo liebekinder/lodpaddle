@@ -21,4 +21,22 @@
 
 	</form>
 </div>
+<script type="text/javascript">
+$('#searchInput').autocomplete({
+	source : '${domain}AjaxListName',
+	minLength : 2,
+	autoFocus : true,
+	delay : 500,
+	open : function(event, ui) {
+		$("#ui-id-1").zIndex(5010);
+	},
+	select : function(event, ui) {
+		$("#searchInput").val(ui.item.label);
+		$("#searchBarForm").submit();
+	}
+}).data("ui-autocomplete")._renderItem = function(ul, item) {
+	return $("<li></li>").data("item.autocomplete", item).append(
+			$("<a></a>").html(item.label.slice(0, -3))).appendTo(ul);
+};
+</script>
 <div id="creditZone"><span onclick="del(vectorLayer);">Credit</span> | blabla | encore un truc &copy;</div>

@@ -3,22 +3,7 @@
  */
 
 function pageLoaded(domainPath) {
-	$('#searchInput').autocomplete({
-		source : domainPath + 'AjaxListName',
-		minLength : 2,
-		autoFocus : true,
-		delay : 500,
-		open : function(event, ui) {
-			$("#ui-id-1").zIndex(5010);
-		},
-		select : function(event, ui) {
-			$("#searchInput").val(ui.item.label);
-			$("#searchBarForm").submit();
-		}
-	}).data("ui-autocomplete")._renderItem = function(ul, item) {
-		return $("<li></li>").data("item.autocomplete", item).append(
-				$("<a></a>").html(item.label.slice(0, -3))).appendTo(ul);
-	};
+	domain = domainPath; 
 }
 
 function doFlip() {
@@ -289,19 +274,6 @@ function mapCreation() {
 
 }
 
-function ajoutVille(lon, lat) {
-	villeSearch.clearMarkers();
-	var size = new OpenLayers.Size(14, 21);
-	var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-	var icon = new OpenLayers.Icon(
-			'http://lodpaddle.univ-nantes.fr/lodpaddle/media/marqueur.png',
-			size, offset);
-	var position = new OpenLayers.LonLat(lon, lat);
-	var projFrom = new OpenLayers.Projection("EPSG:4326");
-	var projTo = new OpenLayers.Projection("EPSG:900913");
-	villeSearch.addMarker(new OpenLayers.Marker(position.transform(projFrom,
-			projTo), icon));
-}
 
 function ajoutPoint(layer, lon, lat, iconPath, id) {
 
@@ -312,10 +284,10 @@ function ajoutPoint(layer, lon, lat, iconPath, id) {
 
 	var markerStyle = {
 		externalGraphic : iconPath,
-		graphicWidth : 14,
-		graphicHeight : 21,
-		graphicXOffset : -7,
-		graphicYOffset : -21
+		graphicWidth : 28,
+		graphicHeight : 42,
+		graphicXOffset : -14,
+		graphicYOffset : -42
 	};
 	var feature = new OpenLayers.Feature.Vector(point, {
 		title : id,
@@ -325,13 +297,19 @@ function ajoutPoint(layer, lon, lat, iconPath, id) {
 }
 
 function ajoutLayer(layer) {
+	cadreInfoHide();
 	enleveToutLayer();
 	map.addLayer(layer);
 	var selector = new OpenLayers.Control.SelectFeature(layer, {
 		click : true,
 		autoActivate : true
 	});
-
+	var newZoom = layer.getDataExtent();
+	if(newZoom != null){
+		map.zoomToExtent(newZoom);
+		//besoin de corriger le zoom, des points peuvent apparaitre derriere les cadres
+		map.zoomOut();
+	}
 	map.addControl(selector);
 }
 
@@ -354,7 +332,89 @@ function enleveToutLayer() {
 		map.removeLayer(map.getLayersByName("visiteLayer")[0]);
 }
 
+
+function afficheCadreInfo(ressource){
+	$.ajax({    
+		type: "POST",
+		url: domain+"AjaxInformation",
+		dataType: "html",
+		data: "ressource="+encodeURI(ressource),
+		success: function(msg){
+			$('#cadreInfo').html(msg);
+			},
+		error: function(jqXHR, textStatus, errorThrown ){
+			$('#cadreInfo').html("<p>Impossible de récupérer les données!</p>");
+		}
+	});
+//	document.getElementById("cadreInfo").innerHTML = ressource;
+	cadreInfoShow();
+}
+
+function cadreInfoShow(){
+	$("#cadreInfo").show( "slide",
+		{ direction: "right" },
+		1000,
+		function(){
+		}
+	);
+}
+
+function cadreInfoHide(){
+	$("#cadreInfo").hide( "slide",
+		{ direction: "right" },
+		1000,
+		function(){
+		}
+	);
+}
 function selectionFeature(layer, feature) {
+	deselectionne(layer);
+	feature.style.graphicWidth = 42;
+	feature.style.graphicHeight = 63;
+	feature.style.graphicXOffset = -21;
+	feature.style.graphicYOffset = -63;
+	layer.drawFeature(feature);
+	afficheCadreInfo(feature.attributes.title);
+	//selectionLigne(layer.name,feature.attributes.title);
+}
+
+function selectionneLigne(titreFeature){
+	
+	afficheCadreInfo(titreFeature);
+	//alert(titreFeature);
+//	var layer = map.layers[3];
+//	var longueur = layer.features.length;
+//	var i = 0;
+//	var trouve = false;
+//	while(i < longueur && !trouve){
+//		if(layer.features[i].attributes.title == titreFeature){
+//			trouve =true;
+////			layer.eventListeners.select(layer.features[i]);
+////			SelectFeature.select(layer.features[i]);
+////			layer.features[i].toState("selected");
+//		}
+//		else{
+//			i++;	
+//		}
+//	}
+}
+
+function selectionLigne(nomLayer, titreFeature){
+
+	document.getElementById(titreFeature).style.color="red";
+	document.getElementById(titreFeature).style.fontWeight="bold";
+	
+	
+}
+
+function deselectionne(layer){
+	//on regarde toutes les features et on applique le syle neutre
+	for(var i=0; i < layer.features.length; i++){
+		deselectionneFeature(layer,layer.features[i]);
+	}
+}
+
+function deselectionneFeature(layer,feature){
 	feature.style.graphicWidth = 28;
 	feature.style.graphicHeight = 42;
 	feature.style.graphicXOffset = -14;
@@ -366,13 +426,7 @@ function gestionCarte() {
 
 	map = mapCreation();
 
-	villeSearch = new OpenLayers.Layer.Vector("villeSearch", {
-		eventListeners : {
-			'featureselected' : function(evt) {
-				selectionFeature(villeSearch, evt.feature);
-			}
-		}
-	});
+	villeSearch = new OpenLayers.Layer.Vector("villeSearch");
 	loisirLayer = new OpenLayers.Layer.Vector("loisirLayer", {
 		eventListeners : {
 			'featureselected' : function(evt) {
@@ -401,7 +455,7 @@ function gestionCarte() {
 			}
 		}
 	});
-	transportLayer = new OpenLayers.Layer.Vector("serviceLayer", {
+	transportLayer = new OpenLayers.Layer.Vector("transportLayer", {
 		eventListeners : {
 			'featureselected' : function(evt) {
 				selectionFeature(transportLayer, evt.feature);

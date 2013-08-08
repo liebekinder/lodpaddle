@@ -4,7 +4,6 @@
 <c:if test="${not empty themeVisite}">
 
 	<c:forEach var="item" items="${themeVisite.listeSousTheme}">
-
 		<%@ include file="afficherContenu.jspf"%>
 	</c:forEach>
 </c:if>

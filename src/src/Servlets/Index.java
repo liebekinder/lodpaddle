@@ -28,8 +28,8 @@ public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String VUE = "/index.jsp";
 	
-//	public final String domain = "http://localhost:8080/lodpaddleTest/";
-	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	public final String domain = "http://localhost:8080/lodpaddleTest/";
+//	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -180,7 +180,7 @@ public class Index extends HttpServlet {
 		
 		SousTheme actionSociale = new SousTheme("Action sociale", domain
 				+ "media/picto/action-socialePicto.png",domain
-				+ "media/marker/M-action-sociale.png", Categorie.ACTION_SOCIALE);
+				+ "media/marker/M-action-social.png", Categorie.ACTION_SOCIALE);
 		SousTheme decheterie = new SousTheme("Décheterie", domain
 				+ "media/picto/decheteriePicto.png",domain
 				+ "media/marker/M-dechetterie.png", Categorie.DECHETERIE);
@@ -192,7 +192,7 @@ public class Index extends HttpServlet {
 				+ "media/marker/M-poste.png", Categorie.POSTE);
 		SousTheme vieSociale = new SousTheme("Vie sociale", domain
 				+ "media/picto/vie-socialePicto.png",domain
-				+ "media/marker/M-vie-sociale.png", Categorie.VIE_SOCIALE);
+				+ "media/marker/M-vie-social.png", Categorie.VIE_SOCIALE);
 		SousTheme servicePublic = new SousTheme("Service public", domain
 				+ "media/picto/noImage.png",domain
 				+ "media/marker/marqueur.png", Categorie.SERVICE_PUBLIC);

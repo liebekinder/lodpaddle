@@ -7,7 +7,7 @@
 			<ul>
 				<c:forEach var="link" items="${item.entrees}">
 					<li>
-						<span id="${link.entreeUrl}" onclick="alert(this.id);"><c:out value="${ link.entreeNom}" /> </span>
+						<span id="${link.entreeUrl}" onclick="selectionneLigne(this.id);"><c:out value="${ link.entreeNom}" /> </span>
 					</li>
 				</c:forEach>
 			</ul>

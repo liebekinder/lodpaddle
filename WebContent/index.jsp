@@ -89,6 +89,10 @@
 				</div>
 			</div>
 			
+			<div id="cadreInfo">
+	
+			</div>
+			
 			
 		</div>
 
@@ -126,7 +130,7 @@
 		})(jQuery);
 		
 		<c:if test="${not empty position}">
-			ajoutPoint(villeSearch, ${position.longitude}, ${position.latitude},'http://lodpaddle.univ-nantes.fr/lodpaddle/media/marqueur.png');
+			ajoutPoint(villeSearch, ${position.longitude}, ${position.latitude},'${domain}media/marqueur.png');
 		</c:if>
 		
 		<c:if test="${not empty themeCulture}"> 
@@ -172,7 +176,9 @@
 		<c:if test="${not empty themeService}"> 
 			<c:forEach var="item" items="${themeService.listeSousTheme}">
 				<c:forEach var="link" items="${item.entrees}">
-					ajoutPoint(serviceLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+					<c:if test="${link.position.longitude > -100}"> 
+						ajoutPoint(serviceLayer,${link.position.longitude}, ${link.position.latitude}, '${item.marker}', "${link.entreeUrl}");
+					</c:if>
 				</c:forEach>
 			</c:forEach>
 		</c:if>

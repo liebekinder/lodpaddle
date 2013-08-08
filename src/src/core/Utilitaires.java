@@ -18,7 +18,12 @@ public class Utilitaires {
 			return string.split("@")[0];
 		}
 		if (string.split("http://fr.dbpedia.org/resource/").length > 1) {
+//			System.out.println("fr needed!!!   " +string);
 			return string.split("http://fr.dbpedia.org/resource/")[1];
+		}
+		if (string.split("http://dbpedia.org/resource/").length > 1) {
+//			System.out.println("normal needed!!!   " +string);
+			return string.substring(28);
 		}
 		if (string.contains("^^http")) {
 			int pos = string.indexOf("^^http");
@@ -40,4 +45,5 @@ public class Utilitaires {
 		retour = retour.substring(0, 1).toUpperCase()+retour.substring(1).toLowerCase();
 		return retour;
 	}
+	
 }

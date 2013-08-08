@@ -1,4 +1,32 @@
 /*######################################
+####            general    			####
+######################################*/
+.center {
+	text-align: center;
+}
+
+.interligneReduit {
+	line-height: 1.2;
+}
+
+.noInfo{
+	color:white;
+	font-size:16pt;
+	text-align:center;
+}
+
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	text-align: left;
+	left: 0px;
+	padding-left: 0px;
+}
+
+/*######################################
 ####          index.jsp				####
 ######################################*/
 html,body {
@@ -46,6 +74,18 @@ header {
 	border-radius: 3px;
 }
 
+#cadreInfo{
+	position:absolute;
+	right:5px;
+	bottom:200px;
+	width:250px;
+	z-index:5000;
+	border-radius: 3px;
+	background: rgba(231,87,53,0.8); 
+	display: none;
+	
+}
+
 footer {
 	position: absolute;
 	bottom: 0px;
@@ -62,20 +102,36 @@ footer {
 }
 
 /*######################################
-####            general    			####
+####            cadreInfo  			####
 ######################################*/
-.center {
-	text-align: center;
-}
 
-.interligneReduit {
-	line-height: 1.2;
-}
-
-.noInfo{
-	color:white;
-	font-size:16pt;
+#cadreInfoTitre{
+	position:relative;
+	font-size:11pt;
+	width:95%;
 	text-align:center;
+	padding:5px;
+	border-bottom: 2px solid white;
+}
+
+#cadreInfoContenu{
+	padding-left:8px;
+	font-size:9pt;
+	position:relative;
+	top:-5px;
+	width:95%;
+}
+#cadreInfoContenu ul{
+	list-style: none;
+}
+
+#cadreInfoPlus{
+	top:-10px;
+	position:relative;
+	border-top: 2px solid white;
+	padding-top: 5px;
+	font-size:10pt;
+	width:100%;
 }
 
 /*######################################
@@ -302,39 +358,6 @@ footer {
 	margin-left: 0px;
 }
 
-a {
-	text-decoration: none;
-}
-
-ul { /* list-style-image: url("../media/loupe.png"); */
-	list-style: none;
-	text-align: left;
-	left: 0px;
-	/* border: 2px #0568CD solid;*/
-	padding-left: 0px;
-	color: white;
-}
-
-li {
-	padding-bottom: 3px;
-	margin: 0;
-	color: white;
-	text-color: white;
-	font-size: 11px;
-}
-
-li a {
-	color: white;
-}
-
-li a:HOVER {
-	color: #2c3e50;
-}
-
-li:first-line {
-	color: black;
-}
-
 .itemImage {
 	background-color: white;
 }
@@ -433,7 +456,7 @@ li:first-line {
 }
 
 /*######################################
-####          flip				####
+####          flip					####
 ######################################*/
 .flipItem {
 	top: 0px;
@@ -481,5 +504,14 @@ li:first-line {
 }
 .flipVisite{
 	background-color:#dab300;
+}
+
+/*######################################
+####          selection				####
+######################################*/
+
+.ligneSelection{
+	color:red;
+	font-weight:bold;
 }
 

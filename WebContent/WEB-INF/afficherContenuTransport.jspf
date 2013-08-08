@@ -4,22 +4,6 @@
 <c:if test="${not empty themeTransport}"> 
 
 	<c:forEach var="item" items="${themeTransport.listeSousTheme}">
-
-		<h6 style="text-align: left;">
-			<img class="linkImg" alt=" " src="<c:out value="${item.picto}" />" />
-			<span style=" border-bottom: solid white 1px;"><c:out value="${item.titre}" /> </span>
-		</h6>
-		<div>
-
-			<ul>
-				<c:forEach var="link" items="${item.entrees}">
-					<li>
-						<a href="<c:out value="${link.entreeUrl}" />">
-						<c:out value="${ link.entreeNom}" /> </a>
-					</li>
-				</c:forEach>
-			</ul>
-
-		</div>
+		<%@ include file="afficherContenu.jspf"%>
 	</c:forEach>
 </c:if>
