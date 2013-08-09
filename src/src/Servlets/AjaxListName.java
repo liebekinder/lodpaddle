@@ -1,7 +1,5 @@
 package src.Servlets;
 
-import static org.apache.commons.lang3.StringEscapeUtils.escapeHtml4;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -61,7 +59,7 @@ public class AjaxListName extends HttpServlet {
 			Iterator<HashMap<String,String>> it = resultats.iterator();
 			while(it.hasNext()){
 				HashMap<String, String> map = it.next();
-				retour += "\"" + escapeHtml4(map.get("nom")) + " - "
+				retour += "\"" + map.get("nom") + " - "
 						+ map.get("code") + "\",";
 			}
 		} catch (Exception e) {

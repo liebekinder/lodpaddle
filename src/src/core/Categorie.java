@@ -6,7 +6,8 @@ public enum Categorie {
 	CINEMA, EQUIPEMENT_CULTURE, MEDIATHEQUE, SALLE_SPECTACLE,
 	ACTION_SOCIALE, DECHETERIE, JUSTICE, POSTE, VIE_SOCIALE, SERVICE_PUBLIC,
 	CHATEAU, CITE, JARDIN, PATRIMOINE, PARC_ANIMALIER,
-	PARKING, MOBILITE;
+	PARKING, MOBILITE,
+	VILLEPROCHE;
 
 	public String getRequete(Coordonnee position) {
 		switch (this) {
@@ -54,6 +55,8 @@ public enum Categorie {
 			return requete("<http://lodpaddle.univ-nantes.fr/mobilite>", position);
 		case PARKING:
 			return requete("<http://lodpaddle.univ-nantes.fr/parking>", position);
+		case VILLEPROCHE:
+			return requete2("<http://lodpaddle.univ-nantes.fr/Communes_geolocalises>", position, "10", "1");
 		default:
 			return null;
 		}
@@ -83,6 +86,33 @@ public enum Categorie {
 						+ CalculDistance.filterString(50, position.latitude,
 								position.longitude, "?lat", "?long")
 						+ "\n} ORDER BY ASC(?distance) LIMIT 3");
+		return requete;
+	}
+	
+	private String requete2(String graph, Coordonnee position, String nbResultat, String offset) {
+		String requete = new String(
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+						+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+						+ "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+						+ "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n"
+						+ "PREFIX dbpprop: <http://dbpedia.org/property/>\n"
+						+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+
+						+ "SELECT ?ressource ?nom ?lat ?long("
+						+ CalculDistance.selectPartString(50,
+								position.latitude, position.longitude, "?lat",
+								"?long")
+						+ " AS ?distance)\n"
+						+ "WHERE{\n"
+						+ "?ressource geo:lat ?lat.\n"
+						+ "?ressource geo:long?long.\n"
+						+ "?ressource foaf:name ?nom.\n"
+						+ "?ressource a "
+						+ graph
+						+ " .\n"
+						+ CalculDistance.filterString(50, position.latitude,
+								position.longitude, "?lat", "?long")
+						+ "\n} ORDER BY ASC(?distance) OFFSET "+offset+"LIMIT "+nbResultat);
 		return requete;
 	}
 }

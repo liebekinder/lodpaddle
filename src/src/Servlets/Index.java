@@ -28,8 +28,8 @@ public class Index extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String VUE = "/index.jsp";
 	
-	public final String domain = "http://localhost:8080/lodpaddleTest/";
-//	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+//	public final String domain = "http://localhost:8080/lodpaddleTest/";
+	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -133,7 +133,7 @@ public class Index extends HttpServlet {
 		/** widget items for flip **/
 		Theme loisirs = new Theme("Loisirs", ".flipLoisir", position);
 		Theme culture = new Theme("Culture", ".flipCulture", position);
-//		Theme ville = new Theme("Ville", ".flipVille", position);
+		Theme ville = new Theme("Ville", ".flipVille", position);
 		Theme service = new Theme("Service", ".flipService", position);
 		Theme transport = new Theme("Transport", ".flipTransport", position);
 		Theme aVisiter = new Theme("&Agrave; visiter", ".flipVisite", position);
@@ -237,12 +237,19 @@ public class Index extends HttpServlet {
 
 		transport.ajoutSousTheme(mobilite);
 		transport.ajoutSousTheme(parking);
+		
+		SousTheme villeProche = new SousTheme("Villes à proximité", domain
+				+ "media/picto/noImage.png", domain
+				+ "media/marker/marqueur.png", Categorie.VILLEPROCHE);
+		
+		ville.ajoutSousTheme(villeProche);
 
 		request.setAttribute("themeLoisir", loisirs);
 		request.setAttribute("themeCulture", culture);
 		request.setAttribute("themeService", service);
 		request.setAttribute("themeVisite", aVisiter);
 		request.setAttribute("themeTransport", transport);
+		request.setAttribute("themeVille", ville);
 
 	}
 
