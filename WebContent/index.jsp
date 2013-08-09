@@ -93,6 +93,17 @@
 	
 			</div>
 			
+			<div id="dialog">Blablablabl
+			b<p>nihi'tiohoihgigg</p></div>
+			<script type="text/javascript">
+				$( "#dialog" ).dialog({
+					autoOpen: false,
+					width: 800,
+					height: 480,
+					modal: true
+					});
+			</script>
+			
 			
 		</div>
 
@@ -125,7 +136,7 @@
 						autoExpandHorizontalScroll : true,
 						updateOnContentResize : false
 					}
-				});
+				}); 
 			});
 		})(jQuery);
 		

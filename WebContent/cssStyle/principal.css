@@ -26,6 +26,10 @@ ul {
 	padding-left: 0px;
 }
 
+.ui-widget-overlay{
+	z-index:5000;
+}
+
 /*######################################
 ####          index.jsp				####
 ######################################*/
@@ -120,6 +124,7 @@ footer {
 	position:relative;
 	top:-5px;
 	width:95%;
+	word-wrap:break-word;
 }
 #cadreInfoContenu ul{
 	list-style: none;
@@ -133,6 +138,21 @@ footer {
 	font-size:10pt;
 	width:100%;
 }
+
+#tablePlusInformation{
+	width:100%;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#tablePlusInformation th{
+	background:#e75735;
+}
+
+#tablePlusInformation tr td{
+	border:1px solid black;
+}
+
 
 /*######################################
 ####            OSM      			####

@@ -135,7 +135,7 @@ public class Index extends HttpServlet {
 		Theme culture = new Theme("Culture", ".flipCulture", position);
 //		Theme ville = new Theme("Ville", ".flipVille", position);
 		Theme service = new Theme("Service", ".flipService", position);
-		// Theme transport = new Theme("Transport", ".flipTransport", position);
+		Theme transport = new Theme("Transport", ".flipTransport", position);
 		Theme aVisiter = new Theme("&Agrave; visiter", ".flipVisite", position);
 
 		SousTheme restaurant = new SousTheme("Restaurants", domain
@@ -226,11 +226,23 @@ public class Index extends HttpServlet {
 		aVisiter.ajoutSousTheme(jardin);
 		aVisiter.ajoutSousTheme(patrimoine);
 		aVisiter.ajoutSousTheme(parc);
+		
+		SousTheme mobilite = new SousTheme("Mobilité", domain
+				+ "media/picto/noImage.png",domain
+				+ "media/marker/marqueur.png", Categorie.MOBILITE);
+		SousTheme parking = new SousTheme("Parking", domain
+				+ "media/picto/noImage.png",domain
+				+ "media/marker/marqueur.png", Categorie.PARKING);
+		
+
+		transport.ajoutSousTheme(mobilite);
+		transport.ajoutSousTheme(parking);
 
 		request.setAttribute("themeLoisir", loisirs);
 		request.setAttribute("themeCulture", culture);
 		request.setAttribute("themeService", service);
 		request.setAttribute("themeVisite", aVisiter);
+		request.setAttribute("themeTransport", transport);
 
 	}
 
@@ -292,8 +304,8 @@ public class Index extends HttpServlet {
 		String mandat = Utilitaires.nettoieRessource((ligne.get("mandat") != null && !ligne
 				.get("mandat").isEmpty()) ? ligne.get("mandat") : "néant");
 		String superficie = Utilitaires.nettoieRessource((ligne.get("superficie") != null && !ligne
-				.get("superficie").isEmpty()) ? ligne.get("superficie")
-				: "néant");
+				.get("superficie").isEmpty()) ? ligne.get("superficie")	+ "km²"
+				: "non précisée");
 		// String description = (ligne.get("description") != null &&
 		// !ligne.get("description").isEmpty())?ligne.get("description"):"néant";
 		String site = (ligne.get("site") != null && !ligne.get("site")
@@ -336,7 +348,6 @@ public class Index extends HttpServlet {
 				+ "m"
 				+ "<br /><b>Superficie :</b> "
 				+ superficie
-				+ "km²"
 				+ "</div>"
 				+ "</div>");
 		return ficheVilleText;

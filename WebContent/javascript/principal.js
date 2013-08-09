@@ -341,13 +341,31 @@ function afficheCadreInfo(ressource){
 		data: "ressource="+encodeURI(ressource),
 		success: function(msg){
 			$('#cadreInfo').html(msg);
+			cadreInfoShow();
 			},
 		error: function(jqXHR, textStatus, errorThrown ){
 			$('#cadreInfo').html("<p>Impossible de récupérer les données!</p>");
 		}
 	});
-//	document.getElementById("cadreInfo").innerHTML = ressource;
-	cadreInfoShow();
+}
+
+function afficheCadreInfoPlus(ressource){
+	$.ajax({    
+		type: "POST",
+		url: domain+"PlusInformation",
+		dataType: "html",
+		data: "ressource="+encodeURI(ressource),
+		success: function(msg){
+			$('#dialog').html(msg);
+			$( "#dialog" ).dialog( "option", "title", ressource );
+			$( '#dialog' ).dialog( 'open' );
+			},
+		error: function(jqXHR, textStatus, errorThrown ){
+			$('#dialog').html("<p>Impossible de récupérer les données!</p>");
+			$( "#dialog" ).dialog( "option", "title", ressource );
+			$( '#dialog' ).dialog( 'open' );
+		}
+	});
 }
 
 function cadreInfoShow(){

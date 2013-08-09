@@ -5,7 +5,8 @@ public enum Categorie {
 	RESTAURANT, HOTEL, GOLF, SPORT, PLAGE,
 	CINEMA, EQUIPEMENT_CULTURE, MEDIATHEQUE, SALLE_SPECTACLE,
 	ACTION_SOCIALE, DECHETERIE, JUSTICE, POSTE, VIE_SOCIALE, SERVICE_PUBLIC,
-	CHATEAU, CITE, JARDIN, PATRIMOINE, PARC_ANIMALIER;
+	CHATEAU, CITE, JARDIN, PATRIMOINE, PARC_ANIMALIER,
+	PARKING, MOBILITE;
 
 	public String getRequete(Coordonnee position) {
 		switch (this) {
@@ -49,6 +50,10 @@ public enum Categorie {
 			return requete("<http://lodpaddle.univ-nantes.fr/patrimoine>", position);
 		case PARC_ANIMALIER:
 			return requete("<http://lodpaddle.univ-nantes.fr/parc_animalier_theme>", position);
+		case MOBILITE:
+			return requete("<http://lodpaddle.univ-nantes.fr/mobilite>", position);
+		case PARKING:
+			return requete("<http://lodpaddle.univ-nantes.fr/parking>", position);
 		default:
 			return null;
 		}
@@ -64,7 +69,7 @@ public enum Categorie {
 						+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
 
 						+ "SELECT ?ressource ?nom ?lat ?long("
-						+ CalculDistance.selectPartString(30,
+						+ CalculDistance.selectPartString(50,
 								position.latitude, position.longitude, "?lat",
 								"?long")
 						+ " AS ?distance)\n"
