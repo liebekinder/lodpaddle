@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,10 +27,9 @@ public class Index extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String VUE = "/index.jsp";
 	
-//	public final String domain = "http://localhost:8080/lodpaddleTest/";
-	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	public final String domain = "http://localhost:8080/lodpaddleTest/";
+//	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -46,9 +46,27 @@ public class Index extends HttpServlet {
 		 * **/
 
 		String nomVille = request.getParameter("saisie");
-
-		if (nomVille != null && nomVille != "") {
+		String VUE = "/index.jsp";
+		if(nomVille == null || nomVille == ""){
+			//cas particulier de l'accueil => on trouve une ville au hasard
+			Resultat results = trouveUneVille();
+			int nbResultat = results.taille();
+			Random rand = new Random();
+			int villeInd = rand.nextInt(nbResultat);
+			HashMap<String,String> result = results.at(villeInd);
+			
+			String nomRandom = Utilitaires
+					.nettoieRessourceLeger((result.get("nom") != null && !result
+							.get("nom").isEmpty()) ? result.get("nom")
+							: "Nom inconnu!");
+			String inseeRandom = Utilitaires
+					.nettoieRessourceLeger((result.get("insee") != null && !result
+							.get("insee").isEmpty()) ? result.get("insee")
+							: "insee inconnu!");
+			nomVille = nomRandom+" - "+inseeRandom;
+		}
 			// on est en navigation
+
 			themeManagmement(request, response);
 			List<MyWidget> widgets = new ArrayList<MyWidget>();
 			String insee = nomVille.split(" - ")[1];
@@ -79,30 +97,43 @@ public class Index extends HttpServlet {
 			request.setAttribute("position", positionVille);
 			request.setAttribute("widgets", widgets);
 			request.setAttribute("typePage", nomVille);
+			
 
-		} else {
-			// il s'agit de la page d'accueil
+			request.setAttribute("domain", domain);
+			this.getServletContext().getRequestDispatcher(VUE)
+					.forward(request, response);
+			
+//			List<MyWidget> widgets = new ArrayList<MyWidget>();
+//
+//			MyWidget introduction = new MyWidget("Présentation", texteIntro(),
+//					"1", "#1abc9c", 200);
+//			MyWidget websemantique = new MyWidget("Web_sémantique",
+//					texteWebSemantique(), "2", "#2ecc71", 200);
+//			MyWidget endpoint = new MyWidget("Accès_développeurs", texteDev(),
+//					"3", "#5dabe3", 200);
+//
+//			widgets.add(introduction);
+//			widgets.add(websemantique);
+//			widgets.add(endpoint);
+//
+//			request.setAttribute("widgets", widgets);
+//			request.setAttribute("typePage", "accueil");
+	}
 
-			List<MyWidget> widgets = new ArrayList<MyWidget>();
+	private Resultat trouveUneVille() {
+		String requete = new String(""
+				+ "PREFIX sc: <http://schema.org/>\n"
+				+ "PREFIX dbpprop: <http://dbpedia.org/property/>\n"
+				+ "PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n"
+				+ "SELECT ?nom ?insee \n" 
+				+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises>\n"
+				+ "WHERE{ \n"
+				+ "?a foaf:name ?nom . \n"
+				+ "?a dbpprop:insee ?insee . \n" 
+				+ "}");
 
-			MyWidget introduction = new MyWidget("Présentation", texteIntro(),
-					"1", "#1abc9c", 200);
-			MyWidget websemantique = new MyWidget("Web_sémantique",
-					texteWebSemantique(), "2", "#2ecc71", 200);
-			MyWidget endpoint = new MyWidget("Accès_développeurs", texteDev(),
-					"3", "#5dabe3", 200);
-
-			widgets.add(introduction);
-			widgets.add(websemantique);
-			widgets.add(endpoint);
-
-			request.setAttribute("widgets", widgets);
-			request.setAttribute("typePage", "accueil");
-		}
-
-		request.setAttribute("domain", domain);
-		this.getServletContext().getRequestDispatcher(VUE)
-				.forward(request, response);
+//		System.out.println(requete);
+		return SparqlQuery.requete(requete, EndPoint.Fac);
 	}
 
 	private Coordonnee recuperePosition(String insee) {
@@ -301,17 +332,17 @@ public class Index extends HttpServlet {
 				(ligne.get("dep") != null && !ligne.get("dep").isEmpty()) ? ligne.get("dep")
 						: "néant", "dep");
 		String min = Utilitaires.nettoieRessource((ligne.get("min") != null && !ligne.get(
-				"min").isEmpty()) ? ligne.get("min") : "néant");
+				"min").isEmpty()) ? ligne.get("min") : "?");
 		String max = Utilitaires.nettoieRessource((ligne.get("max") != null && !ligne.get(
-				"max").isEmpty()) ? ligne.get("max") : "néant");
+				"max").isEmpty()) ? ligne.get("max") : "?");
 		String gentile = Utilitaires.nettoieRessource((ligne.get("gentile") != null && !ligne
-				.get("gentile").isEmpty()) ? ligne.get("gentile") : "néant");
+				.get("gentile").isEmpty()) ? ligne.get("gentile") : "inconnue");
 		String maire = Utilitaires.nettoieRessource((ligne.get("maire") != null && !ligne
-				.get("maire").isEmpty()) ? ligne.get("maire") : "néant");
+				.get("maire").isEmpty()) ? ligne.get("maire") : "inconnu");
 		String mandat = Utilitaires.nettoieRessource((ligne.get("mandat") != null && !ligne
-				.get("mandat").isEmpty()) ? ligne.get("mandat") : "néant");
+				.get("mandat").isEmpty()) ? ligne.get("mandat") : "inconnu");
 		String superficie = Utilitaires.nettoieRessource((ligne.get("superficie") != null && !ligne
-				.get("superficie").isEmpty()) ? ligne.get("superficie")	+ "km²"
+				.get("superficie").isEmpty()) ? ligne.get("superficie")	+ " km²"
 				: "non précisée");
 		// String description = (ligne.get("description") != null &&
 		// !ligne.get("description").isEmpty())?ligne.get("description"):"néant";
@@ -361,7 +392,7 @@ public class Index extends HttpServlet {
 	}
 
 	private String densite(String pop, String superficie) {
-		if (pop.equals("néant") || superficie.equals("néant")) {
+		if (pop.equals("néant") || superficie.equals("néant") || superficie.equals("non précisée") ) {
 			return "néant";
 		} else {
 			// les deux ont une valeur numérique
@@ -379,36 +410,36 @@ public class Index extends HttpServlet {
 				+ nomVille.split(" - ")[0]
 				+ "</h3>"
 				+ "</div>"
-				+ "<div class=\"noInfo\" style=\" position:absolute; top:50px;\">Nous n'avons pas pu récupérer d'information sur le sujet. :(</br>"
-				+ "Mais cela va probablement changer rapidement! :)" + "</div>"
+				+ "<div class=\"noInfo\" style=\" position:absolute; top:50px;\">Nous n'avons pas pu récupérer d'information utile sur "+nomVille+" à partir de fr.dbpedia.org!(</br>"
+				+ "</div>"
 				+ "</div>";
 	}
 
-	private String texteIntro() {
-		String texteIntro = new String(
-				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
-						+ "<h3 class=\"center\">Présentation</h3>"
-						+ "<p>LodPaddle est un service innovant qui premet de surfer sur "
-						+ "<a href=\"blabla.jsp\"> l'open data de la Région des Pays de la Loire </a></p>"
-						+ "</div>");
-		return texteIntro;
-	}
-
-	private String texteWebSemantique() {
-		String texteIntro = new String(
-				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
-						+ "<h3 class=\"center\">&Agrave; propos du web sémantique</h3>"
-						+ "</div>");
-		return texteIntro;
-	}
-
-	private String texteDev() {
-		String texteIntro = new String(
-				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
-						+ "<h3 class=\"center\">Accès developpeur</h3>"
-						+ "</div>");
-		return texteIntro;
-	}
+//	private String texteIntro() {
+//		String texteIntro = new String(
+//				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
+//						+ "<h3 class=\"center\">Présentation</h3>"
+//						+ "<p>LodPaddle est un service innovant qui premet de surfer sur "
+//						+ "<a href=\"blabla.jsp\"> l'open data de la Région des Pays de la Loire </a></p>"
+//						+ "</div>");
+//		return texteIntro;
+//	}
+//
+//	private String texteWebSemantique() {
+//		String texteIntro = new String(
+//				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
+//						+ "<h3 class=\"center\">&Agrave; propos du web sémantique</h3>"
+//						+ "</div>");
+//		return texteIntro;
+//	}
+//
+//	private String texteDev() {
+//		String texteIntro = new String(
+//				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
+//						+ "<h3 class=\"center\">Accès developpeur</h3>"
+//						+ "</div>");
+//		return texteIntro;
+//	}
 
 	private void themeManagmement(HttpServletRequest request,
 			HttpServletResponse response) {

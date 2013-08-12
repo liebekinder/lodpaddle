@@ -3,7 +3,7 @@
 
 <div id="lodpaddleZone"><span class="lodpaddleTitle"><a href=".">LODPADDLE</a></span></div>
 <div id="searchBar">
-	<form id="searchBarForm" action="${domain}" method="GET">
+	<form id="searchBarForm" action="${domain}" method="GET" onclick="return false;">
 
 		<div id="geoLoc">
 			<img class="geoLocImg" alt="geolocalise moi!"

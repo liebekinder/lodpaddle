@@ -8,11 +8,12 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP;
 
 
 public class SparqlQuery {
 
-	private final static boolean isBehindProxy = true;
+	private final static boolean isBehindProxy = false;
 	
 	private SparqlQuery(){		
 	}
@@ -40,32 +41,42 @@ public class SparqlQuery {
 
 		// on switche en fonction du serveur d'exécution. Le defaut est notre
 		// serveur, mais il ne sera jamais utilisé
-		QueryExecution qexec;
+//		QueryExecution qexec = null;
+		QueryEngineHTTP objectToExec;
 		switch (serveur) {
 		case Fac:
-			qexec = QueryExecutionFactory.sparqlService(
+			objectToExec = (QueryEngineHTTP) QueryExecutionFactory.sparqlService(
 					"http://lodpaddle.univ-nantes.fr/sparql", query);
 			break;
 		case DBpedia:
-			qexec = QueryExecutionFactory.sparqlService(
-					"http://fr.dbpedia.org/sparql", query);
+			objectToExec = QueryExecutionFactory.createServiceRequest("http://fr.dbpedia.org/sparql",query);
+			objectToExec.addParam("timeout","3000");
+			
+//			qexec = QueryExecutionFactory.sparqlService(
+//					"http://fr.dbpedia.org/sparql", query);
 			break;
 		case Insee:
-			qexec = QueryExecutionFactory.sparqlService(
+			objectToExec = (QueryEngineHTTP) QueryExecutionFactory.sparqlService(
 					"http://rdf.insee.fr/sparql", query);
 			break;
 		case Local:
-			qexec = QueryExecutionFactory.sparqlService(
+			objectToExec = (QueryEngineHTTP) QueryExecutionFactory.sparqlService(
 					"http://localhost:8890/sparql", query);
 			break;
 		default:
-			qexec = QueryExecutionFactory.sparqlService(
+			objectToExec = (QueryEngineHTTP) QueryExecutionFactory.sparqlService(
 					"http://lodpaddle.univ-nantes.fr/sparql", query);
 			break;
 		}
 
 		try {
-			ResultSet results = qexec.execSelect();
+			ResultSet results;
+//			if(objectToExec != null){
+				results=objectToExec.execSelect();
+//			}
+//			else{
+//				results = qexec.execSelect();				
+//			}
 			resultat = new Resultat();
 			for (; results.hasNext();) {
 				// affiche chaque prochaine solution
@@ -82,7 +93,8 @@ public class SparqlQuery {
 			System.err.println(e.getLocalizedMessage());
 			return null;
 		} finally {
-			qexec.close();
+//			if(qexec != null) qexec.close();
+			if(objectToExec != null) objectToExec.close();
 		}
 
 		return resultat;
