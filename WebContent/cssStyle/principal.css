@@ -30,6 +30,65 @@ ul {
 .ui-widget-overlay{
 	z-index:5000;
 }
+/*######################################
+####          Game				####
+######################################*/
+
+.jeuWidgetTitre{
+	position:relative;
+	height:60%;
+	color:white;
+	font-weight:bold;
+	font-size:16pt;
+	width:100%;
+	text-align:center;
+}
+
+.jeuWidgetButton{
+	position:relative;
+	height:40%;
+	width:100%;
+	text-align:center;
+}
+
+#barreProgression{
+	width:0%;
+	height:100%;
+	background:#2c9f82;
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+
+#barreTexteGauche{
+	position:absolute;
+	height:100%;
+	width:300px;
+	top:0px;
+	left:10px;
+	text-align:left;
+	padding-top:5px;
+}
+
+#barreTexteDroit{
+	position:absolute;
+	height:100%;
+	width:300px;
+	top:0px;
+	right:10px;
+	text-align:right;
+	padding-top:5px;
+}
+
+#jeuScore{
+	position:absolute;
+	height:200px;
+	width:150px;
+	top:300px;
+	left:450px;
+	background:green;
+	z-index:6010;
+}
 
 /*######################################
 ####          index.jsp				####

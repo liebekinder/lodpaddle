@@ -2,6 +2,7 @@ package src.Servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,6 @@ public class AjaxInformation extends HttpServlet {
      */
     public AjaxInformation() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -55,7 +55,7 @@ public class AjaxInformation extends HttpServlet {
 					(adresse.isEmpty() && codePostal.isEmpty() && ville.isEmpty())?"":"<li><u>Adresse: </u> "+adresse+" "+codePostal+" "+ville+"</li>":"";
 			reponse += (telephone.isEmpty() || telephone.equals("undefined"))?"":"<li><u>Tel: </u>"+telephone+"</li>";
 			reponse += (email.isEmpty() || email.equals("undefined"))?"":"<li><u>Email: </u><a href=\"mailto:"+email+"\">"+email+"</a></li>";
-			reponse += (site.isEmpty() || site.equals("undefined"))?"":"<li><u>Site web: </u><a href=\"http://"+site+"\">"+site+"</a></li>";
+			reponse += (site.isEmpty() || site.equals("undefined") || !bonEmail(site))?"":"<li><u>Site web: </u><a href=\"http://"+site+"\">"+site+"</a></li>";
 			reponse += "</ul>"+
 				"</div>"+
 				"<div id=\"cadreInfoPlus\">"+
@@ -66,6 +66,10 @@ public class AjaxInformation extends HttpServlet {
 		return reponse;
 	}
 	
+	private boolean bonEmail(String site) {
+		return Pattern.matches("[A-Za-z0-9\\.-]{3,}\\.[A-Za-z]{2,3}[A-Za-z0-9\\.-]*", site);
+	}
+
 	private Resultat questionne(String ressource){
 		String requete = new String(
 				"PREFIX sc: <http://schema.org/>\n"+

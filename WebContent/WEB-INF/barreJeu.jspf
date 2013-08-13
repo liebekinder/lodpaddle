@@ -1,0 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<script type="text/javascript">
+ $('footer').height("50px");
+</script>
+<div id="barreProgression"></div>
+<div id="barreTexteGauche">
+	<div><b>Ma Ville</b></div>
+	<div><b>Temps: 5s88</b></div>
+</div>
+<div id="barreTexteDroit">
+	<div><b>125644 points</b></div>
+	<div><b>Question 1 sur 10</b></div>
+</div>
