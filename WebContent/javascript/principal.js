@@ -137,8 +137,8 @@ function geoloc(monDiv) {
 		// Fonction de callback en cas de succès
 		function affichePosition(position) {
 
-			var lat = position.coords.latitude;
-			var lon = position.coords.longitude;
+			// var lat = position.coords.latitude;
+			// var lon = position.coords.longitude;
 			// addPoint(vectorLayer, lat, lon);
 
 		}
@@ -583,7 +583,7 @@ function gestionCarteJeu(lon, lat, zoom) {
 
 }
 
-function lanceJeu(domain) {
+function creeJeu(domain) {
 
 	villePos.events.on({
 		click : onClick
@@ -593,19 +593,44 @@ function lanceJeu(domain) {
 
 	var lonlat = new OpenLayers.LonLat(0, 0);
 	var temps = 0;
-	var first=true;
+	var firstClick = true;
+	var running = false;
+	var villeCourante = "";
+	var nbCycle = 10;
 
-	lanceDecompte();
+	var cycle = 0;
+
+	this.cycleSuivant = function() {
+		if (cycle < nbCycle) {
+			cycle++;
+			villePos.removeAllFeatures();
+			$('#barreProgression').width("0%");
+			RAZ();
+			nouvelleVille();
+			lanceDecompte();
+		}
+		else{
+			afficheScore();
+		}
+	}
+
+	function RAZ() {
+		lonlat = new OpenLayers.LonLat(0, 0);
+		temps = 0;
+		firstClick = true;
+	}
 
 	function onClick(event) {
-		if (first) {
+		if (firstClick && running) {
 			var position = this.events.getMousePosition(event);
-			lonlat = map.getLonLatFromPixel(position).transform(projFrom,projTo);
-			stopDecompte(lonlat);
+			lonlat = map.getLonLatFromPixel(position).transform(projFrom,
+					projTo);
+			stopDecompte(lonlat, true);
 		}
 	}
 
 	function lanceDecompte() {
+		running = true;
 		$('#barreProgression').animate(
 				{
 					width : "100%"
@@ -615,17 +640,21 @@ function lanceJeu(domain) {
 					step : function(now, fx) {
 						tempo = (now / 10).toFixed(2);
 						$('#barreTexteGauche').html(
-								"<div><b>Ma Ville</b></div><div><b>Temps: "
+								"<div><b>"+villeCourante+"</b></div><div><b>Temps: "
 										+ tempo + "s</b></div>");
 						temps = tempo;
 					},
-					easing : "linear"
+					easing : "linear",
+					complete: function(){
+						stopDecompte(lonlat, false);
+					}
 				});
 	}
 
-	function stopDecompte(lonlat) {
-		$('#barreProgression').stop();
+	function stopDecompte(lonlat, avantFin) {
+		if(avantFin) $('#barreProgression').stop();
 		first = false;
+		running = false;
 		ajoutPoint(villePos, lonlat.lon, lonlat.lat, domain
 				+ "media/marker/marqueur.png", "pionJoueur");
 		$.ajax({
@@ -634,30 +663,80 @@ function lanceJeu(domain) {
 			dataType : "json",
 			data : "ajax=true&resultatLon=" + lonlat.lon + "&resultatLat="
 					+ lonlat.lat + "&temps=" + temps,
-			success : function(msg) {
-				html = boiteResultat(msg);
-				alert(msg.trueLon);
-				ajoutPoint(villePos, msg.trueLon, msg.trueLat, domain
-						+ "media/marker/marqueur.png", "pionReel");
-				$('#jeuScore').html(html);	
-				$("#cadreInfo").show("slide", {
-					direction : "right"
-				}, 1000, function() {
-				});
-			},
+			success : stopSuccess,
 			error : function(jqXHR, textStatus, errorThrown) {
-				$('#jeuScore').html(
+				$('#dialogScore').html(
 						"<p>La connexion avec le serveur a échouée.</p>");
-				$('#jeuScore').show();
+				$("#dialogScore").dialog("open");
 			}
 		});
 		// alert(tempo+" - "+lonlat.lon + " - " + lonlat.lat);
 	}
+	
+	function stopSuccess(msg){
+		html = boiteResultat(msg);
+		ajoutPoint(villePos, msg.trueLon, msg.trueLat, domain
+				+ "media/marker/marqueur.png", "pionReel");
+		if(cycle == nbCycle){			
+			$('#dialogDernierScore').html(html);
+			$("#dialogDernierScore").dialog("open");
+		}
+		else{
+			$('#dialogScore').html(html);
+			$("#dialogScore").dialog("open");			
+		}
+		$('#barreTexteDroit').html(
+				"<div><b>"+msg.total+" points</b></div><div><b>Question "+cycle+" sur 10</b></div>");
+		
+	}
+	
+	function nouvelleVille(){
+		$.ajax({
+			type : "POST",
+			url : domain + "Game",
+			dataType : "json",
+			data : "ajax=true&ville=true",
+			success : changeVilleCourante,
+			error : function(jqXHR, textStatus, errorThrown) {
+				$('#dialogScore').html(
+						"<p>La connexion avec le serveur a échouée.</p>");
+				$("#dialogScore").dialog("open");
+			}
+		});
+	}
+	
+	function changeVilleCourante(msg){
+		villeCourante = msg.ville;
+		$('#barreTexteGauche').html(
+		"<div><b>"+villeCourante+"</b></div><div><b>Temps: 0s</b></div>");
+		
+	}
+	
+	function afficheScore(){
+		$.ajax({
+			type : "POST",
+			url : domain + "Game",
+			dataType : "json",
+			data : "ajax=true&score=true",
+			success : finalScore,
+			error : function(jqXHR, textStatus, errorThrown) {
+				$('#dialogFinal').html(
+						"<p>La connexion avec le serveur a échouée.</p>");
+				$("#dialogFinal").dialog("open");
+			}
+		});
+	}
+	
+	function finalScore(msg){
+		$('#dialogFinal').html(
+		"<div>Vous avez obtenu un score de "+msg.total+" points! Félicitations!</div>");
+		$("#dialogFinal").dialog("open");		
+	}
 }
 
 function boiteResultat(data) {
-	return "<div> Distance de " + data.ville + ": " + data.distance + "</div>"
-			+ "<div> Points: " + data.points + "</div>";
+	return "<div> Distance de " + data.ville + ": " + data.distance.toFixed(1) + "km</div>"
+			+ "<div> Points pour cette manche: " + data.points + "pts</div>";
 }
 
 function centrerAccueil(totalDiv) {

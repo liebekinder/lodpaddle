@@ -131,36 +131,60 @@ public class Game extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		if(request.getParameter("ajax") != null){
-			response.getWriter().write(getReponse(request.getParameter("resultatLon"),request.getParameter("resultatLat"),request.getParameter("temps")));
+		if (request.getParameter("ajax") != null) {
+			if (request.getParameter("ville") != null) {
+				response.getWriter().write(getVille());
+			} else {
+				if (request.getParameter("score") != null) {
+					response.getWriter().write(getScore());
+				} else {
+					response.getWriter().write(
+							getReponse(request.getParameter("resultatLon"),
+									request.getParameter("resultatLat"),
+									request.getParameter("temps")));
+				}
+			}
 		}
 	}
 
-	private String getReponse(String lon, String lat,
-			String tps) {
-		double dist = CalculDistance.distanceVolOiseauKM(Double.valueOf(lat), Double.valueOf(lon), monJeu.getLatCourante(), monJeu.getLonCourante());
-		int score = calculScore(dist,tps);
-		String json = new String("{\n"
-				+ "\"points\":"+score+",\n"
-				+ "\"ville\":\""+monJeu.getVilleCourante()+"\",\n"
-				+ "\"trueLon\":"+monJeu.getLonCourante()+",\n"
-				+ "\"trueLat\":"+monJeu.getLatCourante()+",\n"
-				+ "\"joueurLon\":"+Double.valueOf(lon)+",\n"
-				+ "\"joueurLat\":"+Double.valueOf(lat)+",\n"
-				+ "\"distance\":"+dist+"\n"
-				+ "}");
+	private String getScore() {
+		String json = new String("{\n" + "\"total\":\""
+				+ monJeu.getScore() + "\"\n" + "}");
+
+		return json;
+	}
+
+	private String getVille() {
+		String json = new String("{\n" + "\"ville\":\""
+				+ monJeu.getVilleCourante() + "\"\n" + "}");
+
+		return json;
+	}
+
+	private String getReponse(String lon, String lat, String tps) {
+		// System.out.println(lat);
+		double dist = CalculDistance.distanceVolOiseauKM(Double.valueOf(lat),
+				Double.valueOf(lon), monJeu.getLatCourante(),
+				monJeu.getLonCourante());
+		int score = calculScore(dist, tps);
+		String json = new String("{\n" + "\"points\":" + score + ",\n"
+				+ "\"total\":" + monJeu.getScore() + ",\n" + "\"ville\":\""
+				+ monJeu.getVilleCourante() + "\",\n" + "\"trueLon\":"
+				+ monJeu.getLonCourante() + ",\n" + "\"trueLat\":"
+				+ monJeu.getLatCourante() + ",\n" + "\"distance\":" + dist
+				+ "\n" + "}");
+
+		monJeu.augmenteScore(score);
+		monJeu.avance();
 		return json;
 	}
 
 	private int calculScore(double dist, String tps) {
-		double score = (-2000*dist+100000)>=0?-2000*dist+100000:0;
-		//on prend une fraction de ce score en fonction du temps passé à répondre
-		score = Double.valueOf(tps)>=0.5?score * (Double.valueOf(tps)/10): score;
+		double score = (-2000 * dist + 100000) >= 0 ? -2000 * dist + 100000 : 0;
+		// on prend une fraction de ce score en fonction du temps passé à
+		// répondre
+		score = score - (score * (Double.valueOf(tps) / 10));
 		return (int) score;
 	}
-	
-	
-
-	
 
 }

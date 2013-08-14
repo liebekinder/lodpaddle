@@ -39,4 +39,4 @@ $('#searchInput').autocomplete({
 			$("<a></a>").html(item.label.slice(0, -3))).appendTo(ul);
 };
 </script>
-<div id="creditZone"><span onclick="getListURl('http://fr.dbpedia.org/page/Nantes');">Credit</span> | blabla | encore un truc &copy;</div>
+<div id="creditZone"><span onclick="">Credit</span> | blabla | encore un truc &copy;</div>

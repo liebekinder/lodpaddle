@@ -7,10 +7,13 @@ public class Jeu {
 
 	public int avancement;
 	public List<Ville> villes;
+	public int score;
+	public int nbCycle = 10;
 	
 	public Jeu(){
 		avancement = 1;
 		villes = new ArrayList<Ville>();
+		score = 0;
 	}
 	
 	public void trouveVilles() {
@@ -23,7 +26,7 @@ public class Jeu {
 	}
 	
 	public void avance(){
-		avancement++;
+		if(avancement<nbCycle) avancement++;
 	}
 	
 	public int getAvancement(){
@@ -40,6 +43,14 @@ public class Jeu {
 	
 	public double getLonCourante(){
 		return villes.get(avancement-1).getLon();
+	}
+	
+	public void augmenteScore(int val){
+		score += val;
+	}
+
+	public int getScore() {
+		return score;
 	}
 	
 }

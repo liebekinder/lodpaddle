@@ -5,10 +5,10 @@
 </script>
 <div id="barreProgression"></div>
 <div id="barreTexteGauche">
-	<div><b>Ma Ville</b></div>
-	<div><b>Temps: 5s88</b></div>
+	<div><b></b></div>
+	<div><b>Temps: 0s</b></div>
 </div>
 <div id="barreTexteDroit">
-	<div><b>125644 points</b></div>
-	<div><b>Question 1 sur 10</b></div>
+	<div><b>0 points</b></div>
+	<div><b>Question 0 sur 10</b></div>
 </div>

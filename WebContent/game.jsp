@@ -27,7 +27,6 @@
 <script type="text/javascript"
 	src="${domain}javascript/jquery.mCustomScrollbar.js"></script>
 
-
 </head>
 <body onload="pageLoaded('${domain}');">
 
@@ -44,22 +43,92 @@
 			<div id="mousePosition"></div>
 
 
-			<div id="jeuScore" style="visibility: hidden">
+	<c:if test="${not empty typeJeu && typeJeu == 3}">
+	<div id="dialogLance">Cliquez sur le bouton ci-dessous dès que vous êtes prêt!</div>
+		<script type="text/javascript">
+			$("#dialogLance").dialog({
+				autoOpen:false,
+				width : 320,
+				height : 240,
+				modal : true,
+				position: { my: "left center", at: "left center", of: window },
+				close: function( event, ui ) {
+					jeuEnCours.cycleSuivant();
+				},
+				buttons : {
+					"Je suis prêt!" : function() {
+						$(this).dialog("close");
+					}
+				}
+			});
+		</script>
+	<div id="dialogScore"></div>
+		<script type="text/javascript">
+			$("#dialogScore").dialog({
+				autoOpen:false,
+				width : 320,
+				height : 240,
+				modal : true,
+				position: { my: "left center", at: "left center", of: window },
+				close: function( event, ui ) {
+					jeuEnCours.cycleSuivant();
+				},
+				buttons : {
+					"Ville suivante!" : function() {
+						$(this).dialog("close");
+					}
+				}
+			});
+		</script>
+		<div id="dialogDernierScore"></div>
+		<script type="text/javascript">
+			$("#dialogDernierScore").dialog({
+				autoOpen:false,
+				width : 320,
+				height : 240,
+				modal : true,
+				position: { my: "left center", at: "left center", of: window },
+				close: function( event, ui ) {
+					jeuEnCours.cycleSuivant();
+				},
+				buttons : {
+					"Résultats!" : function() {
+						$(this).dialog("close");
+					}
+				}
+			});
+		</script>
+		<div id="dialogFinal"></div>
+		<script type="text/javascript">
+			$("#dialogFinal").dialog({
+				autoOpen:false,
+				width : 320,
+				height : 240,
+				modal : true,
+				close: function( event, ui ) {
+					
+				},
+				buttons : {
+					"Quitter" : function() {
+						$(this).dialog("close");
+					}
+				}
+			});
+		</script>
+	</c:if>
 
-			</div>
-			
 		</div>
 
 		<footer>
 			<div id="footerContainer">
-			<c:if test="${empty jeuEnCours}">
-				<div id="widgetZone" class="specificScroll">
-					<%@ include file="WEB-INF/afficherWidget.jspf"%>
-				</div>			
-			</c:if>
-			<c:if test="${not empty jeuEnCours}">
+				<c:if test="${empty jeuEnCours}">
+					<div id="widgetZone" class="specificScroll">
+						<%@ include file="WEB-INF/afficherWidget.jspf"%>
+					</div>
+				</c:if>
+				<c:if test="${not empty jeuEnCours}">
 					<%@ include file="WEB-INF/barreJeu.jspf"%>
-			</c:if>
+				</c:if>
 			</div>
 		</footer>
 
@@ -69,16 +138,22 @@
 	
 		//partie dédié à la création de la cart
 		<c:if test="${not empty typeJeu && typeJeu == 3}">
-			gestionCarteJeu(-1, 47.7, 7);
+		gestionCarteJeu(-1, 47.7, 7);
+		$('#dialogLance').dialog('open');
+		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 2}">
-			gestionCarteJeu(-1.5,47.2,8);
+		gestionCarteJeu(-1.5, 47.2, 8);
+		$('#dialogLance').dialog('open');
+		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 1}">
-			gestionCarteJeu(-1.55,47.2,10);
+		gestionCarteJeu(-1.55, 47.2, 10);
+		$('#dialogLance').dialog('open');
+		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${empty typeJeu}">
-			gestionCarteJeu(-0.6, 46.9, 7);
+		gestionCarteJeu(-0.6, 46.9, 7);
 		</c:if>
 
 		(function($) {
@@ -95,10 +170,8 @@
 				});
 				//on attends que la page soit complètement chargée pour lancer le jeu
 				//différent de la navigation!!
-				lanceJeu('${domain}');
+				
 			});
 		})(jQuery);
-		
 	</script>
-
 </body>
