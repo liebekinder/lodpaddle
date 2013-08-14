@@ -1,6 +1,9 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 import src.core.EndPoint;
 import src.core.Resultat;
@@ -28,10 +31,21 @@ public class JeuPDLL extends Jeu {
 				+ "?a dbpprop:insee ?insee . \n" 
 				+ "?a geo:lat ?lat . \n" 
 				+ "?a geo:long ?lon . \n" 
-				+ "} LIMIT 10");
+				+ "}");
 
 		Resultat results = SparqlQuery.requete(requete, EndPoint.Fac);
-		for(int i =0;i<results.taille();++i){
+		Random rand = new Random();
+		List<Integer> ids = new ArrayList<Integer>();
+		int cpt = 0;
+		while(cpt < nbCycle){
+			int temp = rand.nextInt(results.taille());
+			if(!ids.contains(temp)){
+				ids.add(temp);
+				cpt++;
+			}
+		}
+		
+		for(int i:ids){
 		HashMap<String,String> result = results.at(i);
 		
 		String nom= Utilitaires
