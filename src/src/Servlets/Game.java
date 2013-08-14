@@ -1,6 +1,8 @@
 package src.Servlets;
 
 import game.Jeu;
+import game.JeuLA;
+import game.JeuNM;
 import game.JeuPDLL;
 
 import java.io.IOException;
@@ -23,8 +25,7 @@ import src.core.CalculDistance;
 public class Game extends HttpServlet {
 
 	public final String domain = "http://localhost:8080/lodpaddleTest/";
-	// public final String domain =
-	// "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+//	public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	private static final long serialVersionUID = 1L;
 	public Jeu monJeu;
@@ -69,10 +70,10 @@ public class Game extends HttpServlet {
 				// Le jeu est lancé, on crée son initialisation
 				switch (jeuId) {
 				case 1:
-					monJeu = new Jeu();
+					monJeu = new JeuNM();
 					break;
 				case 2:
-					monJeu = new Jeu();
+					monJeu = new JeuLA();
 					break;
 				case 3:
 					monJeu = new JeuPDLL();
@@ -166,7 +167,7 @@ public class Game extends HttpServlet {
 		double dist = CalculDistance.distanceVolOiseauKM(Double.valueOf(lat),
 				Double.valueOf(lon), monJeu.getLatCourante(),
 				monJeu.getLonCourante());
-		int score = calculScore(dist, tps);
+		int score = calculScore(dist, tps, monJeu.getType());
 		String json = new String("{\n" + "\"points\":" + score + ",\n"
 				+ "\"total\":" + monJeu.getScore() + ",\n" + "\"ville\":\""
 				+ monJeu.getVilleCourante() + "\",\n" + "\"trueLon\":"
@@ -179,11 +180,30 @@ public class Game extends HttpServlet {
 		return json;
 	}
 
-	private int calculScore(double dist, String tps) {
-		double score = (-2000 * dist + 100000) >= 0 ? -2000 * dist + 100000 : 0;
-		// on prend une fraction de ce score en fonction du temps passé à
-		// répondre
-		score = score - (score * (Double.valueOf(tps) / 10));
+	private int calculScore(double dist, String tps, int type) {
+		double score = 0;
+		switch(type){
+		case 3:
+			score = (-2000 * dist + 100000) >= 0 ? -2000 * dist + 100000 : 0;
+			// on prend une fraction de ce score en fonction du temps passé à
+			// répondre
+			score = score - (score * (Double.valueOf(tps) / 10));
+			break;
+		case 2:
+			score = (-4000 * dist + 100000) >= 0 ? -4000 * dist + 100000 : 0;
+			// on prend une fraction de ce score en fonction du temps passé à
+			// répondre
+			score = score - (score * (Double.valueOf(tps) / 10));
+			break;
+		case 1:
+			score = (-10000 * dist + 100000) >= 0 ? -10000 * dist + 100000 : 0;
+			// on prend une fraction de ce score en fonction du temps passé à
+			// répondre
+			score = score - (score * (Double.valueOf(tps) / 10));
+			break;
+		default:
+			break;
+		}
 		return (int) score;
 	}
 

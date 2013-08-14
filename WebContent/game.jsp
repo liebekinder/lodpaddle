@@ -43,7 +43,7 @@
 			<div id="mousePosition"></div>
 
 
-	<c:if test="${not empty typeJeu && typeJeu == 3}">
+	<c:if test="${not empty typeJeu}">
 	<div id="dialogLance">Cliquez sur le bouton ci-dessous dès que vous êtes prêt!</div>
 		<script type="text/javascript">
 			$("#dialogLance").dialog({

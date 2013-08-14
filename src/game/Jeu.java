@@ -9,7 +9,8 @@ public class Jeu {
 	public List<Ville> villes;
 	public int score;
 	public int nbCycle = 10;
-	
+	public int type;
+
 	public Jeu(){
 		avancement = 1;
 		villes = new ArrayList<Ville>();
@@ -51,6 +52,14 @@ public class Jeu {
 
 	public int getScore() {
 		return score;
+	}
+	
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 }

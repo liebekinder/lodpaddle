@@ -47,7 +47,7 @@ public class Index extends HttpServlet {
 
 		String nomVille = request.getParameter("saisie");
 		String VUE = "/index.jsp";
-		if(nomVille == null || nomVille == ""){
+		if(nomVille == null || nomVille == "" || nomVille.split(" - ").length <2){
 			//cas particulier de l'accueil => on trouve une ville au hasard
 			Resultat results = trouveUneVille();
 			int nbResultat = results.taille();
@@ -69,6 +69,7 @@ public class Index extends HttpServlet {
 
 			themeManagmement(request, response);
 			List<MyWidget> widgets = new ArrayList<MyWidget>();
+				//astuce pour éviter le "aucune entrée" de faire planté la machine
 			String insee = nomVille.split(" - ")[1];
 			nomVille = nomVille.split(" - ")[0];
 
@@ -98,7 +99,6 @@ public class Index extends HttpServlet {
 			request.setAttribute("widgets", widgets);
 			request.setAttribute("typePage", nomVille);
 			
-
 			request.setAttribute("domain", domain);
 			this.getServletContext().getRequestDispatcher(VUE)
 					.forward(request, response);

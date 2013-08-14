@@ -10,12 +10,12 @@ import src.core.Resultat;
 import src.core.SparqlQuery;
 import src.core.Utilitaires;
 
-public class JeuPDLL extends Jeu {
+public class JeuLA extends Jeu {
 
 	
-	public JeuPDLL(){
+	public JeuLA(){
 		super();
-		type = 3;
+		type = 2;
 	}
 	
 	public void trouveVilles() {
@@ -30,7 +30,8 @@ public class JeuPDLL extends Jeu {
 				+ "?a foaf:name ?nom . \n"
 				+ "?a dbpprop:insee ?insee . \n" 
 				+ "?a geo:lat ?lat . \n" 
-				+ "?a geo:long ?lon . \n" 
+				+ "?a geo:long ?lon . \n"
+				+ "FILTER regex(STR(?insee), \"^44\", \"i\") .\n" 
 				+ "}");
 
 		Resultat results = SparqlQuery.requete(requete, EndPoint.Fac);

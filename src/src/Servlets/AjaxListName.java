@@ -72,7 +72,7 @@ public class AjaxListName extends HttpServlet {
 		// System.out.println(retour);
 
 		if (retour.length() <= 2)
-			return "[\"aucune entrée     \"]";
+			return "[\"Ville introuvable. Une au hasard?     \"]";
 		else
 			return retour.substring(0, retour.length() - 1) + "]";
 	}

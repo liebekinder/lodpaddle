@@ -728,6 +728,8 @@ function creeJeu(domain) {
 	}
 	
 	function finalScore(msg){
+		$('#barreTexteDroit').html(
+				"<div><b>"+msg.total+" points</b></div><div><b>Question "+cycle+" sur 10</b></div>");
 		$('#dialogFinal').html(
 		"<div>Vous avez obtenu un score de "+msg.total+" points! Félicitations!</div>");
 		$("#dialogFinal").dialog("open");		

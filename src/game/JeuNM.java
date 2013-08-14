@@ -10,12 +10,12 @@ import src.core.Resultat;
 import src.core.SparqlQuery;
 import src.core.Utilitaires;
 
-public class JeuPDLL extends Jeu {
+public class JeuNM extends Jeu {
 
 	
-	public JeuPDLL(){
+	public JeuNM(){
 		super();
-		type = 3;
+		type = 1;
 	}
 	
 	public void trouveVilles() {
@@ -30,7 +30,8 @@ public class JeuPDLL extends Jeu {
 				+ "?a foaf:name ?nom . \n"
 				+ "?a dbpprop:insee ?insee . \n" 
 				+ "?a geo:lat ?lat . \n" 
-				+ "?a geo:long ?lon . \n" 
+				+ "?a geo:long ?lon . \n"
+				+ "FILTER(?insee = 44194 || ?insee = 44114 || ?insee = 44035 || ?insee = 44026 || ?insee = 44094 || ?insee = 44204 || ?insee = 44172 || ?insee = 44109 || ?insee = 44162 || ?insee = 44047 || ?insee = 44074 || ?insee = 44120 || ?insee = 44166 || ?insee = 44101 || ?insee = 44024 || ?insee = 44171 || ?insee = 44020 || ?insee = 44018 || ?insee = 44150 || ?insee = 44143 || ?insee = 44198 || ?insee = 44190 || ?insee = 44009 || ?insee = 44215) ."
 				+ "}");
 
 		Resultat results = SparqlQuery.requete(requete, EndPoint.Fac);
