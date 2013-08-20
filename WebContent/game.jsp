@@ -135,25 +135,25 @@
 	</div>
 
 	<script type="text/javascript">
-	
+		domain = "${domain}";
 		//partie dédié à la création de la cart
 		<c:if test="${not empty typeJeu && typeJeu == 3}">
-		gestionCarteJeu(-1, 47.7, 7);
+		gestionCarteJeu(-1, 47.7, 7,3);
 		$('#dialogLance').dialog('open');
 		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 2}">
-		gestionCarteJeu(-1.5, 47.2, 8);
+		gestionCarteJeu(-1.5, 47.2, 8,2);
 		$('#dialogLance').dialog('open');
 		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 1}">
-		gestionCarteJeu(-1.55, 47.2, 10);
+		gestionCarteJeu(-1.55, 47.2, 10,1);
 		$('#dialogLance').dialog('open');
 		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${empty typeJeu}">
-		gestionCarteJeu(-0.6, 46.9, 7);
+		gestionCarteJeu(-0.6, 46.9, 7,0);
 		</c:if>
 
 		(function($) {

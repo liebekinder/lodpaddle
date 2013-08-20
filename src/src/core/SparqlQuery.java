@@ -70,13 +70,9 @@ public class SparqlQuery {
 		}
 
 		try {
-			ResultSet results;
-//			if(objectToExec != null){
-				results=objectToExec.execSelect();
-//			}
-//			else{
-//				results = qexec.execSelect();				
-//			}
+			
+			ResultSet results=objectToExec.execSelect();
+			
 			resultat = new Resultat();
 			for (; results.hasNext();) {
 				// affiche chaque prochaine solution
@@ -90,7 +86,7 @@ public class SparqlQuery {
 				resultat.ajoutResultat(mapUneSolution);
 			}
 		} catch (Exception e) {
-			System.err.println(e.getLocalizedMessage());
+			System.err.println("Le Sparql Endpoint n'est pas accessible!" + e.getLocalizedMessage());
 			return null;
 		} finally {
 //			if(qexec != null) qexec.close();

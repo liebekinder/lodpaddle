@@ -17,9 +17,10 @@ public class Jeu {
 		score = 0;
 	}
 	
-	public void trouveVilles() {
+	public boolean trouveVilles() {
 		//implemented in subclasses
 		System.out.println("problem d'héritage si ce message s'affiche");
+		return false;
 	}
 	
 	public void initialiseJeu(){

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import src.Beans.MyWidget;
 import src.Beans.SousTheme;
 import src.Beans.Theme;
+import src.core.CalculDistance;
 import src.core.Categorie;
 import src.core.Coordonnee;
 import src.core.EndPoint;
@@ -27,9 +28,11 @@ public class Index extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public final String domain = "http://localhost:8080/lodpaddleTest/";
-//	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+
+	// public final String domain =
+	// "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -47,29 +50,57 @@ public class Index extends HttpServlet {
 
 		String nomVille = request.getParameter("saisie");
 		String VUE = "/index.jsp";
-		if(nomVille == null || nomVille == "" || nomVille.split(" - ").length <2){
-			//cas particulier de l'accueil => on trouve une ville au hasard
-			Resultat results = trouveUneVille();
-			int nbResultat = results.taille();
-			Random rand = new Random();
-			int villeInd = rand.nextInt(nbResultat);
-			HashMap<String,String> result = results.at(villeInd);
-			
-			String nomRandom = Utilitaires
-					.nettoieRessourceLeger((result.get("nom") != null && !result
-							.get("nom").isEmpty()) ? result.get("nom")
-							: "Nom inconnu!");
-			String inseeRandom = Utilitaires
-					.nettoieRessourceLeger((result.get("insee") != null && !result
-							.get("insee").isEmpty()) ? result.get("insee")
-							: "insee inconnu!");
-			nomVille = nomRandom+" - "+inseeRandom;
-		}
-			// on est en navigation
+		String ERROR = "/error.jsp";
+		if (nomVille == null || nomVille == ""
+				|| nomVille.split(" - ").length < 2) {
+			Resultat results = new Resultat();
+			if (request.getParameter("lat") == null
+					|| request.getParameter("lon") == null) {
+				// cas particulier de l'accueil => on trouve une ville au hasard
+				results = trouveUneVille();
+				if (results != null) {
+					int nbResultat = results.taille();
+					Random rand = new Random();
+					int villeInd = rand.nextInt(nbResultat);
+					HashMap<String, String> result = results.at(villeInd);
 
-			themeManagmement(request, response);
-			List<MyWidget> widgets = new ArrayList<MyWidget>();
-				//astuce pour éviter le "aucune entrée" de faire planté la machine
+					String nomRandom = Utilitaires
+							.nettoieRessourceLeger((result.get("nom") != null && !result
+									.get("nom").isEmpty()) ? result.get("nom")
+									: "Nom inconnu!");
+					String inseeRandom = Utilitaires
+							.nettoieRessourceLeger((result.get("insee") != null && !result
+									.get("insee").isEmpty()) ? result
+									.get("insee") : "insee inconnu!");
+					nomVille = nomRandom + " - " + inseeRandom;
+				} else {
+					nomVille = null;
+				}
+			} else {
+				results = trouveVilleParCoord(request.getParameter("lon"),
+						request.getParameter("lat"));
+				if (results != null) {
+					HashMap<String, String> result = results.at(0);
+
+					String nomRandom = Utilitaires
+							.nettoieRessourceLeger((result.get("nom") != null && !result
+									.get("nom").isEmpty()) ? result.get("nom")
+									: "Nom inconnu!");
+					String inseeRandom = Utilitaires
+							.nettoieRessourceLeger((result.get("insee") != null && !result
+									.get("insee").isEmpty()) ? result
+									.get("insee") : "insee inconnu!");
+					nomVille = nomRandom + " - " + inseeRandom;
+				} else {
+					nomVille = null;
+				}
+			}
+		}
+		// on est en navigation
+
+		themeManagmement(request, response);
+		List<MyWidget> widgets = new ArrayList<MyWidget>();
+		if (nomVille != null) {
 			String insee = nomVille.split(" - ")[1];
 			nomVille = nomVille.split(" - ")[0];
 
@@ -81,7 +112,7 @@ public class Index extends HttpServlet {
 			Coordonnee positionVille = recuperePosition(insee);
 
 			ficheVille = new MyWidget(nomVille, getVillePresentation(nomVille,
-					insee), "PresentationVille", "#2980b9", 550);
+					insee), "PresentationVille", "#2980b9", 480);
 
 			tweetVille = new MyWidget("twitter", "", "twitter", "#2980b9", 250);
 			tweetVille.setImageFond(domain + "media/tweet.png");
@@ -89,50 +120,69 @@ public class Index extends HttpServlet {
 			photoVille = new MyWidget("photo", "", "photo1", "#2980b9", 200);
 			photoVille.setImageFond(domain + "media/nantesTown.jpg");
 
-			creationDataFlip(request, response, nomVille, insee, positionVille);
+			if (positionVille != null) {
+				creationDataFlip(request, response, nomVille, insee,
+						positionVille);
+			}
+			else{
+				request.setAttribute("error", "noSparql");
+			}
 
 			widgets.add(ficheVille);
 			widgets.add(tweetVille);
 			widgets.add(photoVille);
-			
+
 			request.setAttribute("position", positionVille);
 			request.setAttribute("widgets", widgets);
 			request.setAttribute("typePage", nomVille);
-			
+
 			request.setAttribute("domain", domain);
 			this.getServletContext().getRequestDispatcher(VUE)
 					.forward(request, response);
-			
-//			List<MyWidget> widgets = new ArrayList<MyWidget>();
-//
-//			MyWidget introduction = new MyWidget("Présentation", texteIntro(),
-//					"1", "#1abc9c", 200);
-//			MyWidget websemantique = new MyWidget("Web_sémantique",
-//					texteWebSemantique(), "2", "#2ecc71", 200);
-//			MyWidget endpoint = new MyWidget("Accès_développeurs", texteDev(),
-//					"3", "#5dabe3", 200);
-//
-//			widgets.add(introduction);
-//			widgets.add(websemantique);
-//			widgets.add(endpoint);
-//
-//			request.setAttribute("widgets", widgets);
-//			request.setAttribute("typePage", "accueil");
+		} else {
+
+			this.getServletContext().getRequestDispatcher(ERROR)
+					.forward(request, response);
+		}
+	}
+
+	private Resultat trouveVilleParCoord(String lonS, String latS) {
+		Double lon = Double.valueOf(lonS);
+		Double lat = Double.valueOf(latS);
+		String requete = new String(
+				"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+						+ "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+						+ "PREFIX foaf: <http://xmlns.com/foaf/0.1/>\n"
+						+ "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n"
+						+ "PREFIX dbpprop: <http://dbpedia.org/property/>\n"
+						+ "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+
+						+ "SELECT ?insee ?nom ?lat ?long("
+						+ CalculDistance.selectPartString(50, lat, lon, "?lat",
+								"?long")
+						+ " AS ?distance)\n"
+						+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises>\n"
+						+ "WHERE{\n" + "?ressource geo:lat ?lat.\n"
+						+ "?ressource geo:long?long.\n"
+						+ "?ressource foaf:name ?nom.\n"
+						+ "?ressource dbpprop:insee ?insee . \n"
+						+ "} ORDER BY ASC(?distance) LIMIT 1");
+
+		// System.out.println(requete);
+		return SparqlQuery.requete(requete, EndPoint.Fac);
 	}
 
 	private Resultat trouveUneVille() {
-		String requete = new String(""
-				+ "PREFIX sc: <http://schema.org/>\n"
-				+ "PREFIX dbpprop: <http://dbpedia.org/property/>\n"
-				+ "PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n"
-				+ "SELECT ?nom ?insee \n" 
-				+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises>\n"
-				+ "WHERE{ \n"
-				+ "?a foaf:name ?nom . \n"
-				+ "?a dbpprop:insee ?insee . \n" 
-				+ "}");
+		String requete = new String(
+				""
+						+ "PREFIX dbpprop: <http://dbpedia.org/property/>\n"
+						+ "PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n"
+						+ "SELECT ?nom ?insee \n"
+						+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises>\n"
+						+ "WHERE{ \n" + "?a foaf:name ?nom . \n"
+						+ "?a dbpprop:insee ?insee . \n" + "}");
 
-//		System.out.println(requete);
+		// System.out.println(requete);
 		return SparqlQuery.requete(requete, EndPoint.Fac);
 	}
 
@@ -143,23 +193,26 @@ public class Index extends HttpServlet {
 						+ "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> "
 						+ "SELECT ?lat ?lon "
 						+ "FROM <http://lodpaddle.univ-nantes.fr/Communes_geolocalises> "
-						+ "WHERE { " + "?commune dbpprop:insee "+insee+" . "
-						+ "?commune geo:lat ?lat . "
+						+ "WHERE { " + "?commune dbpprop:insee " + insee
+						+ " . " + "?commune geo:lat ?lat . "
 						+ "?commune geo:long ?lon . " + "}");
 		Resultat resultats = SparqlQuery.requete(requete, EndPoint.Fac);
 
 		// on teste si la requete à bien retourné quelque chose
-		if (resultats.estVide())
+		if (resultats == null || resultats.estVide())
 			return null;
-		Double lat = Double.valueOf(Utilitaires.nettoieRessource(resultats.at(0).get("lat")));
-		Double lon = Double.valueOf(Utilitaires.nettoieRessource(resultats.at(0).get("lon")));
+		Double lat = Double.valueOf(Utilitaires.nettoieRessource(resultats
+				.at(0).get("lat")));
+		Double lon = Double.valueOf(Utilitaires.nettoieRessource(resultats
+				.at(0).get("lon")));
 		Coordonnee position = new Coordonnee(lon, lat);
 
 		return position;
 	}
 
 	private void creationDataFlip(HttpServletRequest request,
-			HttpServletResponse response, String nomVille, String insee, Coordonnee position) {
+			HttpServletResponse response, String nomVille, String insee,
+			Coordonnee position) {
 
 		/** widget items for flip **/
 		Theme loisirs = new Theme("Loisirs", ".flipLoisir", position);
@@ -170,19 +223,19 @@ public class Index extends HttpServlet {
 		Theme aVisiter = new Theme("&Agrave; visiter", ".flipVisite", position);
 
 		SousTheme restaurant = new SousTheme("Restaurants", domain
-				+ "media/picto/restaurantPicto.png",domain
+				+ "media/picto/restaurantPicto.png", domain
 				+ "media/marker/M-restaurant.png", Categorie.RESTAURANT);
 		SousTheme hotel = new SousTheme("Hotels", domain
 				+ "media/picto/hotelPicto.png", domain
-				+ "media/marker/M-hotel.png",Categorie.HOTEL);
+				+ "media/marker/M-hotel.png", Categorie.HOTEL);
 		SousTheme golf = new SousTheme("Parcs de golf", domain
-				+ "media/picto/golfPicto.png",domain
+				+ "media/picto/golfPicto.png", domain
 				+ "media/marker/M-golf.png", Categorie.GOLF);
 		SousTheme plage = new SousTheme("Plages", domain
-				+ "media/picto/plagePicto.png",domain
-				+ "media/marker/M-plage.png",Categorie.PLAGE);
+				+ "media/picto/plagePicto.png", domain
+				+ "media/marker/M-plage.png", Categorie.PLAGE);
 		SousTheme sport = new SousTheme("Centres sportifs", domain
-				+ "media/picto/sportPicto.png",domain
+				+ "media/picto/sportPicto.png", domain
 				+ "media/marker/M-sport.png", Categorie.SPORT);
 
 		loisirs.ajoutSousTheme(restaurant);
@@ -190,43 +243,44 @@ public class Index extends HttpServlet {
 		loisirs.ajoutSousTheme(golf);
 		loisirs.ajoutSousTheme(plage);
 		loisirs.ajoutSousTheme(sport);
-		
+
 		SousTheme cinema = new SousTheme("Cinéma", domain
-				+ "media/picto/cinemaPicto.png",domain
+				+ "media/picto/cinemaPicto.png", domain
 				+ "media/marker/M-cinema.png", Categorie.CINEMA);
-		SousTheme equipementCulturel = new SousTheme("Equipement Culturel", domain
-				+ "media/picto/equipementPicto.png",domain
-				+ "media/marker/M-equipement.png", Categorie.EQUIPEMENT_CULTURE);
+		SousTheme equipementCulturel = new SousTheme("Equipement Culturel",
+				domain + "media/picto/equipementPicto.png", domain
+						+ "media/marker/M-equipement.png",
+				Categorie.EQUIPEMENT_CULTURE);
 		SousTheme mediatheque = new SousTheme("Médiathèque", domain
-				+ "media/picto/mediathequePicto.png",domain
+				+ "media/picto/mediathequePicto.png", domain
 				+ "media/marker/M-mediatheque.png", Categorie.MEDIATHEQUE);
 		SousTheme salleSpectacle = new SousTheme("Salle de Spectacle", domain
-				+ "media/picto/salle-de-spectaclePicto.png",domain
+				+ "media/picto/salle-de-spectaclePicto.png", domain
 				+ "media/marker/M-spectacle.png", Categorie.SALLE_SPECTACLE);
 
 		culture.ajoutSousTheme(cinema);
 		culture.ajoutSousTheme(equipementCulturel);
 		culture.ajoutSousTheme(mediatheque);
 		culture.ajoutSousTheme(salleSpectacle);
-		
+
 		SousTheme actionSociale = new SousTheme("Action sociale", domain
-				+ "media/picto/action-socialePicto.png",domain
+				+ "media/picto/action-socialePicto.png", domain
 				+ "media/marker/M-action-social.png", Categorie.ACTION_SOCIALE);
 		SousTheme decheterie = new SousTheme("Décheterie", domain
-				+ "media/picto/decheteriePicto.png",domain
+				+ "media/picto/decheteriePicto.png", domain
 				+ "media/marker/M-dechetterie.png", Categorie.DECHETERIE);
 		SousTheme justice = new SousTheme("Justice", domain
-				+ "media/picto/justicePicto.png",domain
+				+ "media/picto/justicePicto.png", domain
 				+ "media/marker/M-justice.png", Categorie.JUSTICE);
 		SousTheme poste = new SousTheme("Poste", domain
-				+ "media/picto/postePicto.png",domain
+				+ "media/picto/postePicto.png", domain
 				+ "media/marker/M-poste.png", Categorie.POSTE);
 		SousTheme vieSociale = new SousTheme("Vie sociale", domain
-				+ "media/picto/vie-socialePicto.png",domain
+				+ "media/picto/vie-socialePicto.png", domain
 				+ "media/marker/M-vie-social.png", Categorie.VIE_SOCIALE);
 		SousTheme servicePublic = new SousTheme("Service public", domain
-				+ "media/picto/noImage.png",domain
-				+ "media/marker/marqueur.png", Categorie.SERVICE_PUBLIC);
+				+ "media/picto/publicPicto.png", domain
+				+ "media/marker/M-public.png", Categorie.SERVICE_PUBLIC);
 
 		service.ajoutSousTheme(actionSociale);
 		service.ajoutSousTheme(decheterie);
@@ -235,44 +289,43 @@ public class Index extends HttpServlet {
 		service.ajoutSousTheme(vieSociale);
 		service.ajoutSousTheme(servicePublic);
 
-		
 		SousTheme chateau = new SousTheme("Château", domain
-				+ "media/picto/cinemaPicto.png",domain
+				+ "media/picto/cinemaPicto.png", domain
 				+ "media/marker/M-chateau.png", Categorie.CHATEAU);
-		SousTheme citeCaractere = new SousTheme("Petites cités de caractère", domain
-				+ "media/picto/equipementPicto.png",domain
-				+ "media/marker/M-cite-de-caractere.png", Categorie.CITE);
+		SousTheme citeCaractere = new SousTheme("Petites cités de caractère",
+				domain + "media/picto/equipementPicto.png", domain
+						+ "media/marker/M-cite-de-caractere.png",
+				Categorie.CITE);
 		SousTheme jardin = new SousTheme("Jardin familiaux", domain
-				+ "media/picto/mediathequePicto.png",domain
+				+ "media/picto/mediathequePicto.png", domain
 				+ "media/marker/M-jardin.png", Categorie.JARDIN);
 		SousTheme patrimoine = new SousTheme("Patrimoine", domain
-				+ "media/picto/noImage.png",domain
-				+ "media/marker/marqueur.png", Categorie.PATRIMOINE);
+				+ "media/picto/patrimoinePicto.png", domain
+				+ "media/marker/M-patrimoine.png", Categorie.PATRIMOINE);
 		SousTheme parc = new SousTheme("Parc animalier et à thème", domain
-				+ "media/picto/noImage.png",domain
-				+ "media/marker/marqueur.png", Categorie.PARC_ANIMALIER);
+				+ "media/picto/parkPicto.png", domain
+				+ "media/marker/M-park.png", Categorie.PARC_ANIMALIER);
 
 		aVisiter.ajoutSousTheme(chateau);
 		aVisiter.ajoutSousTheme(citeCaractere);
 		aVisiter.ajoutSousTheme(jardin);
 		aVisiter.ajoutSousTheme(patrimoine);
 		aVisiter.ajoutSousTheme(parc);
-		
+
 		SousTheme mobilite = new SousTheme("Mobilité", domain
-				+ "media/picto/noImage.png",domain
-				+ "media/marker/marqueur.png", Categorie.MOBILITE);
+				+ "media/picto/mobilitePicto.png", domain
+				+ "media/marker/M-mobilite.png", Categorie.MOBILITE);
 		SousTheme parking = new SousTheme("Parking", domain
-				+ "media/picto/noImage.png",domain
-				+ "media/marker/marqueur.png", Categorie.PARKING);
-		
+				+ "media/picto/parkingPicto.png", domain
+				+ "media/marker/M-parking.png", Categorie.PARKING);
 
 		transport.ajoutSousTheme(mobilite);
 		transport.ajoutSousTheme(parking);
-		
+
 		SousTheme villeProche = new SousTheme("Villes à proximité", domain
-				+ "media/picto/noImage.png", domain
-				+ "media/marker/marqueur.png", Categorie.VILLEPROCHE);
-		
+				+ "media/picto/villePicto.png", domain
+				+ "media/marker/M-ville.png", Categorie.VILLEPROCHE);
+
 		ville.ajoutSousTheme(villeProche);
 
 		request.setAttribute("themeLoisir", loisirs);
@@ -328,34 +381,42 @@ public class Index extends HttpServlet {
 		HashMap<String, String> ligne = resultat.at(0);
 		HashMap<String, String> ligne2 = resultat2.at(0);
 
-		String dep = Utilitaires.nettoieRessource(
-				(ligne.get("dep") != null && !ligne.get("dep").isEmpty()) ? ligne.get("dep")
-						: "néant", "dep");
-		String min = Utilitaires.nettoieRessource((ligne.get("min") != null && !ligne.get(
-				"min").isEmpty()) ? ligne.get("min") : "?");
-		String max = Utilitaires.nettoieRessource((ligne.get("max") != null && !ligne.get(
-				"max").isEmpty()) ? ligne.get("max") : "?");
-		String gentile = Utilitaires.nettoieRessource((ligne.get("gentile") != null && !ligne
-				.get("gentile").isEmpty()) ? ligne.get("gentile") : "inconnue");
-		String maire = Utilitaires.nettoieRessource((ligne.get("maire") != null && !ligne
-				.get("maire").isEmpty()) ? ligne.get("maire") : "inconnu");
-		String mandat = Utilitaires.nettoieRessource((ligne.get("mandat") != null && !ligne
-				.get("mandat").isEmpty()) ? ligne.get("mandat") : "inconnu");
-		String superficie = Utilitaires.nettoieRessource((ligne.get("superficie") != null && !ligne
-				.get("superficie").isEmpty()) ? ligne.get("superficie")	+ " km²"
+		String dep = Utilitaires
+				.nettoieRessource((ligne.get("dep") != null && !ligne
+						.get("dep").isEmpty()) ? ligne.get("dep") : "néant",
+						"dep");
+		String min = Utilitaires
+				.nettoieRessource((ligne.get("min") != null && !ligne
+						.get("min").isEmpty()) ? ligne.get("min") : "?");
+		String max = Utilitaires
+				.nettoieRessource((ligne.get("max") != null && !ligne
+						.get("max").isEmpty()) ? ligne.get("max") : "?");
+		String gentile = Utilitaires
+				.nettoieRessource((ligne.get("gentile") != null && !ligne.get(
+						"gentile").isEmpty()) ? ligne.get("gentile")
+						: "inconnue");
+		String maire = Utilitaires
+				.nettoieRessource((ligne.get("maire") != null && !ligne.get(
+						"maire").isEmpty()) ? ligne.get("maire") : "inconnu");
+		String mandat = Utilitaires
+				.nettoieRessource((ligne.get("mandat") != null && !ligne.get(
+						"mandat").isEmpty()) ? ligne.get("mandat") : "inconnu");
+		String superficie = Utilitaires.nettoieRessource((ligne
+				.get("superficie") != null && !ligne.get("superficie")
+				.isEmpty()) ? (ligne.get("superficie") + " km²")
 				: "non précisée");
 		// String description = (ligne.get("description") != null &&
 		// !ligne.get("description").isEmpty())?ligne.get("description"):"néant";
 		String site = (ligne.get("site") != null && !ligne.get("site")
-				.isEmpty()) ? "<a href=\""
-				+ ligne.get("site")
-				+ "\" target=\"_blank\">"
-				+ ligne.get("site") + "</a>"
+				.isEmpty()) ? "<a href=\"" + ligne.get("site")
+				+ "\" target=\"_blank\">" + ligne.get("site") + "</a>"
 				: "néant";
 		String pop = "néant";
 		if (ligne2 != null)
-			pop = Utilitaires.nettoieRessource((ligne2.get("pop") != null && !ligne2.get(
-					"pop").isEmpty()) ? ligne2.get("pop") : "néant");
+			pop = Utilitaires
+					.nettoieRessource((ligne2.get("pop") != null && !ligne2
+							.get("pop").isEmpty()) ? ligne2.get("pop")
+							: "néant");
 
 		String ficheVilleText = new String("<div id=\"presentationCadre\">"
 				+ "<div id=\"presentationTitre\">" + "<h3 class=\"center\">"
@@ -392,14 +453,15 @@ public class Index extends HttpServlet {
 	}
 
 	private String densite(String pop, String superficie) {
-		if (pop.equals("néant") || superficie.equals("néant") || superficie.equals("non précisée") ) {
+		if (pop.equals("néant") || superficie.equals("néant")
+				|| superficie.equals("non précisée")) {
 			return "néant";
 		} else {
 			// les deux ont une valeur numérique
 			double h = Double.valueOf(pop);
 			double s = Double.valueOf(superficie);
 			String retour = Double.toString(h / s);
-			return retour.substring(0, retour.indexOf('.') + 2) + " hab/km²";
+			return (retour.substring(0, retour.indexOf('.') + 2) + " hab/km²");
 		}
 	}
 
@@ -410,36 +472,10 @@ public class Index extends HttpServlet {
 				+ nomVille.split(" - ")[0]
 				+ "</h3>"
 				+ "</div>"
-				+ "<div class=\"noInfo\" style=\" position:absolute; top:50px;\">Nous n'avons pas pu récupérer d'information utile sur "+nomVille+" à partir de fr.dbpedia.org!(</br>"
-				+ "</div>"
+				+ "<div class=\"noInfo\" style=\" position:absolute; top:50px;\">Nous n'avons pas pu récupérer d'information utile sur "
+				+ nomVille + " à partir de fr.dbpedia.org!(</br>" + "</div>"
 				+ "</div>";
 	}
-
-//	private String texteIntro() {
-//		String texteIntro = new String(
-//				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
-//						+ "<h3 class=\"center\">Présentation</h3>"
-//						+ "<p>LodPaddle est un service innovant qui premet de surfer sur "
-//						+ "<a href=\"blabla.jsp\"> l'open data de la Région des Pays de la Loire </a></p>"
-//						+ "</div>");
-//		return texteIntro;
-//	}
-//
-//	private String texteWebSemantique() {
-//		String texteIntro = new String(
-//				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
-//						+ "<h3 class=\"center\">&Agrave; propos du web sémantique</h3>"
-//						+ "</div>");
-//		return texteIntro;
-//	}
-//
-//	private String texteDev() {
-//		String texteIntro = new String(
-//				"<div style=\"height: 100%;width:100%;word-wrap: break-word;padding:5px;\">"
-//						+ "<h3 class=\"center\">Accès developpeur</h3>"
-//						+ "</div>");
-//		return texteIntro;
-//	}
 
 	private void themeManagmement(HttpServletRequest request,
 			HttpServletResponse response) {

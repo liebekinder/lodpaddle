@@ -21,6 +21,9 @@ import src.core.Utilitaires;
 public class AjaxInsee extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+//	public final String domain = "http://localhost:8080/lodpaddleTest/";
+	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -68,7 +71,7 @@ public class AjaxInsee extends HttpServlet {
 		String reponse = new String("<div id=\"cadreInfoTitre\">"
 				+ "<span id=\"cadreInfoTitreContenu\">" + nom + "</span>"
 				+ "</div>" + "<div id=\"cadreInfoContenu\">"
-				+ "<p> <a href=\"./?saisie=");
+				+ "<p> <a href=\""+domain+"?saisie=");
 					reponse += nom;
 				reponse += " - "
 				+ insee

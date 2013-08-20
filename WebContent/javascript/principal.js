@@ -131,15 +131,15 @@ function mySideChangeb6(front) {
 	$('.flipVisite').css('visibility', 'hidden');
 }
 
-function geoloc(monDiv) {
+function geoloc(domain) {
 	if (navigator.geolocation) {
 
 		// Fonction de callback en cas de succès
 		function affichePosition(position) {
 
-			// var lat = position.coords.latitude;
-			// var lon = position.coords.longitude;
-			// addPoint(vectorLayer, lat, lon);
+			var lat = position.coords.latitude;
+			var lon = position.coords.longitude;
+			lanceRecherche(domain, lon, lat);
 
 		}
 
@@ -171,6 +171,10 @@ function geoloc(monDiv) {
 		alert("Ce navigateur ne supporte pas la géolocalisation");
 
 	}
+}
+
+function lanceRecherche(domain, lon, lat) {
+	document.location.href = domain + "?lon=" + lon + "&lat=" + lat;
 }
 
 function del(vectorLayer) {
@@ -333,33 +337,45 @@ function enleveToutLayer() {
 }
 
 function getListURl(ressource) {
-	pos = ressource.lastIndexOf("/");
-	nomPage = ressource;
-	// var apiCall1 =
-	// "http://fr.wikipedia.org/w/api.php?action=query&titles=___LE_TITRE___&prop=images";
+	// pos = ressource.lastIndexOf("/");
+	// nom = ressource.substring(pos+1);
+	nom = ressource;
+	// le nom ici correspond au nom d'une page puisque issue de wikipedia
+	var api = "http://fr.wikipedia.org/w/api.php";
 	// var apiCall2 =
 	// "http://commons.wikimedia.org/w/api.php?action=query&titles=File:Anne%20of%20Brittany%20statue%20Ch%C3%A2teau%20des%20ducs%20de%20Bretagne.jpg&prop=imageinfo&iiprop=url";
 	// var path ="Arrivée Maxi Banque Populaire V Nantes.JPG";
 	// $.ajax({
-	// type : "POST",
-	// url : domain + "AjaxInsee",
-	// dataType : "xml",
-	// data : "ressource=" + encodeURI(ressource),
-	// success : function(msg) {
-	// $('#cadreInfo').html(msg);
-	// cadreInfoShow();
+	// type : "GET",
+	// url : api,
+	// dataType : "json",
+	// beforeSend: function(request) {
+	// request.setRequestHeader("User-Agent","sebastien.chenais@etu.univ-nantes.fr");
+	// },
+	// data:action="action=query&titles="+ nom + "&prop=images&format=json",
+	// success : function(msg){
+	// getListURlSuite(msg);
 	// },
 	// error : function(jqXHR, textStatus, errorThrown) {
-	// $('#cadreInfo').html(
-	// "<p>Impossible de récupérer les données!</p>");
+	// alert("La récupération des images sur wikipédia a échoué");
 	// }
 	// });
+	$.getJSON(api + "?action=query&format=json&callback=?", {
+		page : ressource,
+		prop : "images"
+	}, getListURlSuite);
 
+}
+
+function getListURlSuite(json, etat, arg3) {
+	alert(json + " " + etat);
 }
 
 function afficheCadreInfo(ressource) {
 	if (ressource
-			.indexOf("http://lodpaddle.univ-nantes.fr/Communes_geolocalises/") != -1) {
+			.indexOf("http://lodpaddle.univ-nantes.fr/Communes_geolocalises/") != -1
+			|| ressource
+					.indexOf("http://lodpaddle.univ-nantes.fr/Petites_cites_de_caractere/") != -1) {
 		// Cas particulier des villes, on ne veut pas du cadre info qui serait
 		// vide:
 		// seulement un lien vers la recherche
@@ -534,12 +550,26 @@ function gestionCarte() {
 		autoActivate : true
 	});
 
+	geojson_layer = new OpenLayers.Layer.Vector("GeoJSON", {
+		styleMap : new OpenLayers.Style({
+			  'fillOpacity': 0,
+			  'strokeColor': '#ff0000'
+			}),
+		strategies : [ new OpenLayers.Strategy.Fixed() ],
+        projection: new OpenLayers.Projection('EPSG:4326'),
+		protocol : new OpenLayers.Protocol.HTTP({
+			url : domain + "data/region.geojson",
+			format : new OpenLayers.Format.GeoJSON()
+		})
+	});
+	map.addLayer(geojson_layer);
+	
 	map.addControl(selector);
 	map.addLayer(villeSearch);
 
 }
 
-function gestionCarteJeu(lon, lat, zoom) {
+function gestionCarteJeu(lon, lat, zoom, type) {
 
 	map = new OpenLayers.Map("content", {
 		controls : [
@@ -578,9 +608,40 @@ function gestionCarteJeu(lon, lat, zoom) {
 		map.setCenter(center.transform(projFrom, projTo), zoom);
 	}
 
+	if(type==3 || type ==0)	place = "data/region.geojson";
+	else if(type == 2) place = "data/LA.geojson";
+	else if(type == 1) place = "data/NM.geojson";
+	
+	geojson_layer = new OpenLayers.Layer.Vector("GeoJSON", {
+		styleMap : new OpenLayers.Style(),
+		strategies : [ new OpenLayers.Strategy.Fixed() ],
+        projection: new OpenLayers.Projection('EPSG:4326'),
+		protocol : new OpenLayers.Protocol.HTTP({
+			url : domain + place,
+			format : new OpenLayers.Format.GeoJSON()
+		})
+	});
+	map.addLayer(geojson_layer);
+
 	villePos = new OpenLayers.Layer.Vector("vector");
 	map.addLayer(villePos);
 
+}
+
+function recupereGeoJson() {
+	$.ajax({
+		type : "GET",
+		url : domain + "data/region2.geojson",
+		dataType : "json",
+		success : function(msg) {
+			return msg;
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+			alert('connexion aux données geoJson impossible: ' + textStatus
+					+ "  " + erroThrown);
+			return "{}";
+		}
+	});
 }
 
 function creeJeu(domain) {
@@ -608,8 +669,7 @@ function creeJeu(domain) {
 			RAZ();
 			nouvelleVille();
 			lanceDecompte();
-		}
-		else{
+		} else {
 			afficheScore();
 		}
 	}
@@ -640,19 +700,21 @@ function creeJeu(domain) {
 					step : function(now, fx) {
 						tempo = (now / 10).toFixed(2);
 						$('#barreTexteGauche').html(
-								"<div><b>"+villeCourante+"</b></div><div><b>Temps: "
-										+ tempo + "s</b></div>");
+								"<div><b>" + villeCourante
+										+ "</b></div><div><b>Temps: " + tempo
+										+ "s</b></div>");
 						temps = tempo;
 					},
 					easing : "linear",
-					complete: function(){
+					complete : function() {
 						stopDecompte(lonlat, false);
 					}
 				});
 	}
 
 	function stopDecompte(lonlat, avantFin) {
-		if(avantFin) $('#barreProgression').stop();
+		if (avantFin)
+			$('#barreProgression').stop();
 		first = false;
 		running = false;
 		ajoutPoint(villePos, lonlat.lon, lonlat.lat, domain
@@ -672,25 +734,25 @@ function creeJeu(domain) {
 		});
 		// alert(tempo+" - "+lonlat.lon + " - " + lonlat.lat);
 	}
-	
-	function stopSuccess(msg){
+
+	function stopSuccess(msg) {
 		html = boiteResultat(msg);
 		ajoutPoint(villePos, msg.trueLon, msg.trueLat, domain
 				+ "media/marker/marqueur.png", "pionReel");
-		if(cycle == nbCycle){			
+		if (cycle == nbCycle) {
 			$('#dialogDernierScore').html(html);
 			$("#dialogDernierScore").dialog("open");
-		}
-		else{
+		} else {
 			$('#dialogScore').html(html);
-			$("#dialogScore").dialog("open");			
+			$("#dialogScore").dialog("open");
 		}
 		$('#barreTexteDroit').html(
-				"<div><b>"+msg.total+" points</b></div><div><b>Question "+cycle+" sur 10</b></div>");
-		
+				"<div><b>" + msg.total + " points</b></div><div><b>Question "
+						+ cycle + " sur 10</b></div>");
+
 	}
-	
-	function nouvelleVille(){
+
+	function nouvelleVille() {
 		$.ajax({
 			type : "POST",
 			url : domain + "Game",
@@ -704,15 +766,16 @@ function creeJeu(domain) {
 			}
 		});
 	}
-	
-	function changeVilleCourante(msg){
+
+	function changeVilleCourante(msg) {
 		villeCourante = msg.ville;
 		$('#barreTexteGauche').html(
-		"<div><b>"+villeCourante+"</b></div><div><b>Temps: 0s</b></div>");
-		
+				"<div><b>" + villeCourante
+						+ "</b></div><div><b>Temps: 0s</b></div>");
+
 	}
-	
-	function afficheScore(){
+
+	function afficheScore() {
 		$.ajax({
 			type : "POST",
 			url : domain + "Game",
@@ -726,19 +789,22 @@ function creeJeu(domain) {
 			}
 		});
 	}
-	
-	function finalScore(msg){
+
+	function finalScore(msg) {
 		$('#barreTexteDroit').html(
-				"<div><b>"+msg.total+" points</b></div><div><b>Question "+cycle+" sur 10</b></div>");
+				"<div><b>" + msg.total + " points</b></div><div><b>Question "
+						+ cycle + " sur 10</b></div>");
 		$('#dialogFinal').html(
-		"<div>Vous avez obtenu un score de "+msg.total+" points! Félicitations!</div>");
-		$("#dialogFinal").dialog("open");		
+				"<div>Vous avez obtenu un score de " + msg.total
+						+ " points! Félicitations!</div>");
+		$("#dialogFinal").dialog("open");
 	}
 }
 
 function boiteResultat(data) {
-	return "<div> Distance de " + data.ville + ": " + data.distance.toFixed(1) + "km</div>"
-			+ "<div> Points pour cette manche: " + data.points + "pts</div>";
+	return "<div> Distance de " + data.ville + ": " + data.distance.toFixed(1)
+			+ "km</div>" + "<div> Points pour cette manche: " + data.points
+			+ "pts</div>";
 }
 
 function centrerAccueil(totalDiv) {

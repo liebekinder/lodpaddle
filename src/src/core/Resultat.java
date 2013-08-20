@@ -43,4 +43,25 @@ public class Resultat {
 	public Iterator<HashMap<String,String>> iterator(){
 		return resultats.iterator();
 	}
+
+	
+	public void concat(Resultat questionne) {
+		resultats.addAll(questionne.getListe());
+	}
+
+	private List<HashMap<String, String>> getListe() {
+		return resultats;
+	}
+
+	public Resultat inverseCleValeur(){
+		Iterator<HashMap<String,String>> it = resultats.iterator();
+		Resultat retour = new Resultat();
+		while(it.hasNext()){
+			HashMap<String, String> temp= it.next();
+			HashMap<String,String> creer = new HashMap<String, String>();
+			creer.put(temp.get(temp.keySet().toArray()[0]), (String) temp.keySet().toArray()[0]);
+			retour.ajoutResultat(creer);
+		}
+		return retour;
+	}
 }

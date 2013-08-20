@@ -119,10 +119,15 @@
 		</footer>
 
 	</div>
+	<div id="dialogMentionLegale"></div>
+	<div id="dialogContact"></div>
+	
 
-	<script type="text/javascript">
+
+
+<script type="text/javascript">
 		//partie dédié à la création de la carte
-
+		domain = "${domain}";
 		gestionCarte();		
 
 		(function($) {
@@ -140,8 +145,28 @@
 			});
 		})(jQuery);
 		
+		$( "#dialogMentionLegale" ).dialog({
+			autoOpen: false,
+			title: "Mentions légales",
+			width: 800,
+			height: 480,
+			modal: true
+			});
+		
+		$( "#dialogContact" ).dialog({
+			autoOpen: false,
+			title: "Nous contacter",
+			width: 800,
+			height: 480,
+			modal: true
+			});
+		
 		<c:if test="${not empty position}">
 			ajoutPoint(villeSearch, ${position.longitude}, ${position.latitude},'${domain}media/marqueur.png');
+		</c:if>
+		
+		<c:if test="${not empty error}">
+			alert('Impossible de contacter le SPARQL Endpoint!');
 		</c:if>
 		
 		<c:if test="${not empty themeCulture}"> 
@@ -195,6 +220,5 @@
 		</c:if>
 		
 	</script>
-
 </body>
 </html>

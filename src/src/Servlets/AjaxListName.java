@@ -64,7 +64,7 @@ public class AjaxListName extends HttpServlet {
 			}
 		} catch (Exception e) {
 			if (retour.length() <= 2)
-				return "[\"pas de résultat     \"]";
+				return "[\"Impossible de contacter le Sparql Enpoint     \"]";
 			else
 				return retour.substring(0, retour.length() - 1) + "]";
 		}

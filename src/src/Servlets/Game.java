@@ -25,7 +25,8 @@ import src.core.CalculDistance;
 public class Game extends HttpServlet {
 
 	public final String domain = "http://localhost:8080/lodpaddleTest/";
-//	public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	// public final String domain =
+	// "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	private static final long serialVersionUID = 1L;
 	public Jeu monJeu;
@@ -44,6 +45,8 @@ public class Game extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String VUE = "/game.jsp";
+		String ERROR = "/error.jsp";
+		boolean erreur = false;
 
 		String jeu = request.getParameter("typeJeu");
 		if (jeu == null || jeu == "") {
@@ -81,7 +84,13 @@ public class Game extends HttpServlet {
 				default:
 					monJeu = null;
 				}
-				monJeu.trouveVilles();
+				if (monJeu != null) {
+					if (!monJeu.trouveVilles()) {
+						erreur = true;
+					}
+				} else {
+					erreur = true;
+				}
 
 			} else {
 				// on est déjà dans une phase de jeu
@@ -92,8 +101,13 @@ public class Game extends HttpServlet {
 		}
 
 		request.setAttribute("domain", domain);
-		this.getServletContext().getRequestDispatcher(VUE)
-				.forward(request, response);
+
+		if (erreur)
+			this.getServletContext().getRequestDispatcher(ERROR)
+					.forward(request, response);
+		else
+			this.getServletContext().getRequestDispatcher(VUE)
+					.forward(request, response);
 	}
 
 	private String getTexte(int i) {
@@ -149,8 +163,8 @@ public class Game extends HttpServlet {
 	}
 
 	private String getScore() {
-		String json = new String("{\n" + "\"total\":\""
-				+ monJeu.getScore() + "\"\n" + "}");
+		String json = new String("{\n" + "\"total\":\"" + monJeu.getScore()
+				+ "\"\n" + "}");
 
 		return json;
 	}
@@ -182,7 +196,7 @@ public class Game extends HttpServlet {
 
 	private int calculScore(double dist, String tps, int type) {
 		double score = 0;
-		switch(type){
+		switch (type) {
 		case 3:
 			score = (-2000 * dist + 100000) >= 0 ? -2000 * dist + 100000 : 0;
 			// on prend une fraction de ce score en fonction du temps passé à

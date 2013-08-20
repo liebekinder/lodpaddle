@@ -1,13 +1,14 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div id="lodpaddleZone"><span class="lodpaddleTitle"><a href=".">LODPADDLE</a></span></div>
+<!-- <div id="lodpaddleZone"><span class="lodpaddleTitle"><a href=".">LODPADDLE</a></span></div> -->
+<div id="lodpaddleZone"><span class="lodpaddleTitle" onclick="getListURl('${typePage}')">LODPADDLE</span></div>
 <div id="searchBar">
 	<form id="searchBarForm" action="${domain}" method="GET" onclick="return false;">
 
 		<div id="geoLoc">
 			<img class="geoLocImg" alt="geolocalise moi!"
-				src="${domain}media/geoloc.png" onclick="geoloc()" />
+				src="${domain}media/geoloc.png" onclick="geoloc('${domain}')" />
 		</div>
 		<div id="search">
 			<input id="searchInput" class="search_data" name="saisie" type="text"
@@ -39,4 +40,4 @@ $('#searchInput').autocomplete({
 			$("<a></a>").html(item.label.slice(0, -3))).appendTo(ul);
 };
 </script>
-<div id="creditZone"><span onclick="">Credit</span> | blabla | encore un truc &copy;</div>
+<div id="creditZone"><span onclick="$('#dialogContact').dialog('open');">Contact</span> | <span onclick="$('#dialogMentionLegale').dialog('open');">Mentions légales</span> | <span onclick="document.location.href='http://lodpaddle.univ-nantes.fr/sparql'">Accès développeur</span></div>

@@ -53,23 +53,16 @@ public class PlusInformation extends HttpServlet {
 	}
 
 	private String getPlusInformation(String parameter) {
-		Resultat resultat = questionne(parameter);
+		Resultat resultat = getVoID(parameter);
+		resultat.concat(questionne(parameter));
 		
 		String reponse = new String("<table id=\"tablePlusInformation\"><tr><th>Propriété</th><th>Valeur</th></tr>");
-		
 		Iterator<HashMap<String, String>> results = resultat.iterator();
 		while(results.hasNext()){
 			HashMap<String, String> result = results.next();
 			
 			reponse += "<tr>";
-			
-					Set<String> cles = result.keySet();
-			Iterator<String> it = cles.iterator();
-			while(it.hasNext()){
-				String cle = it.next();
-				reponse += "<td>"+Utilitaires.nettoieRessourceLeger(result.get(cle))+"</td>";
-			}
-			
+			reponse += "<td>"+Utilitaires.nettoieRessourceLeger(result.get("predicate"))+"</td><td>"+Utilitaires.nettoieRessourceLeger(result.get("object"))+"</td>";			
 			reponse += "</tr>";
 			
 		}
@@ -77,12 +70,24 @@ public class PlusInformation extends HttpServlet {
 		return reponse;
 	}
 
+private Resultat getVoID(String ressource) {
+	String requete = new String(
+					"PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"+
+					"SELECT ?predicate ?object \n"+
+					"WHERE{ \n"+
+				    "<"+ressource+"> rdf:type ?type . \n"+
+					 	"?type ?predicate ?object"+
+					"}"
+					    );
+	return SparqlQuery.requete(requete, EndPoint.Fac);
+	}
+
 private Resultat questionne(String ressource) {
 		String requete = new String(
 				"PREFIX sc: <http://schema.org/>\n"
 						+ "PREFIX dbpprop: <http://dbpedia.org/property/>\n"
 						+ "PREFIX foaf: <http://xmlns.com/foaf/0.1/> \n"
-						+ "SELECT * \n"
+						+ "SELECT ?predicate ?object \n"
 						+ "WHERE{ \n" 
 						+ "<" + ressource+ "> ?predicate ?object . \n" 
 						+ "}");

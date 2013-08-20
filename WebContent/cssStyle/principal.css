@@ -271,14 +271,6 @@ footer {
 	padding-bottom: 0px;
 }
 
-#inputSearch {
-	position: absolute;
-	top: 0px;
-	left: 36px;
-	height: 30px;
-	width: 900px;
-}
-
 #searchBar {
 	height: 24px;
 	background: white;
@@ -286,7 +278,7 @@ footer {
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
-	width: 407px;
+	width: 367px;
 	border-radius: 4px;
 }
 
@@ -305,7 +297,7 @@ footer {
 }
 
 #search {
-	width: 348px;
+	width: 308px;
 	float: left;
 	z-index: 5010;
 	padding-left: 5px;
@@ -315,15 +307,6 @@ footer {
 	position: relative;
 	height: 22px;
 	width: 27px;
-	float: left;
-}
-
-#inputSubmit {
-	position: absolute;
-	top: 0px;
-	left: 950px;
-	height: 20px;
-	width: 20px;
 	float: left;
 }
 
@@ -364,8 +347,21 @@ footer {
 	height: 35px;
 	right: 0px;
 	top: 0px;
+	font-size:8pt;
+	font-weight:bold;
+	color:white;
+	padding-right:5px;
+	line-height:30px;
+}
+#creditZone span:hover{
+	color:blue;
+	cursor:  pointer;
 }
 
+.ulLien span:hover{
+	color:blue;
+	cursor:  pointer;
+}
 /*######################################
 ####          widget				####
 ######################################*/
@@ -389,7 +385,7 @@ footer {
 
 #presentationTitre {
 	position: absolute;
-	width: 540px;
+	width: 470px;
 	height: 35px;
 	left: 5px;
 	top:-5px;
@@ -403,19 +399,19 @@ footer {
 #presentationGauche {
 	position: absolute;
 	height: 105px;
-	width: 265px;
+	width: 255px;
 	top: 32px;
-	left:5px;
+	left:15px;
 	line-height: 1.2;
 	border-right: 2px solid white;
 }
 
 #presentationDroite {
 	position: absolute;
-	width: 265px;
+	width: 185px;
 	height: 105px;
 	top: 32px;
-	left: 277px;
+	left: 287px;
 	line-height: 1.2;
 }
 

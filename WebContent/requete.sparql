@@ -42,4 +42,12 @@ WHERE{
 } ORDER BY ASC 3 limit 3
 
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> PREFIX foaf: <http://xmlns.com/foaf/0.1/> PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> PREFIX dbpprop: <http://dbpedia.org/property/> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> SELECT ?sub ?nom ((47.278984-xsd:float(?lat))*(47.278984-xsd:float(?lat)) + (-2.210437-xsd:float(?long))*(-2.210437-xsd:float(?long))*(0.8847360883927194-(-0.0021402273217319264*xsd:float(?lat)))) WHERE{ ?sub geo:lat ?lat. ?sub geo:long?long. ?sub foaf:name ?nom. ?sub a <http://lodpaddle.univ-nantes.fr/plage> . FILTER ((47.278984-xsd:float(?lat))*(47.278984-xsd:float(?lat)) + (-2.210437-xsd:float(?long))*(-2.210437-xsd:float(?long))*(0.8847360883927194-(-0.0021402273217319264*xsd:float(?lat))) < 0.07279017646250181 ) . } ORDER BY ASC 3
-      
+  
+  
+http://fr.wikipedia.org/w/api.php?action=query&titles=Nantes&prop=images&format=jsonfm
+
+http://fr.wikipedia.org/w/api.php?action=query&titles=Fichier:800px-Pommeraye5.jpg&prop=imageinfo&iiprop=url&format=json
+
+http://fr.wikipedia.org/w/api.php?action=query&titles=Nantes&prop=images&format=json
+
+    
