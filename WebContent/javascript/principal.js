@@ -459,7 +459,7 @@ function selectionneLigne(titreFeature) {
 
 	afficheCadreInfo(titreFeature);
 	// alert(titreFeature);
-	var layer = map.layers[3];
+	var layer = map.layers[4];
 	var longueur = layer.features.length;
 	var i = 0;
 	var trouve = false;

@@ -289,6 +289,10 @@ footer {
 	float: left;
 }
 
+#geoLoc :hover{
+	cursor:  pointer;	
+}
+
 .geoLocImg {
 	background: #FF4500;
 	height: 24px;
@@ -448,6 +452,10 @@ footer {
 	padding: 0;
 	margin-bottom: 0px;
 	margin-top: 5px;
+}
+
+#calculatedTheme div:hover{
+	cursor:  pointer;	
 }
 
 /*######################################
