@@ -38,7 +38,7 @@
 </script>
 
 </head>
-<body onload="pageLoaded('${domain}');">
+<body onload="">
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	<div id="AllScreenDiv">
@@ -53,49 +53,75 @@
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
 
+			<div id="accesJeu" onclick="document.location.href='${domain}Game'">
+				<div class="accessJeuImg">
+					<img src="${domain}media/pictojeusurvol.png" alt="jeu" />
+				</div>
+				<div class="accessJeuTexte">Jouer!</div>
+			</div>
 
-			<div id="contentContainer" style="visibility: hidden">
-
-			
-				<div class="flipLoisir flipItem" style="visibility: hidden;">
-					<div class="title">Loisirs</div>
-					<div class="contenuFlip accordion" id="loisirContenu"><%@ include
-							file="WEB-INF/afficherContenuLoisir.jspf"%></div>
+			<div id="retourJeu">
+				<div id="retourJeuListe">
+					<span id="retourJeuListeTitre">Récapitulatif des villes</span>
+					<c:if test="${not empty listeVille}"><%@ include
+							file="WEB-INF/listeVille.jspf"%></c:if>
 				</div>
-				<div class="flipCulture flipItem" style="visibility: hidden;">
-					<div class="title">Culture</div>
-					<div class="contenuFlip accordion" id="cultureContenu"><%@ include
-							file="WEB-INF/afficherContenuCulture.jspf"%></div>
-				</div>
-				<div class="flipVille flipItem" style="visibility: hidden;">
-					<div class="title">Ville</div>
-					<div class="contenuFlip accordion" id="villeContenu"><%@ include
-							file="WEB-INF/afficherContenuVille.jspf"%></div>
-				</div>
-				<div class="flipService flipItem" style="visibility: hidden;">
-					<div class="title">Service</div>
-					<div class="contenuFlip accordion" id="serviceContenu"><%@ include
-							file="WEB-INF/afficherContenuService.jspf"%></div>
-				</div>
-				<div class="flipVisite flipItem" style="visibility: hidden;">
-					<div class="title">Visite</div>
-					<div class="contenuFlip accordion" id="visiteContenu"><%@ include
-							file="WEB-INF/afficherContenuVisite.jspf"%></div>
-				</div>
-				<div class="flipTransport flipItem" style="visibility: hidden;">
-					<div class="title">Transport</div>
-					<div class="contenuFlip accordion" id="transportContenu"><%@ include
-							file="WEB-INF/afficherContenuTransport.jspf"%></div>
+				<div id="retourJeuBouton">
+						<table class="maxWidth"><tr>
+						<td>
+							<form action="${domain}" method="GET">
+								<input type="hidden" name="quitter" value="true" /> 
+								<input type="submit" value="Quitter" />
+							</form>
+						</td><td>
+							<form action="${domain}Game" method="GET">
+								<input type="submit" value="Rejouer" />
+							</form>
+						</td>
+						</tr></table>
 				</div>
 			</div>
-			
-			<div id="cadreInfo">
-	
+		</div>
+
+		<div id="contentContainer" style="visibility: hidden">
+
+
+			<div class="flipLoisir flipItem" style="visibility: hidden;">
+				<div class="title">Loisirs</div>
+				<div class="contenuFlip accordion" id="loisirContenu"><%@ include
+						file="WEB-INF/afficherContenuLoisir.jspf"%></div>
 			</div>
-			
-			<div id="dialog">Blablablabl
-			b<p>nihi'tiohoihgigg</p></div>
-			<script type="text/javascript">
+			<div class="flipCulture flipItem" style="visibility: hidden;">
+				<div class="title">Culture</div>
+				<div class="contenuFlip accordion" id="cultureContenu"><%@ include
+						file="WEB-INF/afficherContenuCulture.jspf"%></div>
+			</div>
+			<div class="flipVille flipItem" style="visibility: hidden;">
+				<div class="title">Ville</div>
+				<div class="contenuFlip accordion" id="villeContenu"><%@ include
+						file="WEB-INF/afficherContenuVille.jspf"%></div>
+			</div>
+			<div class="flipService flipItem" style="visibility: hidden;">
+				<div class="title">Service</div>
+				<div class="contenuFlip accordion" id="serviceContenu"><%@ include
+						file="WEB-INF/afficherContenuService.jspf"%></div>
+			</div>
+			<div class="flipVisite flipItem" style="visibility: hidden;">
+				<div class="title">Visite</div>
+				<div class="contenuFlip accordion" id="visiteContenu"><%@ include
+						file="WEB-INF/afficherContenuVisite.jspf"%></div>
+			</div>
+			<div class="flipTransport flipItem" style="visibility: hidden;">
+				<div class="title">Transport</div>
+				<div class="contenuFlip accordion" id="transportContenu"><%@ include
+						file="WEB-INF/afficherContenuTransport.jspf"%></div>
+			</div>
+		</div>
+
+		<div id="cadreInfo"></div>
+
+		<div id="dialog"></div>
+		<script type="text/javascript">
 				$( "#dialog" ).dialog({
 					autoOpen: false,
 					width: 800,
@@ -103,64 +129,38 @@
 					modal: true
 					});
 			</script>
-			
-			
-		</div>
 
-		<footer>
-			<div id="footerContainer">
-				<div id="staticTheme"><%@ include
-						file="WEB-INF/themeZone.jspf"%></div>
-				<div id="widgetZone" class="specificScroll">
-					<%@ include file="WEB-INF/afficherWidget.jspf"%>
-					<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
-				</div>
+
+	</div>
+
+	<footer>
+		<div id="footerContainer">
+			<div id="staticTheme"><%@ include file="WEB-INF/themeZone.jspf"%></div>
+			<div id="widgetZone" class="specificScroll">
+				<%@ include file="WEB-INF/afficherWidget.jspf"%>
+				<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
 			</div>
-		</footer>
+		</div>
+	</footer>
 
 	</div>
 	<div id="dialogMentionLegale"></div>
 	<div id="dialogContact"></div>
-	
 
 
 
-<script type="text/javascript">
+
+	<script type="text/javascript">
 		//partie dédié à la création de la carte
 		domain = "${domain}";
 		gestionCarte();		
-
-		(function($) {
-			$(window).load(function() {
-				$("#widgetZone").mCustomScrollbar({
-					scrollButtons : {
-						enable : true
-					},
-					horizontalScroll : true,
-					advanced : {
-						autoExpandHorizontalScroll : true,
-						updateOnContentResize : false
-					}
-				}); 
-			});
-		})(jQuery);
+		pageLoaded('${domain}');
 		
-		$( "#dialogMentionLegale" ).dialog({
-			autoOpen: false,
-			title: "Mentions légales",
-			width: 800,
-			height: 480,
-			modal: true
-			});
-		
-		$( "#dialogContact" ).dialog({
-			autoOpen: false,
-			title: "Nous contacter",
-			width: 800,
-			height: 480,
-			modal: true
-			});
-		
+		<c:if test="${not empty listeVille}">
+			retourJeuShow();
+			cacheAccesJeu();
+		</c:if>
+	
 		<c:if test="${not empty position}">
 			ajoutPoint(villeSearch, ${position.longitude}, ${position.latitude},'${domain}media/marqueur.png');
 		</c:if>

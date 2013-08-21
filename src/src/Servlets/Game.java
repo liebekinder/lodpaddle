@@ -6,6 +6,7 @@ import game.JeuNM;
 import game.JeuPDLL;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,66 +49,72 @@ public class Game extends HttpServlet {
 		String ERROR = "/error.jsp";
 		boolean erreur = false;
 
-		String jeu = request.getParameter("typeJeu");
-		if (jeu == null || jeu == "") {
+		String fini = request.getParameter("fini");
+		if (fini == null || fini == "") {
+			String jeu = request.getParameter("typeJeu");
+			if (jeu == null || jeu == "") {
 
-			List<MyWidget> widgets = new ArrayList<MyWidget>();
+				List<MyWidget> widgets = new ArrayList<MyWidget>();
 
-			MyWidget nantesMetropole = new MyWidget("Nantes métropôle",
-					getTexte(1), "1", "#e75735", 200);
-			MyWidget loireAtlantique = new MyWidget("Web_sémantique",
-					getTexte(2), "2", "#e75735", 200);
-			MyWidget paysDeLaLoire = new MyWidget("Accès_développeurs",
-					getTexte(3), "3", "#e75735", 200);
+				MyWidget nantesMetropole = new MyWidget("Nantes métropôle",
+						getTexte(1), "1", "#e75735", 200);
+				MyWidget loireAtlantique = new MyWidget("Web_sémantique",
+						getTexte(2), "2", "#e75735", 200);
+				MyWidget paysDeLaLoire = new MyWidget("Accès_développeurs",
+						getTexte(3), "3", "#e75735", 200);
 
-			widgets.add(nantesMetropole);
-			widgets.add(loireAtlantique);
-			widgets.add(paysDeLaLoire);
+				widgets.add(nantesMetropole);
+				widgets.add(loireAtlantique);
+				widgets.add(paysDeLaLoire);
 
-			request.setAttribute("widgets", widgets);
-			request.setAttribute("typePage", "accueil");
-		} else {
-			String jeuEnCoursTemp = request.getParameter("jeuEnCours");
-			if (jeuEnCoursTemp == null || jeuEnCoursTemp == "") {
-				int jeuId = Integer.valueOf(jeu);
-				// Le jeu est lancé, on crée son initialisation
-				switch (jeuId) {
-				case 1:
-					monJeu = new JeuNM();
-					break;
-				case 2:
-					monJeu = new JeuLA();
-					break;
-				case 3:
-					monJeu = new JeuPDLL();
-					break;
-				default:
-					monJeu = null;
-				}
-				if (monJeu != null) {
-					if (!monJeu.trouveVilles()) {
+				request.setAttribute("widgets", widgets);
+				request.setAttribute("typePage", "accueil");
+			} else {
+				String jeuEnCoursTemp = request.getParameter("jeuEnCours");
+				if (jeuEnCoursTemp == null || jeuEnCoursTemp == "") {
+					int jeuId = Integer.valueOf(jeu);
+					// Le jeu est lancé, on crée son initialisation
+					switch (jeuId) {
+					case 1:
+						monJeu = new JeuNM();
+						break;
+					case 2:
+						monJeu = new JeuLA();
+						break;
+					case 3:
+						monJeu = new JeuPDLL();
+						break;
+					default:
+						monJeu = null;
+					}
+					if (monJeu != null) {
+						if (!monJeu.trouveVilles()) {
+							erreur = true;
+						}
+					} else {
 						erreur = true;
 					}
+
 				} else {
-					erreur = true;
+					// on est déjà dans une phase de jeu
 				}
 
-			} else {
-				// on est déjà dans une phase de jeu
+				request.setAttribute("typeJeu", jeu);
+				request.setAttribute("jeuEnCours", true);
 			}
 
-			request.setAttribute("typeJeu", jeu);
-			request.setAttribute("jeuEnCours", true);
+			request.setAttribute("domain", domain);
+
+			if (erreur)
+				this.getServletContext().getRequestDispatcher(ERROR)
+						.forward(request, response);
+			else
+				this.getServletContext().getRequestDispatcher(VUE)
+						.forward(request, response);
+		} else {
+			response.sendRedirect(domain + "?retourJeu="
+					+ URLEncoder.encode(monJeu.getRequestData(),"UTF-8"));
 		}
-
-		request.setAttribute("domain", domain);
-
-		if (erreur)
-			this.getServletContext().getRequestDispatcher(ERROR)
-					.forward(request, response);
-		else
-			this.getServletContext().getRequestDispatcher(VUE)
-					.forward(request, response);
 	}
 
 	private String getTexte(int i) {

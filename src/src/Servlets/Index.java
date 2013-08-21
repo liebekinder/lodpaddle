@@ -28,6 +28,7 @@ public class Index extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	List<List<String>> listeVille = null;
 
 	public final String domain = "http://localhost:8080/lodpaddleTest/";
 
@@ -49,8 +50,34 @@ public class Index extends HttpServlet {
 		 * **/
 
 		String nomVille = request.getParameter("saisie");
+		String retourJeu = request.getParameter("retourJeu");
+		String quitter = request.getParameter("quitter");
+//		HttpSession session = request.getSession(true);
+		
 		String VUE = "/index.jsp";
 		String ERROR = "/error.jsp";
+		
+		if(quitter != null && quitter != ""){
+			//on revient du jeu, il y a une liste de 10 Ville dans cette variable	
+			
+			listeVille = null;
+		}
+		
+		if(retourJeu != null && retourJeu != ""){
+			//on revient du jeu, il y a une liste de 10 Ville dans cette variable	
+			
+			listeVille = new ArrayList<List<String>>();
+			
+			for(String s:retourJeu.split(" ; ")){
+				List<String> temp = new ArrayList<String>();
+				temp.add(s.split(" - ")[0]);
+				temp.add(s.split(" - ")[1]);
+				listeVille.add(temp);
+			}
+			
+			//on defini nomVille pour ne pas déclencher la recherche aléatoire
+			nomVille = listeVille.get(0).get(0)+" - "+listeVille.get(0).get(1);
+		}
 		if (nomVille == null || nomVille == ""
 				|| nomVille.split(" - ").length < 2) {
 			Resultat results = new Resultat();
@@ -99,6 +126,7 @@ public class Index extends HttpServlet {
 		// on est en navigation
 
 		themeManagmement(request, response);
+		imageManagment(request,response);
 		List<MyWidget> widgets = new ArrayList<MyWidget>();
 		if (nomVille != null) {
 			String insee = nomVille.split(" - ")[1];
@@ -132,6 +160,10 @@ public class Index extends HttpServlet {
 			widgets.add(tweetVille);
 			widgets.add(photoVille);
 
+			if(listeVille != null && listeVille.size() != 0){
+				request.setAttribute("listeVille", listeVille);
+			}
+			
 			request.setAttribute("position", positionVille);
 			request.setAttribute("widgets", widgets);
 			request.setAttribute("typePage", nomVille);
@@ -144,6 +176,13 @@ public class Index extends HttpServlet {
 			this.getServletContext().getRequestDispatcher(ERROR)
 					.forward(request, response);
 		}
+	}
+
+	private void imageManagment(HttpServletRequest request,
+			HttpServletResponse response) {
+		//methode qui recupere les urls des images à partir de mediaWiki
+		
+		
 	}
 
 	private Resultat trouveVilleParCoord(String lonS, String latS) {
@@ -438,7 +477,7 @@ public class Index extends HttpServlet {
 				+ gentile
 				+ "<br /><b>Population totale:</b> "
 				+ pop
-				+ "<br /><b>Densitée :</b>"
+				+ " hab<br /><b>Densitée :</b>"
 				+ densite(pop, superficie)
 				+ "<br /><b>Altitude :</b> "
 				+ min
@@ -447,7 +486,7 @@ public class Index extends HttpServlet {
 				+ "m"
 				+ "<br /><b>Superficie :</b> "
 				+ superficie
-				+ "</div>"
+				+ "km²</div>"
 				+ "</div>");
 		return ficheVilleText;
 	}

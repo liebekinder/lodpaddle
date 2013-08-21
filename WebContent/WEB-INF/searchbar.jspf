@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- <div id="lodpaddleZone"><span class="lodpaddleTitle"><a href=".">LODPADDLE</a></span></div> -->
+				
 <div id="lodpaddleZone"><span class="lodpaddleTitle" onclick="getListURl('${typePage}')">LODPADDLE</span></div>
 <div id="searchBar">
 	<form id="searchBarForm" action="${domain}" method="GET" onclick="return false;">
@@ -12,7 +13,7 @@
 		</div>
 		<div id="search">
 			<input id="searchInput" class="search_data" name="saisie" type="text"
-				autocomplete="off" <c:choose><c:when test="${typePage != 'accueil'}">placeholder="${typePage}"</c:when><c:otherwise>placeholder="Nom de ville..."</c:otherwise></c:choose> />
+				autocomplete="off" placeholder="Chercher une ville (attention aux accents!)" />
 		</div>
 
 		<div id="submit">
@@ -21,6 +22,7 @@
 		</div>
 
 	</form>
+	
 </div>
 <script type="text/javascript">
 $('#searchInput').autocomplete({
@@ -40,4 +42,4 @@ $('#searchInput').autocomplete({
 			$("<a></a>").html(item.label.slice(0, -3))).appendTo(ul);
 };
 </script>
-<div id="creditZone"><span onclick="$('#dialogContact').dialog('open');">Contact</span> | <span onclick="$('#dialogMentionLegale').dialog('open');">Mentions légales</span> | <span onclick="document.location.href='http://lodpaddle.univ-nantes.fr/sparql'">Accès développeur</span></div>
+<div id="creditZone"><span onclick="$('#dialogContact').dialog('open');">Le projet</span> | <span onclick="$('#dialogMentionLegale').dialog('open');">Mentions légales</span> | <span onclick="document.location.href='http://lodpaddle.univ-nantes.fr/sparql'">Accès développeur</span></div>

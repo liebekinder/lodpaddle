@@ -9,6 +9,10 @@
 	line-height: 1.2;
 }
 
+.maxWidth{
+	width:100%;
+}
+
 .noInfo{
 	color:white;
 	font-size:16pt;
@@ -90,6 +94,36 @@ ul {
 	z-index:6010;
 }
 
+#retourJeu{
+	position:absolute;
+	right:5px;
+	top:80px;
+	width:250px;
+	z-index:5000;
+	border-radius: 3px;
+	background: rgba(231,87,53,0.8); 
+	display: none;
+	
+}
+#retourJeuListe{
+	padding:5px;
+	text-align:center;
+	color:white;
+}
+#retourJeuListe ul{
+	list-style: none;
+	padding-left:10px;	
+}
+#retourJeuBouton{
+	text-align:center;
+	padding:5px;
+}
+#retourJeuListeTitre{
+	text-decoration:underline;
+	font-weight:bold;
+	color:white;
+	
+}
 /*######################################
 ####          index.jsp				####
 ######################################*/
@@ -112,6 +146,7 @@ header {
 	position: absolute;
 	top: 0px;
 	width: 100%;
+	min-width:1010px;
 	height: 35px;
 	z-index: 5000;
 	background: rgba(44, 62, 80, 0.8);
@@ -163,6 +198,58 @@ footer {
 #footerContainer {
 	position: relative;
 	height: 99%;
+}
+
+#accesJeu{
+	position:absolute;
+	z-index:5000;
+	top:80px;
+	border-radius: 3px;
+	width:200px;
+	height:31px;
+	background: rgba(231,87,53,0.8);
+	right:-162px;
+	padding:3px;
+}
+
+.accessJeuImg{
+	position:absolute;	
+}
+.accessJeuTexte{
+	position:absolute;
+	left:80px;
+	top:10px;
+	width:100px;
+	font-size:12pt;
+	color:white;
+	font-weight:bold;
+}
+
+#accesJeu:hover{
+	cursor:  pointer;
+}
+
+#toolTipBarre{
+	position:absolute;
+	padding:5px;
+	width:315px;
+	top:50px;
+	left:10px;
+	border: 1px solid #b78d68;
+	background: rgba(255,197,145,1);
+	text-align:center;
+}
+
+#toolTipTheme{
+	position:absolute;
+	width:240px;
+	padding:5px;
+	top:-100px;
+	left:10px;
+	border: 1px solid #b78d68;
+	background: rgba(255,197,145,1);
+	text-align:center;
+	
 }
 
 /*######################################
@@ -278,7 +365,7 @@ footer {
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
-	width: 367px;
+	width: 347px;
 	border-radius: 4px;
 }
 
@@ -301,7 +388,7 @@ footer {
 }
 
 #search {
-	width: 308px;
+	width: 288px;
 	float: left;
 	z-index: 5010;
 	padding-left: 5px;
@@ -346,16 +433,16 @@ footer {
 
 #creditZone {
 	position: absolute;
-	width: 300px;
+	width: 330px;
 	min-width: 100px;
 	height: 35px;
-	right: 0px;
+	right: 5px;
 	top: 0px;
 	font-size:8pt;
 	font-weight:bold;
 	color:white;
-	padding-right:5px;
 	line-height:30px;
+	text-align:right;
 }
 #creditZone span:hover{
 	color:blue;

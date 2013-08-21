@@ -106,7 +106,7 @@
 				height : 240,
 				modal : true,
 				close: function( event, ui ) {
-					
+					$(location).attr('href','${domain}Game?fini=fini');
 				},
 				buttons : {
 					"Quitter" : function() {

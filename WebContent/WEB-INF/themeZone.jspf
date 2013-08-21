@@ -4,14 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:choose>
-<c:when test="${not empty theme}">
+	<c:when test="${not empty theme}">
 
-<div id="calculatedTheme">
-	<c:forEach var="item" items="${theme}">
-		<div id="${item}" class="themeWidget grid flip${item}"  data-size="1"></div>
-	</c:forEach>
-</div>
-	<script type="text/javascript">
+		<div id="calculatedTheme">
+			<c:forEach var="item" items="${theme}">
+				<div id="${item}" class="themeWidget grid flip${item}" data-size="1"></div>
+			</c:forEach>
+		</div>
+		<script type="text/javascript">
 	$("#staticTheme").width(${nbCol*85+3}+'px');
 	$("#calculatedTheme").width(${nbCol*85}+'px');
 	$('#calculatedTheme').BlocksIt({
@@ -30,10 +30,10 @@
 		
 	});
 	</script>
-</c:when>
-<c:otherwise>
-<script type="text/javascript">	
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">	
 	$("#staticTheme").width('0px').hide();
 	</script>
-</c:otherwise>
+	</c:otherwise>
 </c:choose>

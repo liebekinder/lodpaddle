@@ -63,4 +63,11 @@ public class Jeu {
 		this.type = type;
 	}
 	
+	public String getRequestData(){
+		String retour = "";
+		for(Ville v:villes){
+			retour += v.getNom()+" - "+v.getInsee()+" ; ";
+		}
+		return retour.substring(0, retour.length()-3);
+	}
 }

@@ -1,0 +1,8 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<ul>
+	<c:forEach var="uneListe" items="${listeVille}">
+		<li><a href="${domain}?saisie=${uneListe[0]} - ${uneListe[1]}"><c:out value="${uneListe[0]}"></c:out></a></li>
+	</c:forEach>
+</ul>

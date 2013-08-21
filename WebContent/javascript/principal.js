@@ -4,6 +4,54 @@
 
 function pageLoaded(domainPath) {
 	domain = domainPath;
+	$("#widgetZone").mCustomScrollbar({
+		scrollButtons : {
+			enable : true
+		},
+		horizontalScroll : true,
+		advanced : {
+			autoExpandHorizontalScroll : true,
+			updateOnContentResize : false
+		}
+	});
+
+	$('#accesJeu').hover(function() {
+		$(this).stop();
+		$(this).animate({
+			right : "-5px"
+		}, {
+			duration : 300,
+			easing : "linear",
+		});
+	}, function() {
+		$(this).stop();
+		$(this).animate({
+			right : "-162px"
+		}, {
+			duration : 300,
+			easing : "linear",
+		});
+	});
+
+	$("#dialogMentionLegale").dialog({
+		autoOpen : false,
+		title : "Mentions légales",
+		width : 800,
+		height : 480,
+		modal : true
+	});
+
+	$("#dialogContact").dialog({
+		autoOpen : false,
+		title : "Nous contacter",
+		width : 800,
+		height : 480,
+		modal : true
+	});
+}
+
+function cacheAccesJeu() {
+	$('#accesJeu').hide();
 }
 
 function doFlip() {
@@ -320,8 +368,8 @@ function ajoutLayer(layer) {
 function enleveToutLayer() {
 
 	// alert(map.getLayersByName("serviceLayer").length);
-	if (map.getLayersByName("villeSearch").length != 0)
-		map.removeLayer(map.getLayersByName("villeSearch")[0]);
+	// if (map.getLayersByName("villeSearch").length != 0)
+	// map.removeLayer(map.getLayersByName("villeSearch")[0]);
 	if (map.getLayersByName("loisirLayer").length != 0)
 		map.removeLayer(map.getLayersByName("loisirLayer")[0]);
 	if (map.getLayersByName("cultureLayer").length != 0)
@@ -340,35 +388,39 @@ function getListURl(ressource) {
 	// pos = ressource.lastIndexOf("/");
 	// nom = ressource.substring(pos+1);
 	nom = ressource;
+	listNom = new Array();
+	listUrl = new Array();
 	// le nom ici correspond au nom d'une page puisque issue de wikipedia
-	var api = "http://fr.wikipedia.org/w/api.php";
-	// var apiCall2 =
-	// "http://commons.wikimedia.org/w/api.php?action=query&titles=File:Anne%20of%20Brittany%20statue%20Ch%C3%A2teau%20des%20ducs%20de%20Bretagne.jpg&prop=imageinfo&iiprop=url";
-	// var path ="Arrivée Maxi Banque Populaire V Nantes.JPG";
-	// $.ajax({
-	// type : "GET",
-	// url : api,
-	// dataType : "json",
-	// beforeSend: function(request) {
-	// request.setRequestHeader("User-Agent","sebastien.chenais@etu.univ-nantes.fr");
-	// },
-	// data:action="action=query&titles="+ nom + "&prop=images&format=json",
-	// success : function(msg){
-	// getListURlSuite(msg);
-	// },
-	// error : function(jqXHR, textStatus, errorThrown) {
-	// alert("La récupération des images sur wikipédia a échoué");
-	// }
-	// });
-	$.getJSON(api + "?action=query&format=json&callback=?", {
-		page : ressource,
-		prop : "images"
-	}, getListURlSuite);
+	api = "http://fr.wikipedia.org/w/api.php";
 
-}
+	$.getJSON(api + "?callback=?", {
+		action : "query",
+		titles : nom,
+		prop : "images",
+		format : "json"
+	}, function(json, etat, arg3) {
+		$.each(json.query.pages, function(index, element) {
+			$.each(element.images, function(index, element) {
+				listNom.push(element.title);
+			});
+		});
+	});
 
-function getListURlSuite(json, etat, arg3) {
-	alert(json + " " + etat);
+	$.each(listNom, function(index, element) {
+		$.getJSON(api + "?callback=?", {
+			action : "query",
+			titles : element,
+			prop : "imageinfo",
+			iiprop : "url",
+			format : "json"
+		}, function(json, etat, arg3) {
+			$.each(json.query.pages, function(index, element) {
+				listUrl.push(element.imageinfo[0].url);
+			});
+		});
+	});
+
+	alert(listUrl.length);
 }
 
 function afficheCadreInfo(ressource) {
@@ -444,6 +496,20 @@ function cadreInfoHide() {
 	});
 }
 
+function retourJeuShow() {
+	$("#retourJeu").show("slide", {
+		direction : "right"
+	}, 1000, function() {
+	});
+}
+
+function retourJeuHide() {
+	$("#retourJeu").hide("slide", {
+		direction : "right"
+	}, 1000, function() {
+	});
+}
+
 function selectionFeature(layer, feature) {
 	deselectionne(layer);
 	feature.style.graphicWidth = 42;
@@ -459,7 +525,7 @@ function selectionneLigne(titreFeature) {
 
 	afficheCadreInfo(titreFeature);
 	// alert(titreFeature);
-	var layer = map.layers[4];
+	var layer = map.layers[5];
 	var longueur = layer.features.length;
 	var i = 0;
 	var trouve = false;
@@ -552,18 +618,18 @@ function gestionCarte() {
 
 	geojson_layer = new OpenLayers.Layer.Vector("GeoJSON", {
 		styleMap : new OpenLayers.Style({
-			  'fillOpacity': 0,
-			  'strokeColor': '#ff0000'
-			}),
+			'fillOpacity' : 0,
+			'strokeColor' : '#ff0000'
+		}),
 		strategies : [ new OpenLayers.Strategy.Fixed() ],
-        projection: new OpenLayers.Projection('EPSG:4326'),
+		projection : new OpenLayers.Projection('EPSG:4326'),
 		protocol : new OpenLayers.Protocol.HTTP({
 			url : domain + "data/region.geojson",
 			format : new OpenLayers.Format.GeoJSON()
 		})
 	});
 	map.addLayer(geojson_layer);
-	
+
 	map.addControl(selector);
 	map.addLayer(villeSearch);
 
@@ -608,14 +674,17 @@ function gestionCarteJeu(lon, lat, zoom, type) {
 		map.setCenter(center.transform(projFrom, projTo), zoom);
 	}
 
-	if(type==3 || type ==0)	place = "data/region.geojson";
-	else if(type == 2) place = "data/LA.geojson";
-	else if(type == 1) place = "data/NM.geojson";
-	
+	if (type == 3 || type == 0)
+		place = "data/region.geojson";
+	else if (type == 2)
+		place = "data/LA.geojson";
+	else if (type == 1)
+		place = "data/NM.geojson";
+
 	geojson_layer = new OpenLayers.Layer.Vector("GeoJSON", {
 		styleMap : new OpenLayers.Style(),
 		strategies : [ new OpenLayers.Strategy.Fixed() ],
-        projection: new OpenLayers.Projection('EPSG:4326'),
+		projection : new OpenLayers.Projection('EPSG:4326'),
 		protocol : new OpenLayers.Protocol.HTTP({
 			url : domain + place,
 			format : new OpenLayers.Format.GeoJSON()
@@ -672,7 +741,7 @@ function creeJeu(domain) {
 		} else {
 			afficheScore();
 		}
-	}
+	};
 
 	function RAZ() {
 		lonlat = new OpenLayers.LonLat(0, 0);

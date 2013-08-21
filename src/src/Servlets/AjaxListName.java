@@ -42,6 +42,8 @@ public class AjaxListName extends HttpServlet {
 	}
 
 	private String getListName(String filtre) {
+		
+		filtre = correctionFiltre(filtre);
 
 		// Data from our server
 		String queryString = "PREFIX foaf:<http://xmlns.com/foaf/0.1/> "
@@ -75,6 +77,11 @@ public class AjaxListName extends HttpServlet {
 			return "[\"Ville introuvable. Une au hasard?     \"]";
 		else
 			return retour.substring(0, retour.length() - 1) + "]";
+	}
+
+	private String correctionFiltre(String filtre) {
+		filtre = filtre.replace(' ', '-');
+		return filtre;
 	}
 
 	/**
