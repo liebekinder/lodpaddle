@@ -126,17 +126,17 @@
 		<c:if test="${not empty typeJeu && typeJeu == 3}">
 		gestionCarteJeu(-1, 47.7, 7, 3);
 		jeuDialogGeneralShow();
-		var jeuEnCours = new creeJeu('${domain}');
+		var jeuEnCours = new creeJeu('${domain}',3);
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 2}">
 		gestionCarteJeu(-1.5, 47.2, 8, 2);
 		jeuDialogGeneralShow();
-		var jeuEnCours = new creeJeu('${domain}');
+		var jeuEnCours = new creeJeu('${domain}',2);
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 1}">
 		gestionCarteJeu(-1.55, 47.2, 10, 1);
 		jeuDialogGeneralShow();
-		var jeuEnCours = new creeJeu('${domain}');
+		var jeuEnCours = new creeJeu('${domain}',1);
 		</c:if>
 		<c:if test="${empty typeJeu}">
 		gestionCarteJeu(-0.6, 46.9, 7, 0);

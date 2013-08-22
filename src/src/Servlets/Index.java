@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import src.Beans.MyWidget;
 import src.Beans.SousTheme;
@@ -28,12 +29,11 @@ public class Index extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	List<List<String>> listeVille = null;
 
 	public final String domain = "http://localhost:8080/lodpaddleTest/";
 
-	// public final String domain =
-	// "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+//	 public final String domain =
+//	 "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -52,8 +52,13 @@ public class Index extends HttpServlet {
 		String nomVille = request.getParameter("saisie");
 		String retourJeu = request.getParameter("retourJeu");
 		String quitter = request.getParameter("quitter");
-//		HttpSession session = request.getSession(true);
 		
+		HttpSession session = request.getSession(true);
+		List<List<String>> listeVille = null;
+		if(session.getAttribute("listeVille") != null){
+
+			listeVille = (List<List<String>>) session.getAttribute("listeVille");
+		}
 		String VUE = "/index.jsp";
 		String ERROR = "/error.jsp";
 		
@@ -61,6 +66,7 @@ public class Index extends HttpServlet {
 			//on revient du jeu, il y a une liste de 10 Ville dans cette variable	
 			
 			listeVille = null;
+			session.setAttribute("listeVille", listeVille);
 		}
 		
 		if(retourJeu != null && retourJeu != ""){
@@ -75,6 +81,7 @@ public class Index extends HttpServlet {
 				listeVille.add(temp);
 			}
 			
+			session.setAttribute("listeVille", listeVille);
 			//on defini nomVille pour ne pas déclencher la recherche aléatoire
 			nomVille = listeVille.get(0).get(0)+" - "+listeVille.get(0).get(1);
 		}

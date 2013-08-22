@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import src.Beans.MyWidget;
 import src.core.CalculDistance;
@@ -26,11 +27,10 @@ import src.core.CalculDistance;
 public class Game extends HttpServlet {
 
 	public final String domain = "http://localhost:8080/lodpaddleTest/";
-	// public final String domain =
-	// "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+//	 public final String domain =
+//	 "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	private static final long serialVersionUID = 1L;
-	public Jeu monJeu;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -48,6 +48,9 @@ public class Game extends HttpServlet {
 		String VUE = "/game.jsp";
 		String ERROR = "/error.jsp";
 		boolean erreur = false;
+		Jeu monJeu;
+		// on créer une variable de session
+		HttpSession session = request.getSession(true);
 
 		String fini = request.getParameter("fini");
 		if (fini == null || fini == "") {
@@ -67,22 +70,29 @@ public class Game extends HttpServlet {
 				widgets.add(loireAtlantique);
 				widgets.add(paysDeLaLoire);
 
+				// session.setAttribute("monJeu", null);
+
 				request.setAttribute("widgets", widgets);
 				request.setAttribute("typePage", "accueil");
 			} else {
+				// on est rentré dans une sous catégorie de jeu
 				String jeuEnCoursTemp = request.getParameter("jeuEnCours");
+				int jeuId = Integer.valueOf(jeu);
+
 				if (jeuEnCoursTemp == null || jeuEnCoursTemp == "") {
-					int jeuId = Integer.valueOf(jeu);
 					// Le jeu est lancé, on crée son initialisation
 					switch (jeuId) {
 					case 1:
 						monJeu = new JeuNM();
+						session.setAttribute("monJeu", monJeu);
 						break;
 					case 2:
 						monJeu = new JeuLA();
+						session.setAttribute("monJeu", monJeu);
 						break;
 					case 3:
 						monJeu = new JeuPDLL();
+						session.setAttribute("monJeu", monJeu);
 						break;
 					default:
 						monJeu = null;
@@ -112,8 +122,14 @@ public class Game extends HttpServlet {
 				this.getServletContext().getRequestDispatcher(VUE)
 						.forward(request, response);
 		} else {
-			response.sendRedirect(domain + "?retourJeu="
-					+ URLEncoder.encode(monJeu.getRequestData(),"UTF-8"));
+			// le jeu est fini
+			if (session.getAttribute("monJeu") != null) {
+				monJeu = (Jeu) session.getAttribute("monJeu");
+				response.sendRedirect(domain + "?retourJeu="
+						+ URLEncoder.encode(monJeu.getRequestData(), "UTF-8"));
+			} else {
+				response.sendRedirect(domain);
+			}
 		}
 	}
 
@@ -153,37 +169,72 @@ public class Game extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		if (request.getParameter("ajax") != null) {
-			if (request.getParameter("ville") != null) {
-				response.getWriter().write(getVille());
-			} else {
-				if (request.getParameter("score") != null) {
-					response.getWriter().write(getScore());
+
+		Jeu monJeu = null;
+		
+		//on récupère la session
+		HttpSession session = request.getSession();
+
+		if (session.getAttribute("monJeu") != null) {
+			// //on récupère la variable de session
+			// en fonction du type
+			System.out.println(request.getParameter("type"));
+			int jeuId = 0;
+			if (request.getParameter("type") != null) {
+				jeuId = Integer.valueOf(request.getParameter("type"));
+			}
+			switch (jeuId) {
+			case 1:
+					monJeu = (JeuNM) session.getAttribute("monJeu");
+				break;
+			case 2:
+					monJeu = (JeuLA) session.getAttribute("monJeu");
+				break;
+			case 3:
+					monJeu = (JeuPDLL) session.getAttribute("monJeu");
+				break;
+			default:
+				monJeu = null;
+			}
+
+			if (request.getParameter("ajax") != null) {
+				if (request.getParameter("ville") != null) {
+					response.getWriter().write(getVille(monJeu));
 				} else {
-					response.getWriter().write(
-							getReponse(request.getParameter("resultatLon"),
-									request.getParameter("resultatLat"),
-									request.getParameter("temps")));
+					if (request.getParameter("score") != null) {
+						response.getWriter().write(getScore(monJeu));
+					} else {
+						response.getWriter().write(
+								getReponse(request.getParameter("resultatLon"),
+										request.getParameter("resultatLat"),
+										request.getParameter("temps"), monJeu));
+					}
 				}
 			}
+			else{
+				response.getWriter().write("{\"error\":\"pas d'ajax\"}");
+			}
+		}
+		else{
+			response.getWriter().write("{\"error\":\"variable session null\"}");
 		}
 	}
 
-	private String getScore() {
+	private String getScore(Jeu monJeu) {
 		String json = new String("{\n" + "\"total\":\"" + monJeu.getScore()
 				+ "\"\n" + "}");
 
 		return json;
 	}
 
-	private String getVille() {
+	private String getVille(Jeu monJeu) {
 		String json = new String("{\n" + "\"ville\":\""
 				+ monJeu.getVilleCourante() + "\"\n" + "}");
 
 		return json;
 	}
 
-	private String getReponse(String lon, String lat, String tps) {
+	private String getReponse(String lon, String lat, String tps, Jeu monJeu) {
 		// System.out.println(lat);
 		double dist = CalculDistance.distanceVolOiseauKM(Double.valueOf(lat),
 				Double.valueOf(lon), monJeu.getLatCourante(),

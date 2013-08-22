@@ -773,7 +773,7 @@ function jeuDialogGeneralShow() {
 	});
 }
 
-function creeJeu(domain) {
+function creeJeu(domain, t) {
 
 	villePos.events.on({
 		click : onClick
@@ -787,6 +787,7 @@ function creeJeu(domain) {
 	var running = false;
 	var villeCourante = "";
 	var nbCycle = 10;
+	var type = t;
 
 	var cycle = 0;
 
@@ -854,7 +855,7 @@ function creeJeu(domain) {
 			url : domain + "Game",
 			dataType : "json",
 			data : "ajax=true&resultatLon=" + lonlat.lon + "&resultatLat="
-					+ lonlat.lat + "&temps=" + temps,
+					+ lonlat.lat + "&temps=" + temps + "&type=" + type,
 			success : stopSuccess,
 			error : function(jqXHR, textStatus, errorThrown) {
 				$('#dialogScore').html(
@@ -894,11 +895,11 @@ function creeJeu(domain) {
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
-			data : "ajax=true&ville=true",
+			data : "ajax=true&ville=true"+ "&type=" + type,
 			success : changeVilleCourante,
 			error : function(jqXHR, textStatus, errorThrown) {
 				$('#dialogJeu').html(
-						"<p>La connexion avec le serveur a échouée.</p>");
+						"<p>La connexion avec le serveur a échouée.</p>"+textStatus+"   "+errorThrown);
 				$("#dialogJeu").dialog("open");
 			}
 		});
@@ -916,7 +917,7 @@ function creeJeu(domain) {
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
-			data : "ajax=true&score=true",
+			data : "ajax=true&score=true"+ "&type=" + type,
 			success : finalScore,
 			error : function(jqXHR, textStatus, errorThrown) {
 				$('#dialogJeu').html(
