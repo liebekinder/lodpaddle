@@ -1,6 +1,8 @@
 /*######################################
 ####            general    			####
 ######################################*/
+
+
 .center {
 	text-align: center;
 }
@@ -9,8 +11,34 @@
 	line-height: 1.2;
 }
 
+.souligne{
+	text-decoration:underline;
+}
+
+.align{
+	text-align:center;
+	vertical-align:center;
+}
+
+.rouge{
+	color:red;
+}
+
+.bleuFonce{
+	
+	color:darkBlue;	
+}
+
+.grosTexte{
+	font-size:16pt;
+}
+
 .maxWidth{
 	width:100%;
+}
+
+.maxHeight{
+	height:100%;
 }
 
 .noInfo{
@@ -64,34 +92,15 @@ ul {
 	left:0px;
 }
 
-#barreTexteGauche{
+#barreTexte{
 	position:absolute;
 	height:100%;
-	width:300px;
-	top:0px;
-	left:10px;
-	text-align:left;
-	padding-top:5px;
-}
-
-#barreTexteDroit{
-	position:absolute;
-	height:100%;
-	width:300px;
-	top:0px;
-	right:10px;
-	text-align:right;
-	padding-top:5px;
-}
-
-#jeuScore{
-	position:absolute;
-	height:200px;
-	width:150px;
-	top:300px;
-	left:450px;
-	background:green;
-	z-index:6010;
+	width:100%;
+	text-align:center;
+	padding:10px;
+	font-size:16pt;
+	font-weight:bold;
+	color:white;
 }
 
 #retourJeu{
@@ -123,6 +132,171 @@ ul {
 	font-weight:bold;
 	color:white;
 	
+}
+
+#jeuVilleAffichage{
+	position: absolute;
+	top: 34px;
+	width: 100%;
+	height: 50px;
+	z-index: 5020;
+	background: white;
+	border-radius: 3px;
+	color:white;
+	background:rgba(53,170,220,0.78);
+	font-weight: bold;
+	display: none;
+}
+
+#jeuReponseTemporaire{
+	position: absolute;
+	top: 86px;
+	width: 100%;
+	height: 200px;
+	z-index: 5020;
+	border-radius: 3px;
+	color:white;
+	background:rgba(53,170,220,0.78);
+	font-weight: bold;
+	display: none;
+	
+}
+
+#jeuVilleTitre{
+	position:absolute;
+	width:75%;
+	height:100%;
+	text-align:center;
+	font-size:14pt;
+	font-weight:bold;
+}
+
+#jeuQuestionTitre{
+	position:absolute;
+	width:25%;
+	height:100%;
+	padding-left:5px;
+	text-align:center;
+	left:74%;
+}
+
+#jeuNomVille{
+	vertical-align:center;
+}
+
+#jeuAvancement{
+	vertical-align:center;
+}
+
+#jeuScore{
+	font-size:22pt;
+	font-weight: 900;
+	color:rgba(231,87,53,1);
+/*     text-shadow: -1px 0 rgba(231,87,53,1), 0 1px rgba(231,87,53,1), 1px 0 rgba(231,87,53,1), 0 -1px rgba(231,87,53,1); */
+}
+
+#jeuDistance{
+	font-size:18pt;
+	font-weight: 900;
+	color:rgba(231,87,53,1);
+/*     text-shadow: -1px 0 rgba(231,87,53,1), 0 1px rgba(231,87,53,1), 1px 0 rgba(231,87,53,1), 0 -1px rgba(231,87,53,1); */
+}
+
+#jeuScoreTotal{
+	font-size:10pt;	
+}
+
+
+.boutonJeu {
+        background-color:transparent;
+        -webkit-border-top-left-radius:5px;
+        -moz-border-radius-topleft:5px;
+        border-top-left-radius:5px;
+        -webkit-border-top-right-radius:5px;
+        -moz-border-radius-topright:5px;
+        border-top-right-radius:5px;
+        -webkit-border-bottom-right-radius:5px;
+        -moz-border-radius-bottomright:5px;
+        border-bottom-right-radius:5px;
+        -webkit-border-bottom-left-radius:5px;
+        -moz-border-radius-bottomleft:5px;
+        border-bottom-left-radius:5px;
+        text-indent:0;
+        border:3px solid #ffffff;
+        display:inline-block;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:15px;
+        font-weight:bold;
+        font-style:normal;
+        height:26px;
+        line-height:26px;
+        width:160px;
+        text-decoration:none;
+        text-align:center;
+}
+.boutonJeu:hover{
+	cursor:pointer;
+}
+
+#jeuDialogGeneral{
+	width:270px;
+	height:200px;
+	display:none;
+	position:absolute;
+	border-radius: 3px;
+	color:white;
+	background:rgba(53,170,220,0.78);
+	z-index:5020;
+}
+
+#jeuDialogFinal{
+	width:300px;
+	height:400px;
+	display:none;
+	position:absolute;
+	border-radius: 3px;
+	color:white;
+	background:rgba(53,170,220,0.78);
+	z-index:5020;
+	font-size:14pt;
+	font-weight:bold;
+}
+
+#dialogGeneralTexte{
+	padding:10px;
+	position:absolute;
+	top:0px;
+	width:95%;
+	font-size:14pt;
+	word-wrap:break-word;
+}
+
+#dialogGeneralBouton{
+	position:absolute;
+	bottom:10px;
+	width:95%;
+	text-align:center;
+}
+
+.tableResult{
+	width:100%;
+	height:100%;
+	height:100px;
+	border:2px solid white;
+	border-collapse:collapse;
+	font-size:8pt;
+	vertical-align:center;
+	text-align:center;
+}
+/* .tableResult tr{ */
+/* 	border:1px solid grey; */
+/* } */
+
+#jeuDialogFinalScore{
+	font-size:26pt;
+	font-weight: 900;
+	color:rgba(231,87,53,1);	
 }
 /*######################################
 ####          index.jsp				####

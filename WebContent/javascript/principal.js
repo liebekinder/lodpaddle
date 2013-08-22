@@ -713,6 +713,66 @@ function recupereGeoJson() {
 	});
 }
 
+
+
+function afficheTitreHide() {
+	$("#jeuVilleAffichage").hide("slide", {
+		direction : "bottom"
+	}, 100, function() {
+	});
+}
+
+function afficheTitreShow() {
+	$("#jeuVilleAffichage").show("slide", {
+		direction : "bottom"
+	}, 100, function() {
+	});
+}
+
+function reponseTemporaireHide() {
+	$("#jeuReponseTemporaire").hide("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+}
+
+function reponseTemporaireShow() {
+	$("#jeuReponseTemporaire").show("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+}
+
+function jeuDialogGeneralHide() {
+	$("#jeuDialogGeneral").hide("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+}
+
+function jeuDialogFinalShow() {
+	centrerDiv("jeuDialogFinal");
+	$("#jeuDialogFinal").show("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+}
+
+function jeuDialogFinalHide() {
+	$("#jeuDialogFinal").hide("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+}
+
+function jeuDialogGeneralShow() {
+	centrerDiv("jeuDialogGeneral");
+	$("#jeuDialogGeneral").show("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+}
+
 function creeJeu(domain) {
 
 	villePos.events.on({
@@ -731,14 +791,17 @@ function creeJeu(domain) {
 	var cycle = 0;
 
 	this.cycleSuivant = function() {
-		if (cycle < nbCycle) {
+		reponseTemporaireHide();
+		if (cycle < nbCycle) {		
 			cycle++;
 			villePos.removeAllFeatures();
 			$('#barreProgression').width("0%");
 			RAZ();
-			nouvelleVille();
+			changeBarreVille();
+			afficheTitreShow();
 			lanceDecompte();
 		} else {
+			afficheTitreHide();
 			afficheScore();
 		}
 	};
@@ -768,10 +831,8 @@ function creeJeu(domain) {
 					duration : 10000,
 					step : function(now, fx) {
 						tempo = (now / 10).toFixed(2);
-						$('#barreTexteGauche').html(
-								"<div><b>" + villeCourante
-										+ "</b></div><div><b>Temps: " + tempo
-										+ "s</b></div>");
+						$('#barreTexte').html("Temps: " + tempo
+										+ "s");
 						temps = tempo;
 					},
 					easing : "linear",
@@ -787,7 +848,7 @@ function creeJeu(domain) {
 		first = false;
 		running = false;
 		ajoutPoint(villePos, lonlat.lon, lonlat.lat, domain
-				+ "media/marker/marqueur.png", "pionJoueur");
+				+ "media/marker/marqueurPose.png", "pionJoueur");
 		$.ajax({
 			type : "POST",
 			url : domain + "Game",
@@ -805,23 +866,30 @@ function creeJeu(domain) {
 	}
 
 	function stopSuccess(msg) {
-		html = boiteResultat(msg);
 		ajoutPoint(villePos, msg.trueLon, msg.trueLat, domain
 				+ "media/marker/marqueur.png", "pionReel");
 		if (cycle == nbCycle) {
-			$('#dialogDernierScore').html(html);
-			$("#dialogDernierScore").dialog("open");
+			showResultatIntermediaire(msg,true);
 		} else {
-			$('#dialogScore').html(html);
-			$("#dialogScore").dialog("open");
+			showResultatIntermediaire(msg,false);
 		}
-		$('#barreTexteDroit').html(
-				"<div><b>" + msg.total + " points</b></div><div><b>Question "
-						+ cycle + " sur 10</b></div>");
 
 	}
 
-	function nouvelleVille() {
+	function showResultatIntermediaire(msg,dernier){
+		$('#jeuScore').html(msg.points+" pts");
+		$('#jeuScoreTotal').html("Score total : <span class='bleuFonce'> "+msg.total+" pts</span>");
+		$('#jeuDistance').html((msg.distance).toFixed(1)+" km");
+		$('#jeuTemps').html("Vous avez répondu en "+temps+"s");
+		if(dernier){
+			//on dois changer le bouton
+			$('#jeuZoneBouton').html("<a href='#' class='boutonJeu' onClick='jeuEnCours.cycleSuivant();'>Voir le résultat</a>");
+			
+		}
+		reponseTemporaireShow();		
+	}
+	
+	function changeBarreVille() {
 		$.ajax({
 			type : "POST",
 			url : domain + "Game",
@@ -829,18 +897,17 @@ function creeJeu(domain) {
 			data : "ajax=true&ville=true",
 			success : changeVilleCourante,
 			error : function(jqXHR, textStatus, errorThrown) {
-				$('#dialogScore').html(
+				$('#dialogJeu').html(
 						"<p>La connexion avec le serveur a échouée.</p>");
-				$("#dialogScore").dialog("open");
+				$("#dialogJeu").dialog("open");
 			}
 		});
 	}
 
 	function changeVilleCourante(msg) {
 		villeCourante = msg.ville;
-		$('#barreTexteGauche').html(
-				"<div><b>" + villeCourante
-						+ "</b></div><div><b>Temps: 0s</b></div>");
+		$('#jeuNomVille').html(villeCourante);
+		$('#jeuAvancement').html(cycle+" / 10");
 
 	}
 
@@ -852,28 +919,17 @@ function creeJeu(domain) {
 			data : "ajax=true&score=true",
 			success : finalScore,
 			error : function(jqXHR, textStatus, errorThrown) {
-				$('#dialogFinal').html(
+				$('#dialogJeu').html(
 						"<p>La connexion avec le serveur a échouée.</p>");
-				$("#dialogFinal").dialog("open");
+				$("#dialogJeu").dialog("open");
 			}
 		});
 	}
 
 	function finalScore(msg) {
-		$('#barreTexteDroit').html(
-				"<div><b>" + msg.total + " points</b></div><div><b>Question "
-						+ cycle + " sur 10</b></div>");
-		$('#dialogFinal').html(
-				"<div>Vous avez obtenu un score de " + msg.total
-						+ " points! Félicitations!</div>");
-		$("#dialogFinal").dialog("open");
+		$('#jeuDialogFinalScore').html(msg.total+"pts");
+		jeuDialogFinalShow();
 	}
-}
-
-function boiteResultat(data) {
-	return "<div> Distance de " + data.ville + ": " + data.distance.toFixed(1)
-			+ "km</div>" + "<div> Points pour cette manche: " + data.points
-			+ "pts</div>";
 }
 
 function centrerAccueil(totalDiv) {
@@ -881,5 +937,19 @@ function centrerAccueil(totalDiv) {
 	if (ecran >= totalDiv) {
 		var padding = (ecran - totalDiv) / 2;
 		$("#tableAccueil").css("padding-left", padding + "px");
+	}
+}
+
+function centrerDiv(div) {
+	var bla = "#"+div;
+	var ecranW = $(document).width();
+	var ecranH = $(document).height();
+	var divW = $(bla).width();
+	var divH = $(bla).height();
+	if (ecranW >=  divW && ecranH >= divH) {
+		var left = (ecranW - divW) / 2;
+		var top = (ecranH - divH) / 2;
+		$(bla).css("left",left+"px");
+		$(bla).css("top",top+"px");
 	}
 }

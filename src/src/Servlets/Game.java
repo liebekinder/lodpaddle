@@ -189,6 +189,7 @@ public class Game extends HttpServlet {
 				Double.valueOf(lon), monJeu.getLatCourante(),
 				monJeu.getLonCourante());
 		int score = calculScore(dist, tps, monJeu.getType());
+		monJeu.augmenteScore(score);
 		String json = new String("{\n" + "\"points\":" + score + ",\n"
 				+ "\"total\":" + monJeu.getScore() + ",\n" + "\"ville\":\""
 				+ monJeu.getVilleCourante() + "\",\n" + "\"trueLon\":"
@@ -196,7 +197,6 @@ public class Game extends HttpServlet {
 				+ monJeu.getLatCourante() + ",\n" + "\"distance\":" + dist
 				+ "\n" + "}");
 
-		monJeu.augmenteScore(score);
 		monJeu.avance();
 		return json;
 	}

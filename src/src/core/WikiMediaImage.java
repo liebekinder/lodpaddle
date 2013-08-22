@@ -35,6 +35,7 @@ public class WikiMediaImage {
 			cle = (String) it.next();
 		}
 		
+		
 		json = json.getJSONObject(cle);
 		
 		

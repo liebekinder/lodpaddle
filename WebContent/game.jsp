@@ -34,7 +34,7 @@
 
 		<header>
 			<div id="headerContainer">
-				<%@ include file="WEB-INF/searchbar.jspf"%>
+				<%@ include file="WEB-INF/searchbarGame.jspf"%>
 			</div>
 		</header>
 		<div id="content">
@@ -43,79 +43,65 @@
 			<div id="mousePosition"></div>
 
 
-	<c:if test="${not empty typeJeu}">
-	<div id="dialogLance">Cliquez sur le bouton ci-dessous dès que vous êtes prêt!</div>
-		<script type="text/javascript">
-			$("#dialogLance").dialog({
-				autoOpen:false,
-				width : 320,
-				height : 240,
-				modal : true,
-				position: { my: "left center", at: "left center", of: window },
-				close: function( event, ui ) {
-					jeuEnCours.cycleSuivant();
-				},
-				buttons : {
-					"Je suis prêt!" : function() {
-						$(this).dialog("close");
-					}
-				}
-			});
-		</script>
-	<div id="dialogScore"></div>
-		<script type="text/javascript">
-			$("#dialogScore").dialog({
-				autoOpen:false,
-				width : 320,
-				height : 240,
-				modal : true,
-				position: { my: "left center", at: "left center", of: window },
-				close: function( event, ui ) {
-					jeuEnCours.cycleSuivant();
-				},
-				buttons : {
-					"Ville suivante!" : function() {
-						$(this).dialog("close");
-					}
-				}
-			});
-		</script>
-		<div id="dialogDernierScore"></div>
-		<script type="text/javascript">
-			$("#dialogDernierScore").dialog({
-				autoOpen:false,
-				width : 320,
-				height : 240,
-				modal : true,
-				position: { my: "left center", at: "left center", of: window },
-				close: function( event, ui ) {
-					jeuEnCours.cycleSuivant();
-				},
-				buttons : {
-					"Résultats!" : function() {
-						$(this).dialog("close");
-					}
-				}
-			});
-		</script>
-		<div id="dialogFinal"></div>
-		<script type="text/javascript">
-			$("#dialogFinal").dialog({
-				autoOpen:false,
-				width : 320,
-				height : 240,
-				modal : true,
-				close: function( event, ui ) {
-					$(location).attr('href','${domain}Game?fini=fini');
-				},
-				buttons : {
-					"Quitter" : function() {
-						$(this).dialog("close");
-					}
-				}
-			});
-		</script>
-	</c:if>
+			<c:if test="${not empty typeJeu}">
+				<div id="jeuDialogGeneral">
+					<div id="dialogGeneralTexte" class="center">
+						<table class="maxWidth">
+							<tr>
+								<td class="align" id="jeuDialogGeneralTableTexte">Cliquer
+									sur le bouton ci-dessous pour lancer le jeu!</td>
+							</tr>
+						</table>
+					</div>
+					<div id="dialogGeneralBouton">
+						<a href="#" class="boutonJeu"
+							onclick="jeuEnCours.cycleSuivant();jeuDialogGeneralHide();"
+							id="jeuDialogBoutonTexte">Lancer le jeu!</a>
+					</div>
+				</div>
+
+				<div id="jeuDialogFinal">
+					<table class="maxWidth maxHeight align">
+						<tr>
+							<td>Votre score</td>
+						</tr>
+						<tr>
+							<td id="jeuDialogFinalScore"></td>
+						</tr>
+						<tr>
+							<td>Top 10</td>
+						</tr>
+						<tr>
+							<td><table class="tableResult"><%@ include file="WEB-INF/topTen.jspf"%></table></td>
+						</tr>
+						<tr>
+							<td class="bleuFonce grosTexte">Nouveau record!</td>
+						</tr>
+						<tr>
+							<td><input type="text" name="" placeholder="Votre nom (8 caractères)"/></td>
+						</tr>
+						<tr>
+							<td><a href="#" class="boutonJeu"
+								onclick="$(location).attr('href','${domain}Game?fini=fini');">Sauvegarder</a></td>
+						</tr>
+					</table>
+				</div>
+
+				<div id="dialogJeu"></div>
+				<script type="text/javascript">
+					$("#dialogJeu").dialog({
+						autoOpen : false,
+						width : 320,
+						height : 240,
+						modal : true,
+						buttons : {
+							"Quitter" : function() {
+								$(this).dialog("close");
+							}
+						}
+					});
+				</script>
+			</c:if>
 
 		</div>
 
@@ -136,24 +122,24 @@
 
 	<script type="text/javascript">
 		domain = "${domain}";
-		//partie dédié à la création de la cart
+		//partie dédié à la création de la carte
 		<c:if test="${not empty typeJeu && typeJeu == 3}">
-		gestionCarteJeu(-1, 47.7, 7,3);
-		$('#dialogLance').dialog('open');
+		gestionCarteJeu(-1, 47.7, 7, 3);
+		jeuDialogGeneralShow();
 		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 2}">
-		gestionCarteJeu(-1.5, 47.2, 8,2);
-		$('#dialogLance').dialog('open');
+		gestionCarteJeu(-1.5, 47.2, 8, 2);
+		jeuDialogGeneralShow();
 		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 1}">
-		gestionCarteJeu(-1.55, 47.2, 10,1);
-		$('#dialogLance').dialog('open');
+		gestionCarteJeu(-1.55, 47.2, 10, 1);
+		jeuDialogGeneralShow();
 		var jeuEnCours = new creeJeu('${domain}');
 		</c:if>
 		<c:if test="${empty typeJeu}">
-		gestionCarteJeu(-0.6, 46.9, 7,0);
+		gestionCarteJeu(-0.6, 46.9, 7, 0);
 		</c:if>
 
 		(function($) {
@@ -170,7 +156,7 @@
 				});
 				//on attends que la page soit complètement chargée pour lancer le jeu
 				//différent de la navigation!!
-				
+
 			});
 		})(jQuery);
 	</script>
