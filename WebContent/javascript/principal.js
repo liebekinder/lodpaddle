@@ -854,6 +854,10 @@ function creeJeu(domain, t) {
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
+			xhrFields: {
+			      withCredentials: true
+			   },
+			crossDomain:true,
 			data : "ajax=true&resultatLon=" + lonlat.lon + "&resultatLat="
 					+ lonlat.lat + "&temps=" + temps + "&type=" + type,
 			success : stopSuccess,
@@ -895,6 +899,10 @@ function creeJeu(domain, t) {
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
+			xhrFields: {
+			      withCredentials: true
+			   },
+			crossDomain:true,
 			data : "ajax=true&ville=true"+ "&type=" + type,
 			success : changeVilleCourante,
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -917,6 +925,10 @@ function creeJeu(domain, t) {
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
+			xhrFields: {
+			      withCredentials: true
+			   },
+			crossDomain:true,
 			data : "ajax=true&score=true"+ "&type=" + type,
 			success : finalScore,
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -929,6 +941,10 @@ function creeJeu(domain, t) {
 
 	function finalScore(msg) {
 		$('#jeuDialogFinalScore').html(msg.total+"pts");
+		if(msg.isHS > 0){
+			$('#estHighScore').html("Nouveau record!");
+		}
+		$('#jeuDialogFinalTopTen').html(afficheTopTen(msg.topten));
 		jeuDialogFinalShow();
 	}
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,10 +73,10 @@
 							<td>Top 10</td>
 						</tr>
 						<tr>
-							<td><table class="tableResult"><%@ include file="WEB-INF/topTen.jspf"%></table></td>
+							<td><table class="tableResult" id="jeuDialogFinalTopTen"><%@ include file="WEB-INF/topTen.jspf"%></table></td>
 						</tr>
 						<tr>
-							<td class="bleuFonce grosTexte">Nouveau record!</td>
+							<td class="bleuFonce grosTexte" id="estHighScore"></td>
 						</tr>
 						<tr>
 							<td><input type="text" name="" placeholder="Votre nom (8 caractères)"/></td>
@@ -141,6 +142,8 @@
 		<c:if test="${empty typeJeu}">
 		gestionCarteJeu(-0.6, 46.9, 7, 0);
 		</c:if>
+		
+		var session = "${session}";
 
 		(function($) {
 			$(window).load(function() {
