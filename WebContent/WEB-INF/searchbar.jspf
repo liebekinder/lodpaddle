@@ -2,10 +2,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- <div id="lodpaddleZone"><span class="lodpaddleTitle"><a href=".">LODPADDLE</a></span></div> -->
-				
-<div id="lodpaddleZone"><span class="lodpaddleTitle" onclick="getListURl('${typePage}')">LODPADDLE</span></div>
+
+<div id="lodpaddleZone">
+	<span class="lodpaddleTitle"> 
+		<a href="${domain}"> 
+			<img class="lodpaddleLogo" alt="logo" src="${domain}media/logo.png" />
+			<img class="lodpaddleLogoTitre" alt="logo" src="${domain}media/titre.png" />
+		</a>
+	</span>
+</div>
+
 <div id="searchBar">
-	<form id="searchBarForm" action="${domain}" method="GET" onclick="return false;">
+	<form id="searchBarForm" action="${domain}" method="GET"
+		onclick="return false;">
 
 		<div id="geoLoc">
 			<img class="geoLocImg" alt="geolocalise moi!"
@@ -13,7 +22,8 @@
 		</div>
 		<div id="search">
 			<input id="searchInput" class="search_data" name="saisie" type="text"
-				autocomplete="off" placeholder="Chercher une ville (attention aux accents!)" />
+				autocomplete="off"
+				placeholder="Chercher une ville (attention aux accents!)" />
 		</div>
 
 		<div id="submit">
@@ -22,24 +32,30 @@
 		</div>
 
 	</form>
-	
+
 </div>
 <script type="text/javascript">
-$('#searchInput').autocomplete({
-	source : '${domain}AjaxListName',
-	minLength : 2,
-	autoFocus : true,
-	delay : 500,
-	open : function(event, ui) {
-		$("#ui-id-1").zIndex(5010);
-	},
-	select : function(event, ui) {
-		$("#searchInput").val(ui.item.label);
-		$("#searchBarForm").submit();
-	}
-}).data("ui-autocomplete")._renderItem = function(ul, item) {
-	return $("<li></li>").data("item.autocomplete", item).append(
-			$("<a></a>").html(item.label.slice(0, -3))).appendTo(ul);
-};
+	$('#searchInput').autocomplete({
+		source : '${domain}AjaxListName',
+		minLength : 2,
+		autoFocus : true,
+		delay : 500,
+		open : function(event, ui) {
+			$("#ui-id-1").zIndex(5010);
+		},
+		select : function(event, ui) {
+			$("#searchInput").val(ui.item.label);
+			$("#searchBarForm").submit();
+		}
+	}).data("ui-autocomplete")._renderItem = function(ul, item) {
+		return $("<li></li>").data("item.autocomplete", item).append(
+				$("<a></a>").html(item.label.slice(0, -3))).appendTo(ul);
+	};
 </script>
-<div id="creditZone"><span onclick="$('#dialogContact').dialog('open');">Le projet</span> | <span onclick="$('#dialogMentionLegale').dialog('open');">Mentions légales</span> | <span onclick="document.location.href='http://lodpaddle.univ-nantes.fr/sparql'">Accès développeur</span></div>
+<div id="creditZone">
+	<span onclick="$('#dialogContact').dialog('open');">Le projet</span> |
+	<span onclick="$('#dialogMentionLegale').dialog('open');">Mentions
+		légales</span> | <span><a
+		href="http://lodpaddle.univ-nantes.fr/sparql" target="_blank">Accès
+			développeur</a></span>
+</div>

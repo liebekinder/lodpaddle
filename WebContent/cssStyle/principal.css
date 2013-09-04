@@ -2,7 +2,6 @@
 ####            general    			####
 ######################################*/
 
-
 .center {
 	text-align: center;
 }
@@ -128,7 +127,7 @@ ul {
 	padding:5px;
 }
 #retourJeuListeTitre{
-	text-decoration:underline;
+	font-size:14pt;
 	font-weight:bold;
 	color:white;
 	
@@ -235,6 +234,39 @@ ul {
         text-decoration:none;
         text-align:center;
 }
+
+.boutonJeu2 {
+        background-color:transparent;
+        -webkit-border-top-left-radius:5px;
+        -moz-border-radius-topleft:5px;
+        border-top-left-radius:5px;
+        -webkit-border-top-right-radius:5px;
+        -moz-border-radius-topright:5px;
+        border-top-right-radius:5px;
+        -webkit-border-bottom-right-radius:5px;
+        -moz-border-radius-bottomright:5px;
+        border-bottom-right-radius:5px;
+        -webkit-border-bottom-left-radius:5px;
+        -moz-border-radius-bottomleft:5px;
+        border-bottom-left-radius:5px;
+        text-indent:0;
+        border:3px solid #ffffff;
+        display:inline-block;
+        color:#ffffff;
+        font-family:Arial;
+        font-size:15px;
+        font-weight:bold;
+        font-style:normal;
+        height:26px;
+        line-height:26px;
+        width:100px;
+        text-decoration:none;
+        text-align:center;
+}
+.boutonJeu2:hover{
+	cursor:pointer;
+}
+
 .boutonJeu:hover{
 	cursor:pointer;
 }
@@ -426,6 +458,16 @@ footer {
 	
 }
 
+#retourJeuListe a{
+	color:white;
+	cursor:pointer;	
+}
+
+#retourJeuListe a:hover{
+	color:blue;
+	cursor:pointer;	
+}
+
 /*######################################
 ####            cadreInfo  			####
 ######################################*/
@@ -454,7 +496,6 @@ footer {
 #cadreInfoPlus{
 	top:-10px;
 	position:relative;
-	border-top: 2px solid white;
 	padding-top: 5px;
 	font-size:10pt;
 	width:100%;
@@ -474,7 +515,59 @@ footer {
 	border:1px solid black;
 }
 
+#infoTableContent{
+	border: 0px;
+	vertical-align:center;
+	word-wrap:break-word;
+	width:100%;
+	table-layout: fixed;
+}
 
+.largeur40{
+	width:60px;
+}
+
+#cadreInfoContenu a{
+	color: black;
+	cursor:  pointer;
+}
+
+#cadreInfoContenu a:hover{
+	color: blue;
+	cursor:  pointer;
+}
+
+#cadreInfoBasGauche{
+	position:relative;
+	float:left;
+	width:25px;
+	height:20px;
+	margin-left:5px;
+	background-image: url("../media/fleche.png");
+	background-size: 20px 20px;
+	background-repeat: no-repeat;
+}
+#cadreInfoBasDroite{
+	position:relative;
+	font-size:8pt;
+	float:left;
+	width:220px;
+	text-align:right;
+}
+
+#cadreInfoBasGauche:hover{
+	cursor:  pointer;
+}
+
+#cadreInfoBasDroite span{
+	color: black;
+	cursor:  pointer;
+}
+
+#cadreInfoBasDroite span:hover{
+	color: blue;
+	cursor:  pointer;
+}
 /*######################################
 ####            OSM      			####
 ######################################*/
@@ -623,9 +716,30 @@ footer {
 	cursor:  pointer;
 }
 
+#creditZone a:hover{
+	color:blue;
+	cursor:  pointer;
+}
+
+#creditZone a{
+	color:white;
+	cursor:  pointer;
+}
+
 .ulLien span:hover{
 	color:blue;
 	cursor:  pointer;
+}
+
+.lodpaddleLogo{
+	margin-left:5px;
+	margin-right:5px;
+	margin-top:2px;
+}
+
+.lodpaddleLogoTitre{
+	margin-right:5px;
+	margin-top:2px;
 }
 /*######################################
 ####          widget				####
@@ -848,7 +962,7 @@ footer {
 	background-color:#5ea4df;
 }
 .flipVisite{
-	background-color:#dab300;
+	background-color:#d9b300;
 }
 
 /*######################################

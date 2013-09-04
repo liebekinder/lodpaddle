@@ -49,8 +49,7 @@
 					<div id="dialogGeneralTexte" class="center">
 						<table class="maxWidth">
 							<tr>
-								<td class="align" id="jeuDialogGeneralTableTexte">Cliquer
-									sur le bouton ci-dessous pour lancer le jeu!</td>
+								<td class="align" id="jeuDialogGeneralTableTexte">Trouver le centre de la ville donnée le plus rapidement possible!</td>
 							</tr>
 						</table>
 					</div>

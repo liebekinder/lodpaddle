@@ -167,12 +167,8 @@ public class Game extends HttpServlet {
 		String retour = new String(
 				"<div class=\"jeuWidgetTitre\">Jouer au niveau " + lieu
 						+ "</div>" + "<div class=\"jeuWidgetButton\">"
-						+ "	<form method=\"get\" action=\"" + domain
-						+ "Game\">"
-						+ "<input type=\"hidden\" name=\"typeJeu\" value=\""
-						+ i + "\"/>"
-						+ "	<input type=\"submit\" value=\"jouer\" />"
-						+ "</form></div>");
+						+"<a href=\"#\" class=\"boutonJeu2\"	onclick=\"document.location.href='"+domain+"Game?typeJeu="+i+"'\">Jouer</a>"						
+						+ "</div>");
 		return retour;
 	}
 
@@ -239,26 +235,26 @@ public class Game extends HttpServlet {
 	}
 
 	private String getScore(Jeu monJeu, HttpSession session, HttpServletRequest request, Game game) {
-		System.out.println(" path?" + game.getServletContext().getContextPath());
-		FileInputStream path;
-		try {
-			path = new FileInputStream(game.getServletContext().getContextPath()+"/WEB-INF/highscore.txt");
+//		System.out.println(" path?" + game.getServletContext().getContextPath());
+//		FileInputStream path;
+//		try {
+//			path = new FileInputStream(game.getServletContext().getContextPath()+"/WEB-INF/highscore.txt");
 //		InputStream path = game.getServletContext().getResourceAsStream("highScore.txt");
-		System.out.println("ressource: "+path.markSupported());
+//		System.out.println("ressource: "+path.markSupported());
 		String json = new String("{\n" 
-					+ "\"total\":\"" + monJeu.getScore()+ "\",\n" 
-					+ "\"topten\":\"" + HighScore.getHighScore(path)+ "\",\n"
-					+ "\"isHS\":\"" + HighScore.isHighScore(""+monJeu.getScore(),path)+ "\"\n"
+					+ "\"total\":\"" + monJeu.getScore()+ "\"\n" 
+//					+ "\"topten\":\"" + HighScore.getHighScore(path)+ "\",\n"
+//					+ "\"isHS\":\"" + HighScore.isHighScore(""+monJeu.getScore(),path)+ "\"\n"
 					+ "}");
 
 		session.setAttribute("monJeu", monJeu);
 
 		return json;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return null;
+//		}
 	}
 
 	private String getVille(Jeu monJeu, HttpSession session) {

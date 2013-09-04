@@ -69,14 +69,9 @@
 				<div id="retourJeuBouton">
 						<table class="maxWidth"><tr>
 						<td>
-							<form action="${domain}" method="GET">
-								<input type="hidden" name="quitter" value="true" /> 
-								<input type="submit" value="Quitter" />
-							</form>
+							<a href="#" class="boutonJeu2"	onclick="document.location.href='${domain}Index?quitter=true'">Quitter</a>
 						</td><td>
-							<form action="${domain}Game" method="GET">
-								<input type="submit" value="Rejouer" />
-							</form>
+							<a href="#" class="boutonJeu2"	onclick="document.location.href='${domain}Game'">Rejouer</a>
 						</td>
 						</tr></table>
 				</div>
@@ -107,7 +102,7 @@
 						file="WEB-INF/afficherContenuService.jspf"%></div>
 			</div>
 			<div class="flipVisite flipItem" style="visibility: hidden;">
-				<div class="title">Visite</div>
+				<div class="title">&Agrave; visiter</div>
 				<div class="contenuFlip accordion" id="visiteContenu"><%@ include
 						file="WEB-INF/afficherContenuVisite.jspf"%></div>
 			</div>

@@ -941,10 +941,10 @@ function creeJeu(domain, t) {
 
 	function finalScore(msg) {
 		$('#jeuDialogFinalScore').html(msg.total+"pts");
-		if(msg.isHS > 0){
-			$('#estHighScore').html("Nouveau record!");
-		}
-		$('#jeuDialogFinalTopTen').html(afficheTopTen(msg.topten));
+//		if(msg.isHS > 0){
+//			$('#estHighScore').html("Nouveau record!");
+//		}
+//		$('#jeuDialogFinalTopTen').html(afficheTopTen(msg.topten));
 		jeuDialogFinalShow();
 	}
 }

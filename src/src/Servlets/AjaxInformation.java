@@ -50,18 +50,17 @@ public class AjaxInformation extends HttpServlet {
 					"<span id=\"cadreInfoTitreContenu\">"+nom+"</span>"+
 				"</div>"+
 				"<div id=\"cadreInfoContenu\">"+
-					"<ul>");
+					"<br/><table id=\"infoTableContent\">");
 			reponse += (!adresse.isEmpty() || !adresse.equals("undefined") || !codePostal.isEmpty() || !codePostal.equals("undefined") || !ville.isEmpty() || !ville.equals("undefined"))?
-					(adresse.isEmpty() && codePostal.isEmpty() && ville.isEmpty())?"":"<li><u>Adresse: </u> "+adresse+" "+codePostal+" "+ville+"</li>":"";
-			reponse += (telephone.isEmpty() || telephone.equals("undefined"))?"":"<li><u>Tel: </u>"+telephone+"</li>";
-			reponse += (email.isEmpty() || email.equals("undefined"))?"":"<li><u>Email: </u><a href=\"mailto:"+email+"\">"+email+"</a></li>";
-			reponse += (site.isEmpty() || site.equals("undefined") || !bonEmail(site))?"":"<li><u>Site web: </u><a href=\"http://"+site+"\">"+site+"</a></li>";
-			reponse += "</ul>"+
+					(adresse.isEmpty() && codePostal.isEmpty() && ville.isEmpty())?"":"<tr><td class=\"largeur40\">Adresse: </td><td> "+adresse+" "+codePostal+" "+ville+"</td></tr>":"";
+			reponse += (telephone.isEmpty() || telephone.equals("undefined"))?"":"<tr><td>Tel: </td><td>"+telephone+"</td></tr>";
+			reponse += (email.isEmpty() || email.equals("undefined"))?"":"<tr><td>Email: </td><td><a href=\"mailto:"+email+"\">"+email+"</a></td></tr>";
+			reponse += (site.isEmpty() || site.equals("undefined") || !bonEmail(site))?"":"<tr><td>Site web: </td><td><a href=\"http://"+site+"\">"+site+"</a></td></tr>";
+			reponse += "</table><br/>"+
 				"</div>"+
 				"<div id=\"cadreInfoPlus\">"+
-//				"<div style=\"position:relative;float:left;width:25px;height:20px;background:black;\" onclick=\"getListURl('"+parameter+"');\"></div>"+
-				"<div style=\"position:relative;float:left;width:25px;height:20px;background:black;\" onclick=\"cadreInfoHide();\"></div>"+
-				"<div style=\"position:relative;float:left;width:225px;text-align:right;\" onclick=\"afficheCadreInfoPlus('"+parameter+"');\">plus d'information...&nbsp;</div>"+
+				"<div id=\"cadreInfoBasGauche\" onclick=\"cadreInfoHide();\"></div>"+
+				"<div id=\"cadreInfoBasDroite\" onclick=\"afficheCadreInfoPlus('"+parameter+"');\"><span>plus d'information...&nbsp;</span></div>"+
 				"</div>"
 				;
 		return reponse;

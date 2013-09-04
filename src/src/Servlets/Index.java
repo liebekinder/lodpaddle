@@ -142,19 +142,13 @@ public class Index extends HttpServlet {
 
 			// gestion des widgets du footer. Creation et passage en GET
 			MyWidget ficheVille;
-			MyWidget tweetVille;
-			MyWidget photoVille;
 
 			Coordonnee positionVille = recuperePosition(insee);
 
 			ficheVille = new MyWidget(nomVille, getVillePresentation(nomVille,
 					insee), "PresentationVille", "#2980b9", 480);
 
-			tweetVille = new MyWidget("twitter", "", "twitter", "#2980b9", 250);
-			tweetVille.setImageFond(domain + "media/tweet.png");
 
-			photoVille = new MyWidget("photo", "", "photo1", "#2980b9", 200);
-			photoVille.setImageFond(domain + "media/nantesTown.jpg");
 
 			if (positionVille != null) {
 				creationDataFlip(request, response, nomVille, insee,
@@ -165,8 +159,6 @@ public class Index extends HttpServlet {
 			}
 
 			widgets.add(ficheVille);
-			widgets.add(tweetVille);
-			widgets.add(photoVille);
 
 			if(listeVille != null && listeVille.size() != 0){
 				request.setAttribute("listeVille", listeVille);
@@ -520,7 +512,7 @@ public class Index extends HttpServlet {
 				+ "</h3>"
 				+ "</div>"
 				+ "<div class=\"noInfo\" style=\" position:absolute; top:50px;\">Nous n'avons pas pu récupérer d'information utile sur "
-				+ nomVille + " à partir de fr.dbpedia.org!(</br>" + "</div>"
+				+ nomVille + " à partir de fr.dbpedia.org! :( </br>" + "</div>"
 				+ "</div>";
 	}
 
