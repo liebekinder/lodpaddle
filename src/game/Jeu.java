@@ -10,6 +10,7 @@ public class Jeu {
 	public int score;
 	public int nbCycle = 10;
 	public int type;
+	public String ext;
 
 	public Jeu(){
 		avancement = 1;
@@ -70,4 +71,14 @@ public class Jeu {
 		}
 		return retour.substring(0, retour.length()-3);
 	}
+
+	public String getExt() {
+		return ext;
+	}
+
+	public void setExt(String ext) {
+		this.ext = ext;
+	}
+	
+	
 }

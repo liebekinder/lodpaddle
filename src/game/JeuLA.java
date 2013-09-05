@@ -15,6 +15,7 @@ public class JeuLA extends Jeu {
 	public JeuLA() {
 		super();
 		type = 2;
+		ext = "LA";
 	}
 
 	public boolean trouveVilles() {

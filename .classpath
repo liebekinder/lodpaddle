@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
@@ -9,31 +8,10 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-openjdk-i386">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.7.0_25">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-codec-1.5.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/gson-2.2.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/httpclient-4.1.2.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/httpcore-4.1.3.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/javax.servlet.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jcl-over-slf4j-1.6.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jena-arq-2.9.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jena-core-2.7.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jena-iri-0.9.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jena-tdb-0.9.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/json-rpc-1.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-api-1.6.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/slf4j-log4j12-1.6.4.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xercesImpl-2.10.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xml-apis-1.4.01.jar"/>
-	<classpathentry kind="lib" path="/home/seb/depot-git/lodpaddle/WebContent/WEB-INF/lib/commons-lang3-3.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/simplelatlng-1.3.0.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/cors-filter-1.7.1.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/java-property-utils-1.9.jar"/>
-	<classpathentry kind="output" path="target/classes"/>
+	<classpathentry kind="output" path="build/classes"/>
 </classpath>

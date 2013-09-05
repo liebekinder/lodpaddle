@@ -35,9 +35,9 @@ import src.core.CalculDistance;
 @WebServlet("/Game")
 public class Game extends HttpServlet {
 
-	 public final String domain = "http://localhost:8080/lodpaddleTest/";
-	// public final String domain = "http://localhost:8081/lodpaddleTest/";
-//	public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	public final String domain = "http://localhost:8080/lodpaddle/";
+	// public final String domain = "http://localhost:8081/lodpaddle/";
+//	 public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	private static final long serialVersionUID = 1L;
 
@@ -165,9 +165,12 @@ public class Game extends HttpServlet {
 			break;
 		}
 		String retour = new String(
-				"<div class=\"jeuWidgetTitre\">Jouer au niveau " + lieu
-						+ "</div>" + "<div class=\"jeuWidgetButton\">"
-						+"<a href=\"#\" class=\"boutonJeu2\"	onclick=\"document.location.href='"+domain+"Game?typeJeu="+i+"'\">Jouer</a>"						
+				"<div class=\"jeuWidgetTitre\">Jouer au niveau "
+						+ lieu
+						+ "</div>"
+						+ "<div class=\"jeuWidgetButton\">"
+						+ "<a href=\"#\" class=\"boutonJeu2\"	onclick=\"document.location.href='"
+						+ domain + "Game?typeJeu=" + i + "'\">Jouer</a>"
 						+ "</div>");
 		return retour;
 	}
@@ -191,7 +194,7 @@ public class Game extends HttpServlet {
 		if (session.getAttribute("monJeu") != null) {
 			// //on récupère la variable de session
 			// en fonction du type
-			System.out.println(request.getParameter("type"));
+			// System.out.println(request.getParameter("type"));
 			int jeuId = 0;
 			if (request.getParameter("type") != null) {
 				jeuId = Integer.valueOf(request.getParameter("type"));
@@ -215,13 +218,20 @@ public class Game extends HttpServlet {
 					response.getWriter().write(getVille(monJeu, session));
 				} else {
 					if (request.getParameter("score") != null) {
-						response.getWriter().write(getScore(monJeu, session, request,this));
-					} else {
 						response.getWriter().write(
-								getReponse(request.getParameter("resultatLon"),
-										request.getParameter("resultatLat"),
-										request.getParameter("temps"), monJeu,
-										session));
+								getScore(monJeu, session, this));
+					} else {
+						if (request.getParameter("save") != null) {
+							response.getWriter().write(
+									saveScore(monJeu, session, this,request.getParameter("nom")));
+						} else {
+							response.getWriter()
+									.write(getReponse(
+											request.getParameter("resultatLon"),
+											request.getParameter("resultatLat"),
+											request.getParameter("temps"),
+											monJeu, session));
+						}
 					}
 				}
 			} else {
@@ -234,27 +244,47 @@ public class Game extends HttpServlet {
 		}
 	}
 
-	private String getScore(Jeu monJeu, HttpSession session, HttpServletRequest request, Game game) {
-//		System.out.println(" path?" + game.getServletContext().getContextPath());
-//		FileInputStream path;
-//		try {
-//			path = new FileInputStream(game.getServletContext().getContextPath()+"/WEB-INF/highscore.txt");
-//		InputStream path = game.getServletContext().getResourceAsStream("highScore.txt");
-//		System.out.println("ressource: "+path.markSupported());
-		String json = new String("{\n" 
-					+ "\"total\":\"" + monJeu.getScore()+ "\"\n" 
-//					+ "\"topten\":\"" + HighScore.getHighScore(path)+ "\",\n"
-//					+ "\"isHS\":\"" + HighScore.isHighScore(""+monJeu.getScore(),path)+ "\"\n"
-					+ "}");
+	private String saveScore(Jeu monJeu, HttpSession session, Game game, String nom) {
+		System.out.println("Ajout score!!");
+		HighScore.addHighScore(nom, ""+monJeu.getScore(),this.getServletContext().getRealPath(
+				"WEB-INF"), monJeu.getExt());
+		
+		String json = new String("{\n"
+				+ "\"total\":\""
+				+ monJeu.getScore()
+				+ "\",\n"
+				+ "\"topten\":\""
+				+ HighScore.getHighScore(this.getServletContext().getRealPath(
+						"WEB-INF"), monJeu.getExt())
+				+ "\",\n"
+				+ "\"isHS\":\""
+				+ HighScore.isHighScore("" + monJeu.getScore(), this
+						.getServletContext().getRealPath("WEB-INF"), monJeu.getExt()) + "\"\n"
+				+ "}");
 
 		session.setAttribute("monJeu", monJeu);
 
 		return json;
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return null;
-//		}
+	}
+
+	private String getScore(Jeu monJeu, HttpSession session, Game game) {
+
+		String json = new String("{\n"
+				+ "\"total\":\""
+				+ monJeu.getScore()
+				+ "\",\n"
+				+ "\"topten\":\""
+				+ HighScore.getHighScore(this.getServletContext().getRealPath(
+						"WEB-INF"), monJeu.getExt())
+				+ "\",\n"
+				+ "\"isHS\":\""
+				+ HighScore.isHighScore("" + monJeu.getScore(), this
+						.getServletContext().getRealPath("WEB-INF"), monJeu.getExt()) + "\"\n"
+				+ "}");
+
+		session.setAttribute("monJeu", monJeu);
+
+		return json;
 	}
 
 	private String getVille(Jeu monJeu, HttpSession session) {
@@ -295,39 +325,37 @@ public class Game extends HttpServlet {
 			score = (-2000 * dist + 100000) >= 0 ? -2000 * dist + 100000 : 0;
 			// on prend une fraction de ce score en fonction du temps passé à
 			// répondre
-			score = score - (score * (Double.valueOf(tps) / 10));
 			break;
 		case 2:
 			score = (-4000 * dist + 100000) >= 0 ? -4000 * dist + 100000 : 0;
 			// on prend une fraction de ce score en fonction du temps passé à
 			// répondre
-			score = score - (score * (Double.valueOf(tps) / 10));
 			break;
 		case 1:
 			score = (-10000 * dist + 100000) >= 0 ? -10000 * dist + 100000 : 0;
 			// on prend une fraction de ce score en fonction du temps passé à
 			// répondre
-			score = score - (score * (Double.valueOf(tps) / 10));
 			break;
 		default:
 			break;
 		}
+		score = score - (score * (Double.valueOf(tps) / 10));
 		return (int) score;
 	}
 
-//	public void doFilter(ServletRequest req, ServletResponse resp,
-//			FilterChain chain) throws ServletException, java.io.IOException {
-//		HttpServletRequest request = (HttpServletRequest) req;
-//		HttpServletResponse response = (HttpServletResponse) resp;
-//
-//		// This should be added in response to both the preflight and the actual
-//		// request
-//		response.addHeader("Access-Control-Allow-Origin", "*");
-//
-//		if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-//			response.addHeader("Access-Control-Allow-Credentials", "true");
-//		}
-//
-//		chain.doFilter(req, resp);
-//	}
+	// public void doFilter(ServletRequest req, ServletResponse resp,
+	// FilterChain chain) throws ServletException, java.io.IOException {
+	// HttpServletRequest request = (HttpServletRequest) req;
+	// HttpServletResponse response = (HttpServletResponse) resp;
+	//
+	// // This should be added in response to both the preflight and the actual
+	// // request
+	// response.addHeader("Access-Control-Allow-Origin", "*");
+	//
+	// if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+	// response.addHeader("Access-Control-Allow-Credentials", "true");
+	// }
+	//
+	// chain.doFilter(req, resp);
+	// }
 }

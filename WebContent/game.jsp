@@ -78,11 +78,10 @@
 							<td class="bleuFonce grosTexte" id="estHighScore"></td>
 						</tr>
 						<tr>
-							<td><input type="text" name="" placeholder="Votre nom (8 caractères)"/></td>
+							<td><input id="winnerName" type="text" name="" placeholder="Votre nom (12 caractères max)"  maxlength="12"/></td>
 						</tr>
 						<tr>
-							<td><a href="#" class="boutonJeu"
-								onclick="$(location).attr('href','${domain}Game?fini=fini');">Sauvegarder</a></td>
+							<td id="highScoreButtonCheck"></td>
 						</tr>
 					</table>
 				</div>

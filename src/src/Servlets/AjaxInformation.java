@@ -55,7 +55,7 @@ public class AjaxInformation extends HttpServlet {
 					(adresse.isEmpty() && codePostal.isEmpty() && ville.isEmpty())?"":"<tr><td class=\"largeur40\">Adresse: </td><td> "+adresse+" "+codePostal+" "+ville+"</td></tr>":"";
 			reponse += (telephone.isEmpty() || telephone.equals("undefined"))?"":"<tr><td>Tel: </td><td>"+telephone+"</td></tr>";
 			reponse += (email.isEmpty() || email.equals("undefined"))?"":"<tr><td>Email: </td><td><a href=\"mailto:"+email+"\">"+email+"</a></td></tr>";
-			reponse += (site.isEmpty() || site.equals("undefined") || !bonEmail(site))?"":"<tr><td>Site web: </td><td><a href=\"http://"+site+"\">"+site+"</a></td></tr>";
+			reponse += (site.isEmpty() || site.equals("undefined") || !bonEmail(site))?"":"<tr><td>Site web: </td><td><a href=\"http://"+site+"\" target=\"_blank\">"+site+"</a></td></tr>";
 			reponse += "</table><br/>"+
 				"</div>"+
 				"<div id=\"cadreInfoPlus\">"+

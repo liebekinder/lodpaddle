@@ -713,8 +713,6 @@ function recupereGeoJson() {
 	});
 }
 
-
-
 function afficheTitreHide() {
 	$("#jeuVilleAffichage").hide("slide", {
 		direction : "bottom"
@@ -788,12 +786,13 @@ function creeJeu(domain, t) {
 	var villeCourante = "";
 	var nbCycle = 10;
 	var type = t;
+	var highScore = false;
 
 	var cycle = 0;
 
 	this.cycleSuivant = function() {
 		reponseTemporaireHide();
-		if (cycle < nbCycle) {		
+		if (cycle < nbCycle) {
 			cycle++;
 			villePos.removeAllFeatures();
 			$('#barreProgression').width("0%");
@@ -802,8 +801,13 @@ function creeJeu(domain, t) {
 			afficheTitreShow();
 			lanceDecompte();
 		} else {
-			afficheTitreHide();
-			afficheScore();
+			if (highScore) {
+				saveScore();
+			} else {
+
+				afficheTitreHide();
+				afficheScore();
+			}
 		}
 	};
 
@@ -811,6 +815,7 @@ function creeJeu(domain, t) {
 		lonlat = new OpenLayers.LonLat(0, 0);
 		temps = 0;
 		firstClick = true;
+		highScore = false;
 	}
 
 	function onClick(event) {
@@ -824,23 +829,20 @@ function creeJeu(domain, t) {
 
 	function lanceDecompte() {
 		running = true;
-		$('#barreProgression').animate(
-				{
-					width : "100%"
-				},
-				{
-					duration : 10000,
-					step : function(now, fx) {
-						tempo = (now / 10).toFixed(2);
-						$('#barreTexte').html("Temps: " + tempo
-										+ "s");
-						temps = tempo;
-					},
-					easing : "linear",
-					complete : function() {
-						stopDecompte(lonlat, false);
-					}
-				});
+		$('#barreProgression').animate({
+			width : "100%"
+		}, {
+			duration : 10000,
+			step : function(now, fx) {
+				tempo = (now / 10).toFixed(2);
+				$('#barreTexte').html("Temps: " + tempo + "s");
+				temps = tempo;
+			},
+			easing : "linear",
+			complete : function() {
+				stopDecompte(lonlat, false);
+			}
+		});
 	}
 
 	function stopDecompte(lonlat, avantFin) {
@@ -854,10 +856,10 @@ function creeJeu(domain, t) {
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
-			xhrFields: {
-			      withCredentials: true
-			   },
-			crossDomain:true,
+			xhrFields : {
+				withCredentials : true
+			},
+			crossDomain : true,
 			data : "ajax=true&resultatLon=" + lonlat.lon + "&resultatLat="
 					+ lonlat.lat + "&temps=" + temps + "&type=" + type,
 			success : stopSuccess,
@@ -874,40 +876,46 @@ function creeJeu(domain, t) {
 		ajoutPoint(villePos, msg.trueLon, msg.trueLat, domain
 				+ "media/marker/marqueur.png", "pionReel");
 		if (cycle == nbCycle) {
-			showResultatIntermediaire(msg,true);
+			showResultatIntermediaire(msg, true);
 		} else {
-			showResultatIntermediaire(msg,false);
+			showResultatIntermediaire(msg, false);
 		}
 
 	}
 
-	function showResultatIntermediaire(msg,dernier){
-		$('#jeuScore').html(msg.points+" pts");
-		$('#jeuScoreTotal').html("Score total : <span class='bleuFonce'> "+msg.total+" pts</span>");
-		$('#jeuDistance').html((msg.distance).toFixed(1)+" km");
-		$('#jeuTemps').html("Vous avez répondu en "+temps+"s");
-		if(dernier){
-			//on dois changer le bouton
-			$('#jeuZoneBouton').html("<a href='#' class='boutonJeu' onClick='jeuEnCours.cycleSuivant();'>Voir le résultat</a>");
-			
+	function showResultatIntermediaire(msg, dernier) {
+		$('#jeuScore').html(msg.points + " pts");
+		$('#jeuScoreTotal').html(
+				"Score total : <span class='bleuFonce'> " + msg.total
+						+ " pts</span>");
+		$('#jeuDistance').html((msg.distance).toFixed(1) + " km");
+		$('#jeuTemps').html("Vous avez répondu en " + temps + "s");
+		if (dernier) {
+			// on dois changer le bouton
+			$('#jeuZoneBouton')
+					.html(
+							"<a href='#' class='boutonJeu' onClick='jeuEnCours.cycleSuivant();'>Voir le résultat</a>");
+
 		}
-		reponseTemporaireShow();		
+		reponseTemporaireShow();
 	}
-	
+
 	function changeBarreVille() {
 		$.ajax({
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
-			xhrFields: {
-			      withCredentials: true
-			   },
-			crossDomain:true,
-			data : "ajax=true&ville=true"+ "&type=" + type,
+			// xhrFields: {
+			// withCredentials: true
+			// },
+			// crossDomain:true,
+			data : "ajax=true&ville=true" + "&type=" + type,
 			success : changeVilleCourante,
+			// beforeSend: checkbefore,
 			error : function(jqXHR, textStatus, errorThrown) {
 				$('#dialogJeu').html(
-						"<p>La connexion avec le serveur a échouée.</p>"+textStatus+"   "+errorThrown);
+						"<p>La connexion avec le serveur a échouée.</p>"
+								+ textStatus + "   " + errorThrown);
 				$("#dialogJeu").dialog("open");
 			}
 		});
@@ -916,7 +924,7 @@ function creeJeu(domain, t) {
 	function changeVilleCourante(msg) {
 		villeCourante = msg.ville;
 		$('#jeuNomVille').html(villeCourante);
-		$('#jeuAvancement').html(cycle+" / 10");
+		$('#jeuAvancement').html(cycle + " / 10");
 
 	}
 
@@ -925,27 +933,78 @@ function creeJeu(domain, t) {
 			type : "POST",
 			url : domain + "Game",
 			dataType : "json",
-			xhrFields: {
-			      withCredentials: true
-			   },
-			crossDomain:true,
-			data : "ajax=true&score=true"+ "&type=" + type,
+			// xhrFields: {
+			// withCredentials: true
+			// },
+			// crossDomain:true,
+			data : "ajax=true&score=true" + "&type=" + type,
 			success : finalScore,
 			error : function(jqXHR, textStatus, errorThrown) {
 				$('#dialogJeu').html(
-						"<p>La connexion avec le serveur a échouée.</p>");
+						"<p>La connexion avec le serveur a échouée."
+								+ textStatus + "</p>");
 				$("#dialogJeu").dialog("open");
 			}
 		});
 	}
 
+	function checkbefore(jqXHR, settings) {
+		console.info(jqXHR);
+		console.info(settings);
+	}
+
 	function finalScore(msg) {
-		$('#jeuDialogFinalScore').html(msg.total+"pts");
-//		if(msg.isHS > 0){
-//			$('#estHighScore').html("Nouveau record!");
-//		}
-//		$('#jeuDialogFinalTopTen').html(afficheTopTen(msg.topten));
+		$('#jeuDialogFinalScore').html(msg.total + "pts");
+		if (msg.isHS > 0) {
+			$('#estHighScore').html("Nouveau record : " + msg.isHS + "e !");
+			$('#highScoreButtonCheck')
+					.html(
+							"<a href=\"#\" class=\"boutonJeu2\"	onclick=\"jeuEnCours.cycleSuivant();\">Sauvegarder</a>");
+			highScore = true;
+		} else {
+			$('#highScoreButtonCheck').html(
+					"<a href=\"#\" class=\"boutonJeu2\"	onclick=\"$(location).attr('href','"
+							+ domain + "Game?fini=fini');\">Continuer</a>");
+		}
+		$('#jeuDialogFinalTopTen').html(msg.topten);
 		jeuDialogFinalShow();
+	}
+
+	function saveScore() {
+		nom = $('#winnerName').val();
+		var regex = /[0-9a-zA-Z]/;
+		if(regex.test(nom)) {
+			if(nom)
+			// sauvegarde le score et affiche le nouveau résultat
+			$.ajax({
+				type : "POST",
+				url : domain + "Game",
+				dataType : "json",
+				// xhrFields: {
+				// withCredentials: true
+				// },
+				// crossDomain:true,
+				data : "ajax=true&save=true" + "&nom=" + nom + "&type=" + type,
+				success : saveScoreFin,
+				error : function(jqXHR, textStatus, errorThrown) {
+					$('#dialogJeu').html(
+							"<p>La connexion avec le serveur a échouée."
+									+ textStatus + "</p>");
+					$("#dialogJeu").dialog("open");
+				}
+			});
+		}
+		else{
+			alert("Vous ne pouvez utiliser que des chiffres et des lettres!");
+		}
+	}
+
+	function saveScoreFin(msg) {
+		$('#jeuDialogFinalTopTen').html(msg.topten);
+		$('#highScoreButtonCheck').html(
+				"<a href=\"#\" class=\"boutonJeu2\"	onclick=\"$(location).attr('href','"
+						+ domain + "Game?fini=fini');\">Continuer</a>");
+
 	}
 }
 
@@ -958,15 +1017,15 @@ function centrerAccueil(totalDiv) {
 }
 
 function centrerDiv(div) {
-	var bla = "#"+div;
+	var bla = "#" + div;
 	var ecranW = $(document).width();
 	var ecranH = $(document).height();
 	var divW = $(bla).width();
 	var divH = $(bla).height();
-	if (ecranW >=  divW && ecranH >= divH) {
+	if (ecranW >= divW && ecranH >= divH) {
 		var left = (ecranW - divW) / 2;
 		var top = (ecranH - divH) / 2;
-		$(bla).css("left",left+"px");
-		$(bla).css("top",top+"px");
+		$(bla).css("left", left + "px");
+		$(bla).css("top", top + "px");
 	}
 }

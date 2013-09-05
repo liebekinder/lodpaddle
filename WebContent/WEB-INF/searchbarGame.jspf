@@ -101,5 +101,5 @@
 <div id="creditZone">
 	<span onclick="$('#dialogContact').dialog('open');">Le projet</span> |
 	<span onclick="$('#dialogMentionLegale').dialog('open');">Mentions
-		légales</span> | <span><a href="http://lodpaddle.univ-nantes.fr/sparql" target="_blank">Accès développeur</a></span>
+		légales</span> | <span><a href="http://lodpaddle.univ-nantes.fr/sparql" target="_blank">SPARQL Endpoint</a></span>
 </div>

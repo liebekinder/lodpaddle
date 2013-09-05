@@ -15,6 +15,7 @@ public class JeuPDLL extends Jeu {
 	public JeuPDLL() {
 		super();
 		type = 3;
+		ext = "PDLL";
 	}
 
 	public boolean trouveVilles() {

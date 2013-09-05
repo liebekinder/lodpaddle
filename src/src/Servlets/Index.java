@@ -30,11 +30,9 @@ public class Index extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final String domain = "http://localhost:8080/lodpaddleTest/";
-//	public final String domain = "http://localhost:8081/lodpaddleTest/";
-
-//	 public final String domain =
-//	 "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	public final String domain = "http://localhost:8080/lodpaddle/";
+//	public final String domain = "http://localhost:8081/lodpaddle/";
+//	public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
