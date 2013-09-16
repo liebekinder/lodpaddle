@@ -13,8 +13,8 @@ import com.hp.hpl.jena.sparql.engine.http.QueryEngineHTTP;
 
 public class SparqlQuery {
 
-//	private final static boolean isBehindProxy = true;
-	private final static boolean isBehindProxy = false;
+	private final static boolean isBehindProxy = true;
+//	private final static boolean isBehindProxy = false;
 	
 	private SparqlQuery(){		
 	}

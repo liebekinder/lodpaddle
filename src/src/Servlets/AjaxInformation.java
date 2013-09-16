@@ -60,7 +60,7 @@ public class AjaxInformation extends HttpServlet {
 				"</div>"+
 				"<div id=\"cadreInfoPlus\">"+
 				"<div id=\"cadreInfoBasGauche\" onclick=\"cadreInfoHide();\"></div>"+
-				"<div id=\"cadreInfoBasDroite\" onclick=\"afficheCadreInfoPlus('"+parameter+"');\"><span>plus d'information...&nbsp;</span></div>"+
+				"<div id=\"cadreInfoBasDroite\" onclick=\"afficheCadreInfoPlus('"+parameter+"');\"><span>Données sémantiques...&nbsp;</span></div>"+
 				"</div>"
 				;
 		return reponse;

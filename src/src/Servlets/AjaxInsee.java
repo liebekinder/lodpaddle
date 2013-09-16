@@ -75,12 +75,14 @@ public class AjaxInsee extends HttpServlet {
 					reponse += nom;
 				reponse += " - "
 				+ insee
-				+ "\">Lancer la recherche pour cette ville!</a></p>"
+				+ "\">Plus d'informations sur la commune</a></p>"
 				+ "</div>"
 				+ "<div id=\"cadreInfoPlus\">"
-				+ "<div style=\"position:relative;float:left;width:25px;height:20px;background:black;\" onclick=\"cadreInfoHide();\"></div>"
-				+ "<div style=\"position:relative;float:left;width:225px;text-align:right;\" onclick=\"afficheCadreInfoPlus('"
-				+ parameter + "');\">plus d'information...&nbsp;</div>"
+				+ "<div id=\"cadreInfoBasGauche\" onclick=\"cadreInfoHide();\"></div>"
+				+ "<div id=\"cadreInfoBasDroite\" onclick=\"afficheCadreInfoPlus('"+parameter+"');\"><span>Données sémantiques...&nbsp;</span></div>"
+//				+ "<div style=\"position:relative;float:left;width:25px;height:20px;background:black;\" onclick=\"cadreInfoHide();\"></div>"
+//				+ "<div style=\"position:relative;float:left;width:225px;text-align:right;\" onclick=\"afficheCadreInfoPlus('"
+//				+ parameter + "');\">Données sémantiques...&nbsp;</div>"
 				+ "</div>";
 
 		return reponse;

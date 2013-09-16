@@ -74,7 +74,7 @@
 				<td id="jeuTemps">Vous avez répondu en 0s</td>
 			</tr>
 			<tr>
-				<td id="jeuZoneBouton"><a href="#" class="boutonJeu" onClick="jeuEnCours.cycleSuivant();">Question suivante</a></td>
+				<td id="jeuZoneBouton"><a href="#" class="boutonJeu" onClick="jeuEnCours.cycleSuivant();">Commune suivante</a></td>
 			</tr>
 		</table>
 	</div>
@@ -99,7 +99,7 @@
 	};
 </script>
 <div id="creditZone">
-	<span onclick="$('#dialogContact').dialog('open');">Le projet</span> |
-	<span onclick="$('#dialogMentionLegale').dialog('open');">Mentions
-		légales</span> | <span><a href="http://lodpaddle.univ-nantes.fr/sparql" target="_blank">SPARQL Endpoint</a></span>
+	<span onclick="$('#dialogContact').load('data/description.html').dialog('open');">Le projet</span> |
+	<span><a href="http://github.com/liebekinder/lodpaddle" target="_blank">Le gitHub</a></span> | <span><a
+		href="http://lodpaddle.univ-nantes.fr/sparql" target="_blank">SPARQL Endpoint</a></span>
 </div>

@@ -42,6 +42,16 @@
 			<div id="scaleline-id"></div>
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
+			
+			<c:if test="${empty typeJeu}">
+			<!--  copier-coller de l'ancienne version: les identifiants sont hors contexte -->
+			<div id="accesJeu" onclick="getScoresGlobaux();">
+				<div class="accessJeuImg">
+					<img src="${domain}media/coupe.png" alt="highscores" style="height:31px;" />
+				</div>
+				<div class="accessJeuTexte">Highscores!</div>
+			</div>
+			</c:if>
 
 
 			<c:if test="${not empty typeJeu}">
@@ -49,7 +59,8 @@
 					<div id="dialogGeneralTexte" class="center">
 						<table class="maxWidth">
 							<tr>
-								<td class="align" id="jeuDialogGeneralTableTexte">Trouver le centre de la ville donnée le plus rapidement possible!</td>
+								<td class="align" id="jeuDialogGeneralTableTexte">Trouvez
+									le centre de la commune proposée le plus rapidement possible!</td>
 							</tr>
 						</table>
 					</div>
@@ -72,13 +83,14 @@
 							<td>Top 10</td>
 						</tr>
 						<tr>
-							<td><table class="tableResult" id="jeuDialogFinalTopTen"><%@ include file="WEB-INF/topTen.jspf"%></table></td>
+							<td><table class="tableResult" id="jeuDialogFinalTopTen"></table></td>
 						</tr>
 						<tr>
 							<td class="bleuFonce grosTexte" id="estHighScore"></td>
 						</tr>
 						<tr>
-							<td><input id="winnerName" type="text" name="" placeholder="Votre nom (12 caractères max)"  maxlength="12"/></td>
+							<td><input id="winnerName" type="text" name=""
+								placeholder="Votre nom (12 caractères max)" maxlength="12" /></td>
 						</tr>
 						<tr>
 							<td id="highScoreButtonCheck"></td>
@@ -101,6 +113,24 @@
 					});
 				</script>
 			</c:if>
+
+			<div id="scoresGlobaux">
+				<table class="maxWidth maxHeight align">
+					<tr>
+						<td>Nantes Métropole</td>
+						<td>Loire-Atlantique</td>
+						<td>Pays de la Loire</td>
+					</tr>
+					<tr>
+						<td><table class="tableResult" id="scoresGlobauxNM"></table></td>
+						<td><table class="tableResult" id="scoresGlobauxLA"></table></td>
+						<td><table class="tableResult" id="scoresGlobauxPDLL"></table></td>
+					</tr>
+					<tr>
+						<td colspan="3"><a href="#" class="boutonJeu2"	onclick="closeScoresGlobaux();">OK</a></td>
+					</tr>
+				</table>
+			</div>
 
 		</div>
 
@@ -125,22 +155,22 @@
 		<c:if test="${not empty typeJeu && typeJeu == 3}">
 		gestionCarteJeu(-1, 47.7, 7, 3);
 		jeuDialogGeneralShow();
-		var jeuEnCours = new creeJeu('${domain}',3);
+		var jeuEnCours = new creeJeu('${domain}', 3);
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 2}">
 		gestionCarteJeu(-1.5, 47.2, 8, 2);
 		jeuDialogGeneralShow();
-		var jeuEnCours = new creeJeu('${domain}',2);
+		var jeuEnCours = new creeJeu('${domain}', 2);
 		</c:if>
 		<c:if test="${not empty typeJeu && typeJeu == 1}">
 		gestionCarteJeu(-1.55, 47.2, 10, 1);
 		jeuDialogGeneralShow();
-		var jeuEnCours = new creeJeu('${domain}',1);
+		var jeuEnCours = new creeJeu('${domain}', 1);
 		</c:if>
 		<c:if test="${empty typeJeu}">
 		gestionCarteJeu(-0.6, 46.9, 7, 0);
 		</c:if>
-		
+
 		var session = "${session}";
 
 		(function($) {

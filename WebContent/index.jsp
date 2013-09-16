@@ -53,16 +53,9 @@
 			<div id="olControlAttribution"></div>
 			<div id="mousePosition"></div>
 
-			<div id="accesJeu" onclick="document.location.href='${domain}Game'">
-				<div class="accessJeuImg">
-					<img src="${domain}media/pictojeusurvol.png" alt="jeu" />
-				</div>
-				<div class="accessJeuTexte">Jouer!</div>
-			</div>
-
 			<div id="retourJeu">
 				<div id="retourJeuListe">
-					<span id="retourJeuListeTitre">Récapitulatif des villes</span>
+					<span id="retourJeuListeTitre">Récapitulatif des communes jouées</span>
 					<c:if test="${not empty listeVille}"><%@ include
 							file="WEB-INF/listeVille.jspf"%></c:if>
 				</div>
@@ -133,15 +126,13 @@
 			<div id="staticTheme"><%@ include file="WEB-INF/themeZone.jspf"%></div>
 			<div id="widgetZone" class="specificScroll">
 				<%@ include file="WEB-INF/afficherWidget.jspf"%>
-				<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
 			</div>
 		</div>
 	</footer>
 
-	</div>
 	<div id="dialogMentionLegale"></div>
-	<div id="dialogContact"></div>
-
+<%-- 	<div id="dialogContact"><%@ include file="WEB-INF/description.jspf"%></div> --%>
+	<div id="dialogContact"><a href="WEB-INF/description.html"></a></div>
 
 
 
@@ -153,6 +144,7 @@
 		
 		<c:if test="${not empty listeVille}">
 			retourJeuShow();
+			<!-- ici je peux ajouter le if pour faire afficher widget ou autre chose -->
 			cacheAccesJeu();
 		</c:if>
 	

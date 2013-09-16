@@ -43,7 +43,7 @@ function pageLoaded(domainPath) {
 
 	$("#dialogContact").dialog({
 		autoOpen : false,
-		title : "Nous contacter",
+		title : "Le projet Lodpaddle",
 		width : 800,
 		height : 480,
 		modal : true
@@ -269,10 +269,11 @@ function mapCreation() {
 		// div: document.getElementById("scaleline-id"),
 		// geodesic : true
 		// }),
-		new OpenLayers.Control.LayerSwitcher(),
-				new OpenLayers.Control.Attribution({
-					div : document.getElementById("olControlAttribution")
-				}) ],
+//		new OpenLayers.Control.LayerSwitcher(),
+//				new OpenLayers.Control.Attribution({
+//					div : document.getElementById("olControlAttribution")
+//				}) 
+	],
 		maxExtent : new OpenLayers.Bounds(-20037508.34, -20037508.34,
 				20037508.34, 20037508.34),
 		maxResolution : 'auto',
@@ -749,7 +750,7 @@ function jeuDialogGeneralHide() {
 }
 
 function jeuDialogFinalShow() {
-	centrerDiv("jeuDialogFinal");
+	centrerDiv("jeuDialogFinal",false);
 	$("#jeuDialogFinal").show("slide", {
 		direction : "bottom"
 	}, 200, function() {
@@ -764,7 +765,7 @@ function jeuDialogFinalHide() {
 }
 
 function jeuDialogGeneralShow() {
-	centrerDiv("jeuDialogGeneral");
+	centrerDiv("jeuDialogGeneral",false);
 	$("#jeuDialogGeneral").show("slide", {
 		direction : "bottom"
 	}, 200, function() {
@@ -1010,16 +1011,24 @@ function creeJeu(domain, t) {
 
 function centrerAccueil(totalDiv) {
 	var ecran = $(document).width();
+	//fix
+	totalDiv = totalDiv + 150;
 	if (ecran >= totalDiv) {
 		var padding = (ecran - totalDiv) / 2;
 		$("#tableAccueil").css("padding-left", padding + "px");
 	}
 }
 
-function centrerDiv(div) {
+function centrerDiv(div, onlyMap) {
 	var bla = "#" + div;
 	var ecranW = $(document).width();
-	var ecranH = $(document).height();
+	var ecranH=0;
+	if(onlyMap){
+		ecranH = $(document).height()-35-135;
+	}
+	else{
+		ecranH = $(document).height()-15-35;
+	}
 	var divW = $(bla).width();
 	var divH = $(bla).height();
 	if (ecranW >= divW && ecranH >= divH) {
@@ -1028,4 +1037,44 @@ function centrerDiv(div) {
 		$(bla).css("left", left + "px");
 		$(bla).css("top", top + "px");
 	}
+}
+
+function openScoresGlobaux(msg){
+	centrerDiv("scoresGlobaux",true);
+	
+	$("#scoresGlobauxNM").html(msg.topten1);
+	$("#scoresGlobauxLA").html(msg.topten2);
+	$("#scoresGlobauxPDLL").html(msg.topten3);
+	
+	$("#scoresGlobaux").show("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+	
+}
+
+function closeScoresGlobaux(){
+	$("#scoresGlobaux").hide("slide", {
+		direction : "bottom"
+	}, 200, function() {
+	});
+}
+
+function getScoresGlobaux(){
+	$.ajax({
+		type : "POST",
+		url : domain + "Scores",
+		dataType : "json",
+		data : "ajax=true",
+		success : openScoresGlobaux,
+		error : function(jqXHR, textStatus, errorThrown) {
+			$('#scoresGlobauxLigne').html(
+					"<p>La connexion avec le serveur a échouée.</p>"
+							+ textStatus + "   " + errorThrown);
+			$("#scoresGlobaux").show("slide", {
+				direction : "bottom"
+			}, 200, function() {
+			});
+		}
+	});
 }

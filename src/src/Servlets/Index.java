@@ -30,9 +30,9 @@ public class Index extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final String domain = "http://localhost:8080/lodpaddle/";
+//	public final String domain = "http://localhost:8080/lodpaddle/";
 //	public final String domain = "http://localhost:8081/lodpaddle/";
-//	public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
+	public final String domain = "http://lodpaddle.univ-nantes.fr/lodpaddle/";
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -140,11 +140,16 @@ public class Index extends HttpServlet {
 
 			// gestion des widgets du footer. Creation et passage en GET
 			MyWidget ficheVille;
+			MyWidget jeu;
+			MyWidget projet;
 
 			Coordonnee positionVille = recuperePosition(insee);
 
 			ficheVille = new MyWidget(nomVille, getVillePresentation(nomVille,
 					insee), "PresentationVille", "#2980b9", 480);
+			
+			jeu = new MyWidget("Jeu", getJeuTexte(), "Jeu", "#e75735", 140);
+			projet = new MyWidget("projet", getProjetTexte(), "Projet", "#e75735", 140);
 
 
 
@@ -157,6 +162,8 @@ public class Index extends HttpServlet {
 			}
 
 			widgets.add(ficheVille);
+			widgets.add(jeu);
+			widgets.add(projet);
 
 			if(listeVille != null && listeVille.size() != 0){
 				request.setAttribute("listeVille", listeVille);
@@ -174,6 +181,25 @@ public class Index extends HttpServlet {
 			this.getServletContext().getRequestDispatcher(ERROR)
 					.forward(request, response);
 		}
+	}
+
+	private String getProjetTexte() {
+		String retour = new String(
+				"<div id=\"accesProjetTitre\" onclick=\"$('#dialogContact').load('data/description.html').dialog('open');\"><table><tr><td class=\"moyenTexte\">" +
+				"Le projet Lodpaddle" +
+				"</td></tr>" +
+				"<tr><td class=\"petitTexte\"><br/>Faire du web sémantique une réalité.</td></tr></table></div>"
+				);
+		return retour;
+	}
+
+	private String getJeuTexte() {
+		String retour = new String(
+				"<div id=\"accesJeuTitre\" onclick=\"document.location.href='"+domain+"Game'\"><table><tr><td>" +
+				"Jouer avec les données!" +
+				"</td></tr><tr><td><img src=\""+domain+"media/pictojeusurvol.png\"/></td></tr></table></div>"
+				);
+		return retour;
 	}
 
 	private void imageManagment(HttpServletRequest request,
@@ -333,7 +359,7 @@ public class Index extends HttpServlet {
 				domain + "media/picto/equipementPicto.png", domain
 						+ "media/marker/M-cite-de-caractere.png",
 				Categorie.CITE);
-		SousTheme jardin = new SousTheme("Jardin familiaux", domain
+		SousTheme jardin = new SousTheme("Jardins familiaux", domain
 				+ "media/picto/mediathequePicto.png", domain
 				+ "media/marker/M-jardin.png", Categorie.JARDIN);
 		SousTheme patrimoine = new SousTheme("Patrimoine", domain
@@ -420,7 +446,7 @@ public class Index extends HttpServlet {
 
 		String dep = Utilitaires
 				.nettoieRessource((ligne.get("dep") != null && !ligne
-						.get("dep").isEmpty()) ? ligne.get("dep") : "néant",
+						.get("dep").isEmpty()) ? ligne.get("dep") : "inconnu",
 						"dep");
 		String min = Utilitaires
 				.nettoieRessource((ligne.get("min") != null && !ligne
@@ -447,7 +473,7 @@ public class Index extends HttpServlet {
 		String site = (ligne.get("site") != null && !ligne.get("site")
 				.isEmpty()) ? "<a href=\"" + ligne.get("site")
 				+ "\" target=\"_blank\">" + ligne.get("site") + "</a>"
-				: "néant";
+				: "inconnu";
 		String pop = "néant";
 		if (ligne2 != null)
 			pop = Utilitaires
@@ -475,7 +501,7 @@ public class Index extends HttpServlet {
 				+ gentile
 				+ "<br /><b>Population totale:</b> "
 				+ pop
-				+ " hab<br /><b>Densitée :</b>"
+				+ " hab<br /><b>Densité :</b>"
 				+ densite(pop, superficie)
 				+ "<br /><b>Altitude :</b> "
 				+ min
