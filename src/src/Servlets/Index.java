@@ -185,7 +185,7 @@ public class Index extends HttpServlet {
 
 	private String getProjetTexte() {
 		String retour = new String(
-				"<div id=\"accesProjetTitre\" onclick=\"$('#dialogContact').load('data/description.html').dialog('open');\"><table><tr><td class=\"moyenTexte\">" +
+				"<div id=\"accesProjetTitre\" onclick=\"$('#dialogContact').load('"+domain+"data/description.html').dialog('open');\"><table><tr><td class=\"moyenTexte\">" +
 				"Le projet Lodpaddle" +
 				"</td></tr>" +
 				"<tr><td class=\"petitTexte\"><br/>Faire du web sémantique une réalité.</td></tr></table></div>"

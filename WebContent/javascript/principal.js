@@ -724,7 +724,8 @@ function afficheTitreHide() {
 function afficheTitreShow() {
 	$("#jeuVilleAffichage").show("slide", {
 		direction : "bottom"
-	}, 100, function() {
+	}, 100,
+	function() {
 	});
 }
 
@@ -800,7 +801,7 @@ function creeJeu(domain, t) {
 			RAZ();
 			changeBarreVille();
 			afficheTitreShow();
-			lanceDecompte();
+			//lanceDecompte();
 		} else {
 			if (highScore) {
 				saveScore();
@@ -926,6 +927,7 @@ function creeJeu(domain, t) {
 		villeCourante = msg.ville;
 		$('#jeuNomVille').html(villeCourante);
 		$('#jeuAvancement').html(cycle + " / 10");
+		lanceDecompte();
 
 	}
 

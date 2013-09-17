@@ -132,7 +132,7 @@
 
 	<div id="dialogMentionLegale"></div>
 <%-- 	<div id="dialogContact"><%@ include file="WEB-INF/description.jspf"%></div> --%>
-	<div id="dialogContact"><a href="WEB-INF/description.html"></a></div>
+	<div id="dialogContact"></div>
 
 
 
